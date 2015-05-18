@@ -20,18 +20,6 @@ RUN bower install --config.interactive=false --allow-root
 # Make everything available for start
 ADD . /home/mean
 
-RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-RUN echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-RUN sudo apt-get update
-RUN sudo apt-get install -y mongodb-org
-RUN sudo apt-get install -y mongodb-org=3.0.3 mongodb-org-server=3.0.3 mongodb-org-shell=3.0.3 mongodb-org-mongos=3.0.3 mongodb-org-tools=3.0.3
-RUN echo "mongodb-org hold" | sudo dpkg --set-selections
-RUN echo "mongodb-org-server hold" | sudo dpkg --set-selections
-RUN echo "mongodb-org-shell hold" | sudo dpkg --set-selections
-RUN echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
-RUN echo "mongodb-org-tools hold" | sudo dpkg --set-selections
-
-
 ENV NODE_ENV production
 
 # Port 3000 for server
