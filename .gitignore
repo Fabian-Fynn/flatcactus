@@ -19,7 +19,9 @@ app/tests/coverage/
 # MEAN.js app and assets
 # ======================
 config/sslcerts/*.pem
-config/env/
+config/env/*.js
+config/env/production.js
+config/env/development.js
 access.log
 public/dist/
 
