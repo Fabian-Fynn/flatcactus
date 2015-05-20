@@ -54,10 +54,10 @@ var UserSchema = new Schema({
 		required: 'Please fill in a username',
 		trim: true
 	},
-	/*wg: {
-    type: Schema.Types.ObjectId,
-		ref: 'Ingredient'
-	},*/
+	wg_id: {
+    type: Schema.ObjectId,
+		ref: 'Wg'
+	},
 	password: {
 		type: String,
 		default: '',
@@ -104,6 +104,7 @@ UserSchema.pre('save', function(next) {
 		this.password = this.hashPassword(this.password);
 	}
 
+	this.wg_id = null;
 	next();
 });
 
