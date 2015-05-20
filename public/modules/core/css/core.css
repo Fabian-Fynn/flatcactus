@@ -13,3 +13,65 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+.bg-index{
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+	width:100vw;
+	height:100vh;
+	background-image:url('../img/brand/bg_index.jpg');
+	background-size: cover;
+	background-repeat: none;
+	background-position: top center;
+}
+
+.navbar-inverse{
+	background-image:-webkit-linear-gradient(top,#fffefd 0,#fffefd 100%);
+	background-image:-o-linear-gradient(top,#fffefd 0,#fffefd 100%);
+	background-image:-webkit-gradient(linear,left top,left bottom,from(#fffefd),to(#fffefd));
+	background-image:linear-gradient(to bottom,#fffefd 0,#fffefd 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefd', endColorstr='#fffefd', GradientType=0);
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	background-repeat:repeat-x;
+}
+
+.navbar-inverse{
+	background-color: none;
+	border: none;
+	-webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
+	text-shadow: none;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > li > a{
+	color: #181101;
+}
+
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+	color: #df9006;
+}
+
+.index-title{
+	margin-top: 25%;
+	line-height: 1.1em;
+	text-align: center;
+	font-size: 5.0em;
+	padding: 0 20%;
+}
+
+.infotext{
+	display:block;
+	text-align: center;
+	font-size: 2.5em;
+	line-height: 1.1em;
+	padding: 30px 30%;
+}

@@ -54,6 +54,10 @@ var UserSchema = new Schema({
 		required: 'Please fill in a username',
 		trim: true
 	},
+	/*wg: {
+    type: Schema.Types.ObjectId,
+		ref: 'Ingredient'
+	},*/
 	password: {
 		type: String,
 		default: '',
