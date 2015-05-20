@@ -21,7 +21,7 @@
 	margin:0;
 	width:100vw;
 	height:100vh;
-	background-image:url('../public/modules/core/img/brand/bg_index.jpg');
+	background-image:url('../modules/core/img/brand/bg_index.jpg');
 	background-size: cover;
 	background-repeat: none;
 	background-position: top center;
