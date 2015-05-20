@@ -6,11 +6,14 @@ module.exports = function(app) {
 
 	// Wgs Routes
 	app.route('/wgs')
-		.get(users.requiresLogin, wgs.isHisWg, wgs.list)
+		// .get(users.requiresLogin, wgs.list)
 		.post(users.requiresLogin, wgs.create);
 
+	app.route('/my-community')
+		.get(users.requiresLogin, wgs.wgByUser);
+
 	app.route('/wgs/:wgId')
-		.get(wgs.read)
+		//.get(wgs.read)
 		.put(users.requiresLogin, wgs.hasAuthorization, wgs.update);
 		//.delete(users.requiresLogin, wgs.hasAuthorization, wgs.delete);
 

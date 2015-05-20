@@ -25,6 +25,7 @@ exports.userByID = function(req, res, next, id) {
  * Require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {
+	console.log('authenticated', req.isAuthenticated());
 	if (!req.isAuthenticated()) {
 		 return res.redirect('/');
 		/*return res.status(401).send({

@@ -79,17 +79,17 @@ exports.delete = function(req, res) {
 /**
  * List of Wgs
  */
-exports.list = function(req, res) {
-	Wg.find().sort('-created').populate('user', 'displayName').exec(function(err, wgs) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(wgs);
-		}
-	});
-};
+// exports.list = function(req, res) {
+// 	var wg = Wg.where({ _id: req.user.wg_id });
+// 	console.log('wg', wg);
+// 		if (!wg) {
+// 			return res.status(400).send({
+// 				message: errorHandler.getErrorMessage(err)
+// 			});
+// 		} else {
+// 			res.jsonp(wg);
+// 		}
+// };
 
 /**
  * Wg middleware
@@ -98,8 +98,21 @@ exports.wgByID = function(req, res, next, id) {
 	Wg.findById(id).populate('user', 'displayName').exec(function(err, wg) {
 		if (err) return next(err);
 		if (! wg) return next(new Error('Failed to load Wg ' + id));
-		req.wg = wg ;
+		req.wg = wg;
 		next();
+	});
+};
+
+exports.wgByUser = function(req, res, next) {
+	console.log('lala');
+	Wg.findById(req.user.wg_id).exec(function(err, wg) {
+		console.log('lele');
+		console.log('wg', wg);
+		if (err) return next(err);
+		if (! wg) return next(new Error('Failed to load!'));
+		//req.wg = wg;
+		res.jsonp(wg);
+		//next();
 	});
 };
 
@@ -110,19 +123,14 @@ function isUserInWg(myArray, searchTerm, property) {
     return false;
 }
 
-exports.isHisWg = function(req, res, id, next) {
-	// if (req.wg.users)
-	console.log('req.wg', req.wg);
-	console.log('id', id);
-	//console.log(isUserInWg(req.wg.users, req.user.id, '_id'));
-	next();
-}
-
 /**
  * Wg authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.wg.user.id !== req.user.id) {
+	// if (req.wg.user.id !== req.user.id) {
+	// 	return res.status(403).send('User is not authorized');
+	// }
+	if(!isUserInWg(req.wg.users, req.user.id, '_id')){
 		return res.status(403).send('User is not authorized');
 	}
 	next();
