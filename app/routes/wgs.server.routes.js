@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 	// Wgs Routes
 	app.route('/wgs')
-		.get(wgs.list)
+		.get(users.requiresLogin, wgs.isHisWg, wgs.list)
 		.post(users.requiresLogin, wgs.create);
 
 	app.route('/wgs/:wgId')

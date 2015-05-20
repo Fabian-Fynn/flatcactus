@@ -15,14 +15,12 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var wg = new Wg(req.body);
 	wg.users.push(req.user._id);
-	console.log('reqUser', req.user);
-	console.log('wg._id', wg._id);
+	wg.created_from = req.user.username;
+
 	User.update({ _id: req.user.id }, { $set: { wg_id: wg._id }}, function(error, doc){
 		console.log(error);
 		console.log(doc);
-		
 	});
-	wg.created_from = req.user.username;
 
 	wg.save(function(err) {
 		if (err) {
@@ -104,6 +102,21 @@ exports.wgByID = function(req, res, next, id) {
 		next();
 	});
 };
+
+function isUserInWg(myArray, searchTerm, property) {
+    for(var i = 0; i < myArray.length; i++) {
+        if (myArray[i][property] === searchTerm) return true;
+    }
+    return false;
+}
+
+exports.isHisWg = function(req, res, id, next) {
+	// if (req.wg.users)
+	console.log('req.wg', req.wg);
+	console.log('id', id);
+	//console.log(isUserInWg(req.wg.users, req.user.id, '_id'));
+	next();
+}
 
 /**
  * Wg authorization middleware

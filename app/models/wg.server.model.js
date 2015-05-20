@@ -50,7 +50,7 @@ var WgSchema = new Schema({
 });
 
 WgSchema.pre('save', function(next) {
-	this.passphrase = new Buffer(crypto.randomBytes(10).toString('base64'), 'base64');
+	this.passphrase = new Buffer(crypto.randomBytes(12).toString('base64'), 'base64');
 	next();
 });
 

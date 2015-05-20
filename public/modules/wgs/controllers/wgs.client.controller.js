@@ -19,10 +19,12 @@ angular.module('wgs').controller('WgsController', ['$scope', '$stateParams', '$l
 			// Redirect after save
 			wg.$save(function(response) {
 				$location.path('wgs/' + response._id);
-				$scope.authentication.user.wg_id = wg._id;
+				$scope.authentication.user.wg_id = response._id;
 
 				// Clear form fields
 				$scope.name = '';
+				$scope.street = '';
+				$scope.zip = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
