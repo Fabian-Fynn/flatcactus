@@ -2,7 +2,7 @@
 	<div class="page-header">
 		<h1 data-ng-bind="wg.name"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == wg.user._id))">
+	<div class="pull-right" data-ng-show="((authentication.user))"><!-- && (authentication.user._id == wg.user._id) -->
 		<a class="btn btn-primary" href="/#!/wgs/{{wg._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
@@ -15,7 +15,8 @@
 			Posted on
 			<span data-ng-bind="wg.created | date:'mediumDate'"></span>
 			by
-			<span data-ng-bind="wg.user.displayName"></span>
+			<span data-ng-bind="wg.created_from"></span>
+			<span data-ng-bind="wg.passphrase"></span>
 		</em>
 	</small>
 </section>

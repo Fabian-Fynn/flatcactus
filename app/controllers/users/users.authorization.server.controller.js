@@ -27,10 +27,10 @@ exports.userByID = function(req, res, next, id) {
 exports.requiresLogin = function(req, res, next) {
 	console.log('authenticated', req.isAuthenticated());
 	if (!req.isAuthenticated()) {
-		 return res.redirect('/');
-		/*return res.status(401).send({
+		 res.redirect('/');
+		return res.status(401).send({
 			message: 'User is not logged in'
-		});*/
+		});
 	}
 
 	next();

@@ -9,11 +9,14 @@ module.exports = function(app) {
 		// .get(users.requiresLogin, wgs.list)
 		.post(users.requiresLogin, wgs.create);
 
-	app.route('/my-community')
-		.get(users.requiresLogin, wgs.wgByUser);
+	app.route('/my-share')
+		.get(users.requiresLogin, wgs.wgByUser, wgs.read);
+
+	app.route('/wgs/join')
+		.post(users.requiresLogin, wgs.join);
 
 	app.route('/wgs/:wgId')
-		//.get(wgs.read)
+		.get(wgs.read)
 		.put(users.requiresLogin, wgs.hasAuthorization, wgs.update);
 		//.delete(users.requiresLogin, wgs.hasAuthorization, wgs.delete);
 

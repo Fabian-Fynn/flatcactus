@@ -1,5 +1,5 @@
 .content {
-	margin-top: 50;
+	margin-top: 50px;
 }
 .undecorated-link:hover {
 	text-decoration: none;
@@ -15,26 +15,23 @@
 }
 
 .bg-index{
-	position:absolute;
-	top:0;
-	left:0;
-	margin:0;
-	width:100vw;
-	height:100vh;
-	background-image:url('../modules/core/img/brand/bg.jpg');
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+/*background-image:url('../modules/core/img/brand/bg.jpg'); */
+	background-image: url('../img/brand/bg.jpg');
+	overflow-y: hidden;
 	background-size: cover;
 	background-repeat: none;
 	background-position: top center;
 }
 
 .navbar-inverse{
-	background-image:-webkit-linear-gradient(top,#fffefd 0,#fffefd 100%);
-	background-image:-o-linear-gradient(top,#fffefd 0,#fffefd 100%);
-	background-image:-webkit-gradient(linear,left top,left bottom,from(#fffefd),to(#fffefd));
-	background-image:linear-gradient(to bottom,#fffefd 0,#fffefd 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefd', endColorstr='#fffefd', GradientType=0);
-	filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-	background-repeat:repeat-x;
+	background-image: none;
+	background-color: #fffefd;
 }
 
 .navbar-inverse{
@@ -52,6 +49,8 @@
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > li > a{
 	color: #181101;
+	-webkit-transition: color 0.4s ease; /* Safari */
+	transition: color 0.4s ease;
 }
 
 
@@ -61,21 +60,22 @@
 }
 
 .index-title{
-	margin-top: 25%;
+	margin-top: 20%;
 	line-height: 1.1em;
 	text-align: center;
 	font-size: 5.0em;
 	padding: 0 20%;
-	color: #fffefd;
+	color: #ffffff;
+	text-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .infotext{
-	display:block;
+	display: block;
 	text-align: center;
 	font-size: 2.5em;
 	line-height: 1.1em;
-	padding: 30 30%;
-	color: #4d1a00;
+	padding: 30px 30%;
+	color: #ffece3;
 }
 
 .index-links{
@@ -87,9 +87,9 @@
 }
 
 .index-links .index-btn:hover{
-	-webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
-	-moz-box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
-	box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.8);
+	-moz-box-shadow: 0 0 5px 0 rgba(0,0,0,0.8);
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.8);
 }
 
 .index-links .index-btn a{
@@ -97,6 +97,5 @@
 }
 
 .index-links .index-btn a:hover{
-	text-decoration:none;
-
+	text-decoration: none;
 }

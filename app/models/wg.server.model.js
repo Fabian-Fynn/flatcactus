@@ -21,13 +21,25 @@ var WgSchema = new Schema({
 		type: String,
 		default: '',
 		required: 'Please enter the street',
-		trim:true
+		trim: true
+	},
+	number: {
+		type: String,
+		default: '',
+		required: 'Please enter a house number',
+		trim: true
 	},
 	zip: {
 		type: String,
 		default: '',
 		required: 'Pleas enter the ZIP code',
-		trim:true
+		trim: true
+	},
+	city: {
+		type: String,
+		default: '',
+		required: 'Please enter the city',
+		trim: true
 	},
 	passphrase: {
 		type: String

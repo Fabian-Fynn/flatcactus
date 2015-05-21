@@ -1,19 +1,25 @@
-<section data-ng-controller="WgsController" data-ng-init="find()">
+<section data-ng-controller="WgsController">
     <div class="page-header">
         <h1>Join an existing living community</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="wg in wgs" data-ng-href="#!/wgs/{{wg._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="wg.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="wg.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="wg.name"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!wgs.$resolved || wgs.length">
-    	No Wgs yet, why don't you <a href="/#!/wgs/create">create one</a>?
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="findPass()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="pass">Passphrase</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="pass" id="pass" class="form-control" placeholder="Passphrase" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+
+              <div data-ng-show="error" class="text-danger">
+      					<strong data-ng-bind="error"></strong>
+      				</div>
+          </fieldset>
+      </form>
     </div>
 </section>

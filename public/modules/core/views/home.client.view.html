@@ -1,17 +1,17 @@
 <section data-ng-controller="HomeController">
 
 	<div class="row bg-index">
-		<p class="index-title info tada">FLATCACT.US</p>
-		<span class="infotext">A nice webapp to manage your living community.</span>
+		<p class="index-title info animated tada">flatcact.us</p>
+		<span class="infotext animated fadeIn">A nice webapp to manage your flat share.</span>
 
 		<div class="index-links" data-ng-hide="authentication.user">
-			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/signup">sign up</a></div>
-			<div class="btn index-btn" ui-route="/signin" ng-class="{active: $uiRoute}"><a href="/#!/signin">sign in</a></div>
+			<div class="btn index-btn" ui-route="/signup"><a href="/#!/signup">Sign Up</a></div>
+			<div class="btn index-btn" ui-route="/signin"><a href="/#!/signin">Sign In</a></div>
 		</div>
 
 		<div class="index-links" data-ng-show="authentication.user && !hasWg">
-			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/create">create community</a></div>
-			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/join">join community</a></div>
+			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/create">create flat-share</a></div>
+			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/join">join flat-share</a></div>
 		</div>
 	</div>
 

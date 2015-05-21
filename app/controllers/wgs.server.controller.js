@@ -33,6 +33,35 @@ exports.create = function(req, res) {
 	});
 };
 
+exports.join = function(req, res) {
+	var wg, user;
+
+	wg = Wg.findOne({ 'passphrase': req.body.pass }, function(err, wg) {
+		if(err){ 
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		if(wg === null){
+			return res.status(400).send({
+				message: 'No flat with this passphrase found!'
+			});
+		}
+
+		Wg.update({ _id: wg._id },{ $push: { users: req.body.userId }}, function(){});
+
+		user = User.update({ _id: req.body.userId }, { $set: { wg_id: wg._id }}, function(error, user){
+			if(err){ 
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+		});
+
+		return res.jsonp(wg);
+	});
+};
+
 /**
  * Show the current Wg
  */
@@ -97,22 +126,30 @@ exports.delete = function(req, res) {
 exports.wgByID = function(req, res, next, id) {
 	Wg.findById(id).populate('user', 'displayName').exec(function(err, wg) {
 		if (err) return next(err);
-		if (! wg) return next(new Error('Failed to load Wg ' + id));
+		if (! wg) return next(new Error('Failed to load flat-share ' + id));
 		req.wg = wg;
 		next();
 	});
 };
 
 exports.wgByUser = function(req, res, next) {
-	console.log('lala');
 	Wg.findById(req.user.wg_id).exec(function(err, wg) {
-		console.log('lele');
 		console.log('wg', wg);
-		if (err) return next(err);
-		if (! wg) return next(new Error('Failed to load!'));
-		//req.wg = wg;
-		res.jsonp(wg);
-		//next();
+		if(err) return next(err);
+		if(!wg) return next(new Error('Failed to load!'));
+		req.wg = wg;
+		//res.jsonp(wg);
+		next();
+	});
+};
+
+exports.wgByPass = function(req, res, next, pass) {
+	Wg.findOne({'passphrase': pass}, function(err, wg) {
+		console.log('wg', wg);
+		if(err) return next(err);
+		if(!wg) return next(new Error('Failed find flat-share with that passphrase'));
+		req.wg = wg;
+		next();
 	});
 };
 
