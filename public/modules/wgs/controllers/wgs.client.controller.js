@@ -83,6 +83,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			$http.post('/wgs/join', myObj).success(function(response) {
 				// Show user success message and clear form
 				$scope.authentication.user.wg_id = response._id;
+				$scope.wg = response;
 				$location.path('wgs/' + response._id);
 
 			}).error(function(response) {
