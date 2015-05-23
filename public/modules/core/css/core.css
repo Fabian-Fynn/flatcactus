@@ -1,3 +1,15 @@
+html{
+	background: url('/modules/core/img/brand/bg.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body{
+	background: none;
+}
+
 .content {
 	margin-top: 50px;
 }
@@ -21,8 +33,7 @@
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
-  background-image:url('../modules/core/img/brand/bg.jpg');
-	/*background-image: url('../img/brand/bg.jpg');*/
+	/*background-image:url('/modules/core/img/brand/bg.jpg');*/
 	overflow-y: hidden;
 	background-size: cover;
 	background-repeat: none;
@@ -63,8 +74,8 @@
 	margin-top: 20%;
 	line-height: 1.1em;
 	text-align: center;
-	font-size: 5.0em;
-	padding: 0 20%;
+	font-size: 4.5em;
+	padding: 0 10%;
 	color: #ffffff;
 	text-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
