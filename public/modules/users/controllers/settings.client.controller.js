@@ -7,7 +7,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
 
-		// Check if there are additional accounts 
+		// Check if there are additional accounts
 		$scope.hasConnectedAdditionalSocialAccounts = function(provider) {
 			for (var i in $scope.user.additionalProvidersData) {
 				return true;
@@ -49,6 +49,24 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 					Authentication.user = response;
 				}, function(response) {
 					$scope.error = response.data.message;
+				});
+			} else {
+				$scope.submitted = true;
+			}
+		};
+
+		// delete user
+		$scope.deleteUser = function(isValid){
+			console.log('user', $scope.user);
+			console.log(isValid);
+			// $scope.success = $scope.error = null;
+			if (isValid) {
+				console.log('isValid');
+				$http.delete('/user/delete', $scope.user).success(function(response){ 
+					console.log('delete successful');
+					$location.path('/');
+				}).error(function(response){
+					$scope.error = response.message;
 				});
 			} else {
 				$scope.submitted = true;

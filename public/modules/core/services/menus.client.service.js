@@ -10,7 +10,7 @@ angular.module('core').service('Menus', [
 		// Define the menus object
 		this.menus = {};
 
-		// A private function for rendering decision 
+		// A private function for rendering decision
 		var shouldRender = function(user) {
 			if (user) {
 				if (!!~this.roles.indexOf('*')) {
@@ -96,6 +96,7 @@ angular.module('core').service('Menus', [
 				items: [],
 				shouldRender: shouldRender
 			});
+			console.log('menu', this.menus[menuId]);
 
 			// Return the menu object
 			return this.menus[menuId];

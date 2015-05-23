@@ -46,15 +46,21 @@ var UserSchema = new Schema({
 		trim: true,
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+		unique: 'This mail address is already used for another user!'
 	},
 	username: {
 		type: String,
-		unique: 'testing error message',
+		unique: 'This username is already taken',
 		required: 'Please fill in a username',
 		trim: true
 	},
+	isActive: {
+		type: Boolean,
+		default: true
+	},
 	wg_id: {
+		default: null,
     type: Schema.ObjectId,
 		ref: 'Wg'
 	},
@@ -103,8 +109,6 @@ UserSchema.pre('save', function(next) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
 	}
-
-	this.wg_id = null;
 	next();
 });
 

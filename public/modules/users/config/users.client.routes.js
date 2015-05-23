@@ -40,6 +40,10 @@ angular.module('users').config(['$stateProvider',
 		state('reset', {
 			url: '/password/reset/:token',
 			templateUrl: 'modules/users/views/password/reset-password.client.view.html'
+		}).
+		state('deleteAccount', {
+			url: '/user/delete',
+			templateUrl: 'modules/users/views/settings/delete-account.client.view.html'
 		});
 	}
 ]);

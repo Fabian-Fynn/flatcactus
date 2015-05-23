@@ -21,8 +21,8 @@
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
-  background-image:url('../modules/core/img/brand/bg.jpg');
-	/*background-image: url('../img/brand/bg.jpg');*/
+  /*background-image:url('../modules/core/img/brand/bg.jpg');*/
+	background-image: url('../img/brand/bg.jpg');
 	overflow-y: hidden;
 	background-size: cover;
 	background-repeat: none;

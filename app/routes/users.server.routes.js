@@ -14,6 +14,10 @@ module.exports = function(app) {
 	app.route('/users').put(users.update);
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 
+	// to delete user
+	app.route('/user/delete').get(users.me);
+	app.route('/user/delete').delete(users.deleteData);
+
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);
 	app.route('/auth/forgot').post(users.forgot);

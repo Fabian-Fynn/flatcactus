@@ -7,7 +7,8 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	Wg = mongoose.model('Wg');
 
 /**
  * Update user details
@@ -46,6 +47,64 @@ exports.update = function(req, res) {
 			message: 'User is not signed in'
 		});
 	}
+};
+
+/**
+ * Remove sensitive data of user
+ * but users stays in the database
+ */
+exports.deleteData = function(req, res) {
+	console.log('req.user', req.user);
+	var user = req.user;
+
+	user.remove(function(err) {
+		if (err) {
+			console.log('error bei user remove');
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			if(user.wg_id) {
+				console.log('has wg_id');
+				Wg.update({ _id: user.wg_id },{ $pull: { users: user }}, function(err){
+					if(err){
+						console.log('error bei wg update');
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}
+				});
+			}
+			console.log('req.logout');
+			req.logout();
+			res.jsonp(user);
+		}
+	});
+
+			// }
+	//	});
+	//}
+
+	// User.update({ _id: user._id },
+	// 	{ $set: {
+	// 			username: null,
+	// 			email: '',
+	// 			password: null,
+	// 			salt: null,
+	// 			wg_id: null,
+	// 			isActive: false,
+	// 			provider: ''
+	// 		}
+	// 	}, {multi: true}, function(err){
+	// 		if (err) {
+	// 			return res.status(400).send({
+	// 				message: errorHandler.getErrorMessage(err)
+	// 			});
+	// 		} else {
+	// 			req.logout();
+	// 			res.redirect('/');
+	// 		}
+	// });
 };
 
 /**
