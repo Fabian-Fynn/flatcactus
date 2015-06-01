@@ -24,6 +24,10 @@ angular.module('wgs').config(['$stateProvider',
 		state('editWg', {
 			url: '/wgs/:wgId/edit',
 			templateUrl: 'modules/wgs/views/edit-wg.client.view.html'
+		}).
+		state('passWg', {
+			url: '/my-share/passphrase',
+			templateUrl: 'modules/wgs/views/pass-wg.client.view.html'
 		});
 	}
 ]);

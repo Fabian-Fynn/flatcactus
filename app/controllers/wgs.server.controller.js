@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(wg);
+			res.json(wg);
 		}
 	});
 };
@@ -58,7 +58,7 @@ exports.join = function(req, res) {
 			}
 		});
 
-		return res.jsonp(wg);
+		return res.json(wg);
 	});
 };
 

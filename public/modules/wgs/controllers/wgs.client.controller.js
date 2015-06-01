@@ -1,9 +1,13 @@
 'use strict';
 
 // Wgs controller
-angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Wgs',
-	function($scope, $http, $stateParams, $location, Authentication, Wgs) {
+angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs',
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs) {
 		$scope.authentication = Authentication;
+		$scope.flat = Flat;
+		console.log('authenc', Authentication);
+		console.log('flat', Flat);
+		if($scope.wg){console.log('wg.pass', $scope.wg.passphrase);}
 
 		// Create new Wg
 		$scope.create = function() {
@@ -19,9 +23,10 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 
 			// Redirect after save
 			wg.$save(function(response) {
-				$location.path('wgs/' + response._id);
-				$scope.wg = response;
 				$scope.authentication.user.wg_id = response._id;
+				$scope.flat.wg = wg;
+				console.log('save response', response);
+				console.log('wg', wg);
 
 				// Clear form fields
 				$scope.name = '';
@@ -29,6 +34,8 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$scope.number = '';
 				$scope.zip = '';
 				$scope.city = '';
+
+				$location.path('wgs/' + response._id); // redirect
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -79,11 +86,13 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				userId: $scope.authentication.user._id,
 				pass: this.pass
 			};
+			console.log('pass', this.pass);
 
 			$http.post('/wgs/join', myObj).success(function(response) {
 				// Show user success message and clear form
 				$scope.authentication.user.wg_id = response._id;
-				$scope.wg = response;
+				$scope.flat.wg = response;
+				console.log('save response', response);
 				$location.path('wgs/' + response._id);
 
 			}).error(function(response) {

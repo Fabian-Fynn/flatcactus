@@ -50,8 +50,7 @@ exports.update = function(req, res) {
 };
 
 /**
- * Remove sensitive data of user
- * but users stays in the database
+ * Delete User
  */
 exports.deleteData = function(req, res) {
 	console.log('req.user', req.user);
@@ -77,34 +76,10 @@ exports.deleteData = function(req, res) {
 			}
 			console.log('req.logout');
 			req.logout();
-			res.jsonp(user);
+			res.json(user);
 		}
 	});
 
-			// }
-	//	});
-	//}
-
-	// User.update({ _id: user._id },
-	// 	{ $set: {
-	// 			username: null,
-	// 			email: '',
-	// 			password: null,
-	// 			salt: null,
-	// 			wg_id: null,
-	// 			isActive: false,
-	// 			provider: ''
-	// 		}
-	// 	}, {multi: true}, function(err){
-	// 		if (err) {
-	// 			return res.status(400).send({
-	// 				message: errorHandler.getErrorMessage(err)
-	// 			});
-	// 		} else {
-	// 			req.logout();
-	// 			res.redirect('/');
-	// 		}
-	// });
 };
 
 /**

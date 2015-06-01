@@ -57,14 +57,13 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 
 		// delete user
 		$scope.deleteUser = function(isValid){
-			console.log('user', $scope.user);
-			console.log(isValid);
-			// $scope.success = $scope.error = null;
+			$scope.success = $scope.error = null;
+			
 			if (isValid) {
-				console.log('isValid');
 				$http.delete('/user/delete', $scope.user).success(function(response){ 
 					console.log('delete successful');
-					$location.path('/');
+					Authentication.user = null;
+					window.location.href = '/';
 				}).error(function(response){
 					$scope.error = response.message;
 				});

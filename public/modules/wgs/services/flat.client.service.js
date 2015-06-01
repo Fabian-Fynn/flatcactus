@@ -1,13 +1,13 @@
 'use strict';
 
-// Authentication service for user variables
-angular.module('users').factory('Authentication', [
+// Flat service for wg variables
+angular.module('wgs').factory('Flat', [
 	function() {
 		console.log(this);
 		var _this = this;
 
 		_this._data = {
-			user: window.user
+			wg: window.wg
 		};
 
 		return _this._data;
