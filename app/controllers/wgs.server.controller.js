@@ -93,6 +93,8 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var wg = req.wg ;
+	console.log('remove', wg);
+	console.log('user', req);
 
 	wg.remove(function(err) {
 		if (err) {
@@ -100,8 +102,33 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(wg);
+			User.update({ _id: req.user._id }, { $set: { wg_id: null }}, function(error, user){
+				if(error){ 
+					console.log('error');
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(error)
+					});
+				}
+				res.jsonp(user);
+			});
 		}
+	});
+};
+
+exports.removeUser = function(req, res) {
+	var wg = req.body;
+	console.log('server.wg', wg);
+
+	Wg.update({ _id: wg._id },{ $set: { users: wg.users }}, function(){});
+
+	User.update({ _id: req.user._id }, { $set: { wg_id: null }}, function(error, user){
+		if(error){ 
+			console.log('error');
+			return res.status(400).send({
+			message: errorHandler.getErrorMessage(error)
+			});
+		}
+		res.jsonp(user);
 	});
 };
 
@@ -153,9 +180,9 @@ exports.wgByPass = function(req, res, next, pass) {
 	});
 };
 
-function isUserInWg(myArray, searchTerm, property) {
+function isUserInWg(myArray, searchTerm) {
     for(var i = 0; i < myArray.length; i++) {
-        if (myArray[i][property] === searchTerm) return true;
+        if (myArray[i] == searchTerm) return true;
     }
     return false;
 }
@@ -167,7 +194,14 @@ exports.hasAuthorization = function(req, res, next) {
 	// if (req.wg.user.id !== req.user.id) {
 	// 	return res.status(403).send('User is not authorized');
 	// }
-	if(!isUserInWg(req.wg.users, req.user.id, '_id')){
+	if(!isUserInWg(req.wg.users, req.user.id)){
+		return res.status(403).send('User is not authorized');
+	}
+	next();
+};
+
+exports.isAllowedToLeave = function(req, res, next) {
+	if(req.user.wg_id != req.body._id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

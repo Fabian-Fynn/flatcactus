@@ -28,6 +28,10 @@ angular.module('wgs').config(['$stateProvider',
 		state('passWg', {
 			url: '/my-share/passphrase',
 			templateUrl: 'modules/wgs/views/pass-wg.client.view.html'
+		}).
+		state('leaveWg', {
+			url: '/my-share/leave',
+			templateUrl: 'modules/wgs/views/leave-wg.client.view.html'
 		});
 	}
 ]);

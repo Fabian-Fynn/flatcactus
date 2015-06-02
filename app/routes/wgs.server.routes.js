@@ -17,8 +17,11 @@ module.exports = function(app) {
 
 	app.route('/wgs/:wgId')
 		.get(wgs.read)
-		.put(users.requiresLogin, wgs.hasAuthorization, wgs.update);
-		//.delete(users.requiresLogin, wgs.hasAuthorization, wgs.delete);
+		.put(users.requiresLogin, wgs.hasAuthorization, wgs.update)
+		.delete(users.requiresLogin, wgs.hasAuthorization, wgs.delete);
+
+	app.route('/my-share/leave')
+		.put(users.requiresLogin, wgs.isAllowedToLeave, wgs.removeUser);
 
 	// Finish by binding the Wg middleware
 	app.param('wgId', wgs.wgByID);
