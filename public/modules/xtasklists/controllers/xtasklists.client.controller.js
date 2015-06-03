@@ -64,35 +64,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 		};
 
 		$scope.getUsers = function() {
-			var usersInWg = wgs.get({
-				wgId: $scope.authentication.user.wg_id
+			console.log('getUsers');
+			$http.get('/my-share/allusers').success(function(res) {
+				console.log('res[0]', res[0].username);
+				$scope.allUsers = res;
+				console.log('res', res);
+			}).error(function(err){
+				$scope.error = err.data.message;
 			});
-
-			var a = wgs.query({
-				wgId: $scope.authentication.user.wg_id
-			});
-
-			var c = $http.get('/my-share').success(function(response) {
-				console.log('lalal');
-			});
-
-			console.log('c', c);
-
-			console.log('usersInWg', usersInWg);
-			console.log('lala', usersInWg);
-
-			$scope.arr = [];
-			for(var i = 0; i < usersInWg.users.length; i++) {
-				users.query( {userId: usersInWg[i]._id }, function(){
-					console.log('heheh');
-				})
-				users.get({ userId: usersInWg[i]._id }, function(){
-					console.log('lalal');
-				});
-				console.log('lele');
-			}
-
-
-		}
+		};
 	}
 ]);

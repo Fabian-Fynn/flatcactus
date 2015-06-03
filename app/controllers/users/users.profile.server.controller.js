@@ -88,3 +88,26 @@ exports.deleteData = function(req, res) {
 exports.me = function(req, res) {
 	res.json(req.user || null);
 };
+
+/*
+ * Get all users from wg
+ */
+exports.getAllFromWg = function(req, res) {
+	var users = req.wg.users;
+	var all = [];
+	var ids = '';
+
+
+	console.log('ids', users);
+
+	User.find({ '_id': { $in: users} }, function(err, docs){
+			if(err){
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			console.log('docs', docs);
+			return res.json(docs);
+	});
+
+};

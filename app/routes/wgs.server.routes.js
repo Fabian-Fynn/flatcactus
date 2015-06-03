@@ -9,6 +9,9 @@ module.exports = function(app) {
 		// .get(users.requiresLogin, wgs.list)
 		.post(users.requiresLogin, wgs.create);
 
+	app.route('/my-share/allusers')
+		.get(users.requiresLogin, wgs.wgByUser, users.getAllFromWg);
+
 	app.route('/my-share')
 		.get(users.requiresLogin, wgs.wgByUser, wgs.read);
 
