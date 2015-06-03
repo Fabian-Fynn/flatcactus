@@ -64,12 +64,9 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				wg.$remove();
 			} else {
 				var arr = wg.users;
-				console.log('user', $scope.authentication.user._id);
-				console.log('beefore users', arr);
 				var index = arr.indexOf($scope.authentication.user._id);
 				arr.splice(index, 1);
 				wg.users = arr;
-				console.log('new users', wg.users);
 
 				$http.put('/my-share/leave', wg).success(function(response) {
 					// Show user success message and clear form

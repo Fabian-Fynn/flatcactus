@@ -1,8 +1,8 @@
 'use strict';
 
 // Xtasklists controller
-angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Xtasklists',
-	function($scope, $stateParams, $location, Authentication, Xtasklists) {
+angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Xtasklists', 'Wgs', 'Users',
+	function($scope, $http, $stateParams, $location, Authentication, Xtasklists, wgs, users) {
 		$scope.authentication = Authentication;
 
 		// Create new Xtasklist
@@ -25,7 +25,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$sta
 
 		// Remove existing Xtasklist
 		$scope.remove = function(xtasklist) {
-			if ( xtasklist ) { 
+			if ( xtasklist ) {
 				xtasklist.$remove();
 
 				for (var i in $scope.xtasklists) {
@@ -58,9 +58,41 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$sta
 
 		// Find existing Xtasklist
 		$scope.findOne = function() {
-			$scope.xtasklist = Xtasklists.get({ 
+			$scope.xtasklist = Xtasklists.get({
 				xtasklistId: $stateParams.xtasklistId
 			});
 		};
+
+		$scope.getUsers = function() {
+			var usersInWg = wgs.get({
+				wgId: $scope.authentication.user.wg_id
+			});
+
+			var a = wgs.query({
+				wgId: $scope.authentication.user.wg_id
+			});
+
+			var c = $http.get('/my-share').success(function(response) {
+				console.log('lalal');
+			});
+
+			console.log('c', c);
+
+			console.log('usersInWg', usersInWg);
+			console.log('lala', usersInWg);
+
+			$scope.arr = [];
+			for(var i = 0; i < usersInWg.users.length; i++) {
+				users.query( {userId: usersInWg[i]._id }, function(){
+					console.log('heheh');
+				})
+				users.get({ userId: usersInWg[i]._id }, function(){
+					console.log('lalal');
+				});
+				console.log('lele');
+			}
+
+
+		}
 	}
 ]);

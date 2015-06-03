@@ -13,9 +13,25 @@ var XtasklistSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Xtasklist name',
+		required: 'Please fill tasklist name',
 		trim: true
 	},
+	start: {
+		type: Date,
+		default: Date.now
+	},
+	interval: {
+		type: String,
+		default: 'weekly',
+		required: 'Please set an interval'
+	},
+	isDone: {
+		type: Boolean,
+		default: false
+	},
+	users: [{
+		type: Object
+	}],
 	created: {
 		type: Date,
 		default: Date.now

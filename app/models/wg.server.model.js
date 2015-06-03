@@ -51,6 +51,10 @@ var WgSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	}],
+	tasklists: [{
+			type: Schema.ObjectId,
+			ref: 'Xtasklist'
+	}],
 	updated: {
 		type: Date,
 		default: Date.now

@@ -6,19 +6,19 @@ angular.module('xtasklists').config(['$stateProvider',
 		// Xtasklists state routing
 		$stateProvider.
 		state('listXtasklists', {
-			url: '/xtasklists',
+			url: '/tasklists',
 			templateUrl: 'modules/xtasklists/views/list-xtasklists.client.view.html'
 		}).
 		state('createXtasklist', {
-			url: '/xtasklists/create',
+			url: '/tasklists/create',
 			templateUrl: 'modules/xtasklists/views/create-xtasklist.client.view.html'
 		}).
 		state('viewXtasklist', {
-			url: '/xtasklists/:xtasklistId',
+			url: '/tasklists/:xtasklistId',
 			templateUrl: 'modules/xtasklists/views/view-xtasklist.client.view.html'
 		}).
 		state('editXtasklist', {
-			url: '/xtasklists/:xtasklistId/edit',
+			url: '/tasklists/:xtasklistId/edit',
 			templateUrl: 'modules/xtasklists/views/edit-xtasklist.client.view.html'
 		});
 	}
