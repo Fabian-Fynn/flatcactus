@@ -6,6 +6,6 @@ angular.module('wgs').run(['Menus',
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'my share', 'wgs', 'dropdown', '#');
 		Menus.addSubMenuItem('topbar', 'wgs', 'passphrase', 'my-share/passphrase');
-		Menus.addSubMenuItem('topbar', 'wgs', 'leave this share', '#');
+		Menus.addSubMenuItem('topbar', 'wgs', 'leave this share', 'my-share/leave');
 	}
 ]);

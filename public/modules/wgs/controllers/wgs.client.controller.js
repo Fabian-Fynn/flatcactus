@@ -7,7 +7,6 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		$scope.flat = Flat;
 		console.log('authenc', Authentication);
 		console.log('flat', Flat);
-		if($scope.wg){console.log('wg.pass', $scope.wg.passphrase);}
 
 		// Create new Wg
 		$scope.create = function() {
@@ -24,7 +23,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			// Redirect after save
 			wg.$save(function(response) {
 				$scope.authentication.user.wg_id = response._id;
-				$scope.flat.wg = wg;
+				$scope.flat.wg = Flat.wg = wg;
 				console.log('save response', response);
 				console.log('wg', wg);
 
@@ -58,6 +57,32 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			}
 		};
 
+		$scope.leave = function() {
+			var wg = $scope.wg;
+
+			if(wg.users.length <= 1){
+				wg.$remove();
+			} else {
+				var arr = wg.users;
+				console.log('user', $scope.authentication.user._id);
+				console.log('beefore users', arr);
+				var index = arr.indexOf($scope.authentication.user._id);
+				arr.splice(index, 1);
+				wg.users = arr;
+				console.log('new users', wg.users);
+
+				$http.put('/my-share/leave', wg).success(function(response) {
+					// Show user success message and clear form
+					$scope.flat.wg = Flat.wg = response;
+				}).error(function(response) {
+					// Show user error message and clear form
+					$scope.error = response.message;
+				});
+			}
+			$scope.authentication.user.wg_id = null;
+			$location.path('/');
+		};
+
 		// Update existing Wg
 		$scope.update = function() {
 			var wg = $scope.wg;
@@ -88,23 +113,26 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			});
 		};
 
+		$scope.getWg = function() {
+			$scope.wg = Wgs.get({
+				wgId: $scope.authentication.user.wg_id
+			});
+		};
+
 		$scope.findPass = function(){
 			var myObj = {
 				userId: $scope.authentication.user._id,
 				pass: this.pass
 			};
-			console.log('pass', this.pass);
 
 			$http.post('/wgs/join', myObj).success(function(response) {
 				// Show user success message and clear form
 				$scope.authentication.user.wg_id = response._id;
-				$scope.flat.wg = response;
-				console.log('save response', response);
+				$scope.flat.wg = Flat.wg = response;
 				$location.path('wgs/' + response._id);
 
 			}).error(function(response) {
 				// Show user error message and clear form
-				console.log(response);
 				$scope.error = response.message;
 			});
 		};

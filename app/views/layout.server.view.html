@@ -51,9 +51,13 @@
 		</section>
 	</section>
 
-	<!--Embedding The User/WG Object-->
+	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
+	</script>
+
+	<!--Embedding The WG Object-->
+	<script type="text/javascript">
 		var wg = {{ wg | json | safe }};
 	</script>
 

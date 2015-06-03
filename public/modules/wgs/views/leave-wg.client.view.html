@@ -1,0 +1,25 @@
+<section data-ng-controller="WgsController" data-ng-init="getWg()">
+  <div class="page-header">
+      <h1>Leave {{ wg.name }}</h1>
+  </div>
+    <div class="col-md-12">
+        <div class="form-group">
+          You are about to leave this flat share.<br>
+          There is no way back.
+          <br>
+          <form class="form-horizontal" data-ng-submit="leave()" novalidate>
+              <fieldset>
+                <label class="control-label">Are you sure?</label>
+
+                <div class="form-group">
+                    <input type="submit" value="Leave" class="btn btn-danger">
+                </div>
+
+                <div data-ng-show="error" class="text-danger">
+                  <strong data-ng-bind="error"></strong>
+                </div>
+              </fieldset>
+          </form>
+        </div>
+    </div>
+</section>
