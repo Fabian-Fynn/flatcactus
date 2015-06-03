@@ -103,6 +103,13 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			});
 		};
 
+		//Find existing Wg by user
+		$scope.findByUser = function(user) {
+			$scope.wg = Wgs.get({
+				wgId: user.wg_id
+			});
+		};
+
 		$scope.getWg = function() {
 			$scope.wg = Wgs.get({
 				wgId: $scope.authentication.user.wg_id
