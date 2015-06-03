@@ -58,6 +58,10 @@
 	color: #df9006;
 }
 
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #A3A3A3;
+}
+
 .index-title{
 	margin-top: 20%;
 	line-height: 1.1em;
@@ -97,4 +101,24 @@
 
 .index-links .index-btn a:hover{
 	text-decoration: none;
+}
+
+.box{
+	margin: 80px auto;
+	background: rgba(255,255,255,0.9);
+	width: 80vw;
+	padding: 15px;
+}
+
+.title{
+	display: block;
+	text-align: center;
+	font-size: 2.5em;
+	line-height: 1.1em;
+	padding: 30px 30% 30px 30%;
+	color: #000;
+}
+
+.col h3{
+	text-align: center;
 }

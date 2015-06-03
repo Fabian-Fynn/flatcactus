@@ -64,6 +64,10 @@ var UserSchema = new Schema({
     type: Schema.ObjectId,
 		ref: 'Wg'
 	},
+	balance: {
+		default: 0,
+		type: Number
+	},
 	password: {
 		type: String,
 		default: '',
@@ -150,6 +154,14 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 			callback(null);
 		}
 	});
+};
+
+UserSchema.statics.findById = function(username) {
+	return this.findOne({ id: username });
+};
+
+UserSchema.methods.updateBalance = function(amount) {
+	return this.balance += amount;
 };
 
 mongoose.model('User', UserSchema);
