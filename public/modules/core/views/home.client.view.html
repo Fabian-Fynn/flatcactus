@@ -13,14 +13,15 @@
 			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/create">create flat-share</a></div>
 			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/join">join flat-share</a></div>
 		</div>
-		<div class="box row" data-ng-controller="WgsController" data-ng-init="findByUser(authentication.user)" data-ng-show="authentication.user && hasWg">
+		<div class="box row" data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
 			<p class="title">Share dashboard</p>
 			<div class="col col-md-3">
 				<h3>People</h3>
 
-				<div class="person" data-ng-repeat="n in wg.users">
+				<div class="person" ng-repeat="u in allUsers">
 					<!-- <div data-ng-model="UsersController" data-ng-init="findById(n)"> -->
-						<p data-ng-bind="n"></p>
+						<!-- <p data-ng-bind="n"></p> -->
+						<p data-ng-model="users" value="{{u.username}}">{{ u.username }} {{ u.balance }}</p>
 					<!-- </div> -->
 				</div>
 			</div>
