@@ -22,7 +22,6 @@ var XtasklistSchema = new Schema({
 	},
 	interval: {
 		type: String,
-		default: 'weekly',
 		required: 'Please set an interval'
 	},
 	isDone: {
@@ -35,10 +34,6 @@ var XtasklistSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
 	}
 });
 

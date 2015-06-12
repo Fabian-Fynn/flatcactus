@@ -3,7 +3,7 @@
         <h1>New tasklist</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <form class="form-horizontal" data-ng-submit="create()" validate>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
@@ -14,23 +14,36 @@
                 <div class="form-group">
                     <label class="control-label" for="start">Starting Date</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="start" id="start" class="form-control" placeholder="2015-06-03">
+                        <input type="date" data-ng-model="start" id="start" class="form-control" placeholder="03.06.2015" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="inverval">Interval</label>
-                    <div class="form-group">
-                        <label><input type="radio" data-ng-model="interval" id="interval" value="daily">daily</label>
-                        <label><input type="radio" data-ng-model="interval" id="interval" value="weekly" selected>weekly</label>
-                        <label><input type="radio" data-ng-model="interval" id="interval" value="monthly">monthly</input></label>
+                    <div class="controls">
+                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="daily"> daily</label>
+                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="weekly"> weekly</label>
+                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="monthly"> monthly</input></label>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label" for="users">Select Users</label>
-                    <div class="controls" ng-repeat="u in allUsers">
-                        <label><input type="checkbox" data-ng-model="users" id="users" value="{{u.username}}" checked>{{ u.username }}</label>
+                    <label class="control-label">Select Users</label>
+                    <div class="controls">
+                        <label ng-repeat="u in allUsers" style="display:block">
+                          <input type="checkbox" data-ng-model="u.checked"> {{ u.username }}
+                        </label>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label">Who starts?</label>
+                    <div class="controls">
+                        <label ng-repeat="u in allUsers" ng-if="u.checked" style="display:block">
+                          <input type="radio" data-ng-model="first" id="first" name="first" value="u.username"> {{ u.username }}
+                        </label>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <input type="submit" value="create" class="btn btn-default">
                 </div>
