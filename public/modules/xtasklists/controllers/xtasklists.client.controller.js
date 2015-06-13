@@ -9,38 +9,40 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 		$scope.create = function() {
 			// Create new Xtasklist object
 			var obj = {};
-			console.log('first', $scope.first);
+			var counter = 2;
+			console.log('first', $scope);
 			$scope.allUsers.forEach(function(user){
 				if(user.checked){
 					obj[user._id] = {};
-					obj[user._id].count = 0;
-					obj[user._id].crt = false;
-					obj[user._id].isNext = false;
-					obj[user._id].turn = 1;
+					obj[user._id].howOften = 0;
+					obj[user._id].crt = (user.username === $scope.first.name) ? true : false;
+					obj[user._id].turn = (user.username === $scope.first.name) ? 1 : counter++;
+					obj[user._id].isNext = (obj[user._id].turn !== 2) ? false : true;
 				}
 			});
-
-			console.log('obj', obj);
 
 			var xtasklist = new Xtasklists ({
 				name: this.name,
 				start: this.start,
 				interval: this.interval,
-				isDone: false
+				isDone: false,
+				users: obj
 			});
 
-			console.log('scope', $scope.allUsers);
+			console.log('obj', obj);
+			console.log('task', xtasklist);
 
 			// Redirect after save
-			/*
 			xtasklist.$save(function(response) {
 				$location.path('xtasklists/' + response._id);
 
 				// Clear form fields
 				$scope.name = '';
+				$scope.start = '';
+				$scope.interval = 'weekly';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
-			});*/
+			});
 		};
 
 		// Remove existing Xtasklist
@@ -85,12 +87,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 
 		$scope.getUsers = function() {
 			console.log('getUsers');
-			$scope.interval = "weekly";
+			$scope.interval = 'weekly';
 			$http.get('/my-share/allusers').success(function(res) {
 				$scope.allUsers = res;
+				$scope.first = { name: null };
 
 				$scope.allUsers.forEach(function(user){
 					user.checked = true;
+					user.first = false;
 				});
 
 			}).error(function(err){

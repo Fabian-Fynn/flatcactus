@@ -18,7 +18,11 @@ var XtasklistSchema = new Schema({
 	},
 	start: {
 		type: Date,
+		required: 'Please set a start date',
 		default: Date.now
+	},
+	end: {
+		type: Date
 	},
 	interval: {
 		type: String,
@@ -28,9 +32,14 @@ var XtasklistSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
-	users: [{
-		type: Object
-	}],
+	wg_id: {
+		type: Schema.ObjectId,
+		ref: 'Wg'
+	},
+	users: {
+		type: Object,
+		required: 'No user is assigned'
+	},
 	created: {
 		type: Date,
 		default: Date.now
