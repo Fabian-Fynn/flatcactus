@@ -21,7 +21,7 @@
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
-	background-image:url('/modules/core/img/brand/bg.jpg');
+	background-image:url('/modules/core/img/brand/bg_another.jpg');
 	overflow-y: hidden;
 	background-size: cover;
 	background-repeat: none;
@@ -29,10 +29,7 @@
 }
 
 .navbar-inverse{
-
-}
-
-.navbar-inverse{
+	padding: 10px 0;
 	background-image: none;
 	background-color: #fffefd;
 	border: none;
@@ -69,7 +66,7 @@
 	font-size: 4.5em;
 	padding: 0 10%;
 	color: #ffffff;
-	text-shadow: 0 0 20px rgba(0,0,0,0.4);
+	text-shadow: 0 0 20px rgba(0,0,0,0.9);
 }
 
 .infotext{
@@ -77,8 +74,9 @@
 	text-align: center;
 	font-size: 2.5em;
 	line-height: 1.1em;
-	padding: 30px 30%;
-	color: #ffece3;
+	padding: 0px 30% 30px 30%;
+	color: #fff;
+	text-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 
 .index-links{

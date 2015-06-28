@@ -1,17 +1,17 @@
 <section data-ng-controller="HomeController">
 
 	<div class="row bg-index">
-		<p class="index-title info animated tada" data-ng-hide="authentication.user && hasWg">flatcact.us</p>
+		<p class="index-title info animated tada" data-ng-hide="authentication.user && hasWg"><strong>flatcact.us</strong></p>
 		<span class="infotext animated fadeIn" data-ng-hide="authentication.user && hasWg">A nice webapp to manage your flat share.</span>
 
 		<div class="index-links" data-ng-hide="authentication.user">
-			<div class="btn index-btn" ui-route="/signup"><a href="/#!/signup">Sign Up</a></div>
-			<div class="btn index-btn" ui-route="/signin"><a href="/#!/signin">Sign In</a></div>
+			<div class="btn" ui-route="/signup"><a class="btn btn-default btn-lg" href="/#!/signup">Sign Up</a></div>
+			<div class="btn" ui-route="/signin"><a class="btn btn-default btn-lg" href="/#!/signin">Sign In</a></div>
 		</div>
 
 		<div class="index-links" data-ng-show="authentication.user && !hasWg">
-			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/create">create flat-share</a></div>
-			<div class="btn index-btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a href="/#!/wgs/join">join flat-share</a></div>
+			<div class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/create">create flat-share</a></div>
+			<div  class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/join">join flat-share</a></div>
 		</div>
 		<div class="box row" data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
 			<p class="title">Share dashboard</p>

@@ -29,9 +29,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 				users: obj
 			});
 
-			console.log('obj', obj);
-			console.log('task', xtasklist);
-
 			// Redirect after save
 			xtasklist.$save(function(response) {
 				$location.path('xtasklists/' + response._id);
@@ -85,6 +82,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 			});
 		};
 
+		$scope.checkfirst = function() {
+			var count = 0;
+			$scope.allUsers.forEach(function(user){
+				if(user.checked) count++;
+			});
+			if(count === 0){ $scope.first.name = null; }
+		};
+
 		$scope.getUsers = function() {
 			console.log('getUsers');
 			$scope.interval = 'weekly';
@@ -93,7 +98,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 				$scope.first = { name: null };
 
 				$scope.allUsers.forEach(function(user){
-					user.checked = true;
+					user.checked = false;
 					user.first = false;
 				});
 

@@ -1,3 +1,4 @@
+
 <section data-ng-controller="XtasklistsController" data-ng-init="getUsers()">
     <div class="page-header">
         <h1>New tasklist</h1>
@@ -5,47 +6,64 @@
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" validate>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="start">Starting Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="start" id="start" class="form-control" placeholder="03.06.2015">
-                    </div>
-                </div>
-                <div class="form-group">
+              <div class="form-group">
+                  <label class="control-label" for="inverval">Basic Info</label>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Name</span>
+                    <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon2">Start</span>
+                    <input type="date" data-ng-model="start" id="start" class="form-control" aria-describedby="basic-addon2">
+                  </div>
+              </div>
+              <div class="form-group">
                     <label class="control-label" for="inverval">Interval</label>
-                    <div class="controls">
-                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="daily"> daily</label>
-                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="weekly"> weekly</label>
-                        <label style="display:block"><input type="radio" data-ng-model="interval" name="interval" id="interval" value="monthly"> monthly</input></label>
-                    </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <input type="radio" data-ng-model="interval" name="interval" id="interval" value="daily">
+                        </span>
+                        <span class="form-control">daily</span>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <input type="radio" data-ng-model="interval" name="interval" id="interval" value="weekly">
+                        </span>
+                        <span class="form-control">weekly</span>
+                      </div>
+
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <input type="radio" data-ng-model="interval" name="interval" id="interval" value="monthly">
+                        </span>
+                        <span class="form-control">monthly</span>
+                      </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Select Users</label>
-                    <div class="controls">
-                        <label ng-repeat="u in allUsers" style="display:block">
-                          <input type="checkbox" data-ng-model="u.checked"> {{ u.username }}
-                        </label>
+                    <div class="input-group" ng-repeat="u in allUsers">
+                      <span class="input-group-addon">
+                        <input type="checkbox" data-ng-model="u.checked" ng-change="checkfirst()">
+                      </span>
+                      <span class="form-control">{{u.username}}</span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Who starts?</label>
-                    <div class="controls">
-                        <label ng-repeat="u in allUsers" ng-if="u.checked" style="display:block">
-                          <input type="radio" data-ng-model="first.name" id="first" name="first" value="{{u.username}}"> {{ u.username }}
-                        </label>
+                    <label class="control-label">Who starts the task?</label>
+                    <div class="input-group" ng-repeat="u in allUsers" ng-if="u.checked">
+                      <span class="input-group-addon">
+                        <input type="radio" data-ng-model="first.name" name="first" id="first" value="{{u.username}}">
+                      </span>
+                      <span class="form-control">{{u.username}}</span>
                     </div>
+                    <p class="help-block" ng-show="!first.name">It has to be someone!<br>Select a user please!</p>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="create" class="btn btn-default">
+                    <input type="submit" ng-disabled="!first.name" value="create" class="btn btn-primary">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

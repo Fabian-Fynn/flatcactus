@@ -58,7 +58,7 @@ Date.prototype.addMonths = function(months){
 	var dat = new Date(this.valueOf());
 	dat.setDate(dat.getMonth() + months);
 	return dat;
-}
+};
 
 /**
  * Show the current Xtasklist
