@@ -20,7 +20,7 @@
 	left: 0;
 	margin: 0;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	background-image:url('/modules/core/img/brand/bg_another.jpg');
 	overflow-y: hidden;
 	background-size: cover;
@@ -29,13 +29,17 @@
 }
 
 .navbar-inverse{
-	padding: 10px 0;
 	background-image: none;
 	background-color: #fffefd;
 	border: none;
 	-webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,0.75);
 	-moz-box-shadow: 0 0 9px 0 rgba(0,0,0,0.75);
 	box-shadow: 0 0 9px 0 rgba(0,0,0,0.75);
+}
+
+.navbar-nav > li > a, .navbar-brand{
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
@@ -119,4 +123,65 @@
 
 .col h3{
 	text-align: center;
+}
+
+/* animation between views */
+
+.toggle {
+	position: absolute;
+	left:0;
+	top:0;
+  -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+}
+/* line 66, ../sass/ng-animation.scss */
+.toggle.ng-enter {
+  opacity: 0;
+  transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+}
+/* line 71, ../sass/ng-animation.scss */
+.toggle.ng-enter-active {
+  opacity: 1;
+}
+/* line 75, ../sass/ng-animation.scss */
+.toggle.ng-leave {
+  opacity: 1;
+  transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+}
+/* line 80, ../sass/ng-animation.scss */
+.toggle.ng-leave-active {
+  opacity: 0;
+}
+/* line 85, ../sass/ng-animation.scss */
+.toggle.ng-hide-add {
+  transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+  opacity: 1;
+}
+/* line 89, ../sass/ng-animation.scss */
+.toggle.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+/* line 94, ../sass/ng-animation.scss */
+.toggle.ng-hide-remove {
+  transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+  display: block !important;
+  opacity: 0;
+}
+/* line 99, ../sass/ng-animation.scss */
+.toggle.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
 }
