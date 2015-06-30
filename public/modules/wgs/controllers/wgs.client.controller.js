@@ -5,8 +5,6 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs) {
 		$scope.authentication = Authentication;
 		$scope.flat = Flat;
-		console.log('authenc', Authentication);
-		console.log('flat', Flat);
 
 		// Create new Wg
 		$scope.create = function() {
@@ -24,8 +22,6 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			wg.$save(function(response) {
 				$scope.authentication.user.wg_id = response._id;
 				$scope.flat.wg = Flat.wg = wg;
-				console.log('save response', response);
-				console.log('wg', wg);
 
 				// Clear form fields
 				$scope.name = '';

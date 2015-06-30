@@ -94,11 +94,6 @@ exports.me = function(req, res) {
  */
 exports.getAllFromWg = function(req, res) {
 	var users = req.wg.users;
-	var all = [];
-	var ids = '';
-
-
-	console.log('ids', users);
 
 	User.find({ '_id': { $in: users} }, function(err, docs){
 			if(err){
@@ -106,7 +101,6 @@ exports.getAllFromWg = function(req, res) {
 					message: errorHandler.getErrorMessage(err)
 				});
 			}
-			console.log('docs', docs);
 			return res.json(docs);
 	});
 
