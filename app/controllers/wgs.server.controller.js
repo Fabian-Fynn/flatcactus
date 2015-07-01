@@ -174,7 +174,7 @@ exports.wgByPass = function(req, res, next, pass) {
 	Wg.findOne({'passphrase': pass}, function(err, wg) {
 		console.log('wg', wg);
 		if(err) return next(err);
-		if(!wg) return next(new Error('Failed find flat-share with that passphrase'));
+		if(!wg) return next(new Error('Failed to find flat-share with that passphrase'));
 		req.wg = wg;
 		next();
 	});

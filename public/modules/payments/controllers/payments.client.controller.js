@@ -72,7 +72,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$statePa
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = "container";
+			document.getElementById('container_bg').className = 'container';
 		};
 	}
 ]);

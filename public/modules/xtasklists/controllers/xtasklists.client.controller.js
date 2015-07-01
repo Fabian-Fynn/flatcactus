@@ -70,6 +70,22 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 			});
 		};
 
+		// get all tasks from wg
+		$scope.findFromWg = function() {
+			$scope.removeBgClass();
+			console.log('start all from wg');
+
+			$http.get('/xtasklist/all-from-share').success(function(response) {
+				// Show user success message and clear form
+				console.log('response', response);
+				$scope.tasks = response;
+
+			}).error(function(response) {
+				// Show user error message and clear form
+				$scope.error = response.message;
+			});
+		};
+
 		// Find a list of Xtasklists
 		$scope.find = function() {
 			$scope.removeBgClass();
@@ -111,7 +127,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = "container";
+			document.getElementById('container_bg').className = 'container';
 		};
 	}
 ]);

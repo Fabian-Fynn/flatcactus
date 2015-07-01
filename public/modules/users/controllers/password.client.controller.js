@@ -42,7 +42,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = "container";
-		}
+			document.getElementById('container_bg').className = 'container';
+		};
 	}
 ]);

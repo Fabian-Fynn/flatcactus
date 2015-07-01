@@ -86,7 +86,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = "container";
-		}
+			document.getElementById('container_bg').className = 'container';
+		};
 	}
 ]);

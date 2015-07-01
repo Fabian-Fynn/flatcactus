@@ -32,7 +32,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = "container";
+			document.getElementById('container_bg').className = 'container';
 		};
 	}
 ]);

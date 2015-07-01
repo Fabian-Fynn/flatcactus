@@ -67,6 +67,25 @@ exports.read = function(req, res) {
 	res.jsonp(req.xtasklist);
 };
 
+/*
+ * get all from a specific share
+ */
+exports.getAllFromWg = function(req, res) {
+	var wgID = req.wg._id;
+	console.log('wgID', wgID);
+
+	Xtasklist.where({wg_id: wgID}).sort('-created').exec(function(err, tasklists){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(tasklists);
+		}
+	});
+
+};
+
 /**
  * Update a Xtasklist
  */
