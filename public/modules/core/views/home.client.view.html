@@ -1,44 +1,47 @@
-<section data-ng-controller="HomeController" class="row">
+<section data-ng-controller="HomeController" class="row" ng-init="addBgClass()">
+	<div class="content-center">
+			<div class="col-md-12">
+				<p class="index-title text-center animated tada" data-ng-hide="authentication.user && hasWg"><strong>flatcact.us</strong></p>
+				<span class="infotext animated fadeIn" data-ng-hide="authentication.user && hasWg">A nice webapp to manage your flat share.</span>
 
-	<div class="col-md-12 bg-index">
-		<p class="index-title info animated tada" data-ng-hide="authentication.user && hasWg"><strong>flatcact.us</strong></p>
-		<span class="infotext animated fadeIn" data-ng-hide="authentication.user && hasWg">A nice webapp to manage your flat share.</span>
-
-		<div class="index-links" data-ng-hide="authentication.user">
-			<div class="btn" ui-route="/signup"><a class="btn btn-default btn-lg" href="/#!/signup">Sign Up</a></div>
-			<div class="btn" ui-route="/signin"><a class="btn btn-default btn-lg" href="/#!/signin">Sign In</a></div>
-		</div>
-
-		<div class="index-links" data-ng-show="authentication.user && !hasWg">
-			<div class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/create">create flat-share</a></div>
-			<div  class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/join">join flat-share</a></div>
-		</div>
-		<div class="box row" data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
-			<p class="title">Share dashboard</p>
-			<div class="col col-md-3">
-				<h3>People</h3>
-
-				<div class="person" ng-repeat="u in allUsers">
-					<!-- <div data-ng-model="UsersController" data-ng-init="findById(n)"> -->
-						<!-- <p data-ng-bind="n"></p> -->
-						<p data-ng-model="users" value="{{u.username}}">{{ u.username }} {{ u.balance }}</p>
-					<!-- </div> -->
+				<div class="index-links" data-ng-hide="authentication.user">
+					<div class="btn" ui-route="/signup"><a class="btn btn-default btn-lg" href="/#!/signup">Sign Up</a></div>
+					<div class="btn" ui-route="/signin"><a class="btn btn-default btn-lg" href="/#!/signin">Sign In</a></div>
 				</div>
-			</div>
-			<div class="col col-md-3">
-				<h3>To-do</h3>
-			</div>
-			<div class="col col-md-3">
-				<h3>Tasks</h3>
-			</div>
-			<div class="col col-md-3">
-				<h3>Financials</h3>
-				<a href="/#!/payments/create">
-					<p>Add payment</p>
-				</a>
-			</div>
+
+				<div class="index-links" data-ng-show="authentication.user && !hasWg">
+					<div class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/create">create flat-share</a></div>
+					<div  class="btn" ui-route="/signup" ng-class="{active: $uiRoute}"><a class="btn btn-default btn-lg" href="/#!/wgs/join">join flat-share</a></div>
+				</div>
 		</div>
 	</div>
+	<div class="col-md-12">
 
+				<div class="box row" data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
+					<p class="title">Share dashboard</p>
+					<div class="col col-md-3">
+						<h3>People</h3>
 
+						<div class="person" ng-repeat="u in allUsers">
+							<!-- <div data-ng-model="UsersController" data-ng-init="findById(n)"> -->
+								<!-- <p data-ng-bind="n"></p> -->
+								<p data-ng-model="users" value="{{u.username}}">{{ u.username }} {{ u.balance }}</p>
+							<!-- </div> -->
+						</div>
+					</div>
+					<div class="col col-md-3">
+						<h3>To-do</h3>
+					</div>
+					<div class="col col-md-3">
+						<h3>Tasks</h3>
+					</div>
+					<div class="col col-md-3">
+						<h3>Financials</h3>
+						<a href="/#!/payments/create">
+							<p>Add payment</p>
+						</a>
+					</div>
+				</div>
+	</div>
+	</section>
 </section>

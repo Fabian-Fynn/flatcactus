@@ -58,15 +58,21 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$statePa
 
 		// Find a list of Payments
 		$scope.find = function() {
+			$scope.removeBgClass();
 			$scope.payments = Payments.query();
 
 		};
 
 		// Find existing Payment
 		$scope.findOne = function() {
+			$scope.removeBgClass();
 			$scope.payment = Payments.get({
 				paymentId: $stateParams.paymentId
 			});
+		};
+
+		$scope.removeBgClass = function(){
+			document.getElementById('container_bg').className = "container";
 		};
 	}
 ]);

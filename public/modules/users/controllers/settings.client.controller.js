@@ -58,7 +58,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		// delete user
 		$scope.deleteUser = function(isValid){
 			$scope.success = $scope.error = null;
-			
+
 			if (isValid) {
 				$http.delete('/user/delete', $scope.user).success(function(response){ 
 					console.log('delete successful');
@@ -84,5 +84,9 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.removeBgClass = function(){
+			document.getElementById('container_bg').className = "container";
+		}
 	}
 ]);

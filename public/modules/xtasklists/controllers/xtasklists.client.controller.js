@@ -72,11 +72,13 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 
 		// Find a list of Xtasklists
 		$scope.find = function() {
+			$scope.removeBgClass();
 			$scope.xtasklists = Xtasklists.query();
 		};
 
 		// Find existing Xtasklist
 		$scope.findOne = function() {
+			$scope.removeBgClass();
 			$scope.xtasklist = Xtasklists.get({
 				xtasklistId: $stateParams.xtasklistId
 			});
@@ -91,6 +93,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 		};
 
 		$scope.getUsers = function() {
+			$scope.removeBgClass();
 			console.log('getUsers');
 			$scope.interval = 'weekly';
 			$http.get('/my-share/allusers').success(function(res) {
@@ -105,6 +108,10 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 			}).error(function(err){
 				$scope.error = err.data.message;
 			});
+		};
+
+		$scope.removeBgClass = function(){
+			document.getElementById('container_bg').className = "container";
 		};
 	}
 ]);

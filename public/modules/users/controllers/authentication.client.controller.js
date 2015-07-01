@@ -30,5 +30,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.removeBgClass = function(){
+			document.getElementById('container_bg').className = "container";
+		};
 	}
 ]);

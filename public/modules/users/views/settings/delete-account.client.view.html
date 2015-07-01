@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="SettingsController">
+<section class="row" data-ng-controller="SettingsController" ng-init="removeBgClass()">
 	<h3 class="col-md-12 text-center">Delete Account</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
 		<form name="userForm" class="signin form-horizontal" novalidate data-ng-submit="deleteUser(userForm.$valid)">

@@ -16,13 +16,12 @@
 
 .bg-index{
 	position: absolute;
-	top: 0;
-	left: 0;
-	margin: 0;
+	top:0;
+	left:0;
 	width: 100vw;
 	min-height: 100vh;
 	background-image:url('/modules/core/img/brand/bg_another.jpg');
-	overflow-y: hidden;
+	overflow: hidden;
 	background-size: cover;
 	background-repeat: none;
 	background-position: top center;
@@ -63,12 +62,16 @@
 	background-color: #A3A3A3;
 }
 
+.content-center{
+	margin-left: 15%;
+}
+
 .index-title{
 	margin-top: 20%;
 	line-height: 1.1em;
 	text-align: center;
 	font-size: 4.5em;
-	padding: 0 10%;
+	/* padding: 0 10%; */
 	color: #ffffff;
 	text-shadow: 0 0 20px rgba(0,0,0,0.9);
 }
@@ -76,7 +79,7 @@
 .infotext{
 	display: block;
 	text-align: center;
-	font-size: 2.5em;
+	font-size: 2.2em;
 	line-height: 1.1em;
 	padding: 0px 30% 30px 30%;
 	color: #fff;
@@ -106,9 +109,10 @@
 }
 
 .box{
-	margin: 80px auto;
+	/* margin: 80px auto; */
+	margin-top: 15%;
 	background: rgba(255,255,255,0.9);
-	width: 80vw;
+	width: 100%;
 	padding: 15px;
 }
 
@@ -126,11 +130,9 @@
 }
 
 /* animation between views */
-
 .toggle {
 	position: absolute;
-	left:0;
-	top:0;
+	margin: 0 auto;
   -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
   -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
   -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -144,6 +146,7 @@
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   /* easeOutQuad */
 }
+
 /* line 66, ../sass/ng-animation.scss */
 .toggle.ng-enter {
   opacity: 0;

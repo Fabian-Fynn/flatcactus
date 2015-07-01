@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="SettingsController">
+<section class="row" data-ng-controller="SettingsController" ng-init="removeBgClass()">
 	<h3 class="col-md-12 text-center">Edit your profile</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
 		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
@@ -30,7 +30,7 @@
 				</div>
 			</fieldset>
 		</form>
-		<div class="form-group">
+		<div class="form-group text-center">
 			<a class="text-center btn btn-large btn-danger" href="/#!/user/delete">Delete Account</a>
 		</div>
 	</div>

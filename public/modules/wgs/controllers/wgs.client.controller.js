@@ -89,11 +89,13 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 
 		// Find a list of Wgs
 		$scope.find = function() {
+			$scope.removeBgClass();
 			$scope.wgs = Wgs.query();
 		};
 
 		// Find existing Wg
 		$scope.findOne = function() {
+			$scope.removeBgClass();
 			$scope.wg = Wgs.get({
 				wgId: $stateParams.wgId
 			});
@@ -107,6 +109,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		};
 
 		$scope.getWg = function() {
+			$scope.removeBgClass();
 			$scope.wg = Wgs.get({
 				wgId: $scope.authentication.user.wg_id
 			});
@@ -140,5 +143,9 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$scope.error = err.data.message;
 			});
 		};
+
+		$scope.removeBgClass = function(){
+			document.getElementById('container_bg').className = "container";
+		}
 	}
 ]);

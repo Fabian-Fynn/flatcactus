@@ -8,7 +8,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.flat = Flat;
 		$scope.hasWg = ($scope.authentication.user.wg_id === null) ? false : true;
 
-		var name = $scope.authentication.user;
-		$scope.name = (name) ? name.username : 'you';
+		$scope.addBgClass = function(){
+			document.getElementById('container_bg').className = "container bg-index";
+		};
 	}
 ]);
