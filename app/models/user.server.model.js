@@ -162,31 +162,10 @@ UserSchema.statics.findById = function(userID) {
 
 UserSchema.methods.updateBalance = function(amount) {
 	console.log(amount);
-	this.balance = (Number.parseFloat(this.balance)) + Number.parseFloat(amount);
+	this.balance = (parseFloat(this.balance)) + parseFloat(amount);
 	// this.balance = 0.0;
 	console.log(this.balance);
 	this.save();
 };
-
-// UserSchema.statics.updateBalance = function(userID, amount) {
-// 	console.log(userID);
-//   // var user = this.schema.statics.findById(userID);
-//   // user.updateBalance(amount);
-//   // user.save();
-//   // console.log();
-//   // var payment = req.payment ;
-
-//   // payment = _.extend(payment , req.body);
-
-//   // payment.save(function(err) {
-//   //   if (err) {
-//   //     return res.status(400).send({
-//   //       message: errorHandler.getErrorMessage(err)
-//   //     });
-//   //   } else {
-//   //     res.jsonp(payment);
-//   //   }
-//   // });
-// };
 
 mongoose.model('User', UserSchema);

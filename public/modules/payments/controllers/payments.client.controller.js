@@ -11,7 +11,8 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			if (this.operation === 'out') {
 				this.amount = this.amount * (-1);
 			}
-
+console.log(this);
+console.log(this.amount);
 			var payment = new Payments ({
 				name: this.name,
 				amount: this.amount

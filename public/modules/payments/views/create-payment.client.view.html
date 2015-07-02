@@ -4,6 +4,9 @@
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
+          <p>
+            Add a payment you made for the share.
+          </p>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
@@ -16,15 +19,6 @@
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
                         <input type="number" min="0" step="5.00" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" data-ng-model="amount" id="amount" required />
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="control-label" for="operation">IN/OUT</label>
-                    <div class="controls">
-                        <input type="radio" data-ng-model="operation" id="operation"  value="in" > + <br>
-                        <input type="radio" data-ng-model="operation" id="operation"  value="out" > -
                     </div>
                 </div>
                 <div class="form-group">
