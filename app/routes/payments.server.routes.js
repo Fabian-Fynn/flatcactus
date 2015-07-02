@@ -11,7 +11,8 @@ module.exports = function(app) {
 		.post(users.requiresLogin, payments.create);
 
 	app.route('/payments/:paymentId')
-		.get(payments.read)
+		.get(users.requiresLogin, payments.read)
+		// .get(users.requiresLogin, payments.checkWg, payments.read)
 		.put(users.requiresLogin, payments.hasAuthorization, payments.update)
 		.delete(users.requiresLogin, payments.hasAuthorization, payments.delete);
 
