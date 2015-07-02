@@ -129,6 +129,23 @@
 	text-align: center;
 }
 
+@media (min-width: 768px) {
+  .toggle{
+    width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .toggle{
+    width: 940px;
+  }
+}
+@media (min-width: 1200px) {
+  .toggle{
+    width: 1140px;
+  }
+}
+
 /* animation between views */
 .toggle {
 	position: absolute;
