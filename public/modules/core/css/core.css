@@ -1,5 +1,5 @@
 .content {
-	margin-top: 50px;
+	margin-top: 70px;
 }
 .undecorated-link:hover {
 	text-decoration: none;
@@ -63,7 +63,7 @@
 }
 
 .content-center{
-	margin-left: 15%;
+	/*margin-left: 15%;*/
 }
 
 .index-title{
@@ -148,8 +148,9 @@
 
 /* animation between views */
 .toggle {
-	position: absolute;
+	/*position: absolute;*/
 	margin: 0 auto;
+	width: 100%;
   -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
   -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
   -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);

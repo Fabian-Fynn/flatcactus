@@ -24,6 +24,10 @@ var PaymentSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
+	wg_id: {
+		type: Schema.ObjectId,
+		ref: 'Wg'
+	},
 	amount: {
 		type: Number,
 		default: 0

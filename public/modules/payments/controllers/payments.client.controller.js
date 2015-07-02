@@ -1,8 +1,8 @@
 'use strict';
 
 // Payments controller
-angular.module('payments').controller('PaymentsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Payments',
-	function($scope, $stateParams, $location, Authentication, Payments) {
+angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Payments',
+	function($scope, $http, $stateParams, $location, Authentication, Payments) {
 		$scope.authentication = Authentication;
 
 		// Create new Payment
@@ -53,6 +53,22 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$statePa
 				$location.path('payments/' + payment._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// get all payments from wg
+		$scope.findFromWg = function() {
+			$scope.removeBgClass();
+			console.log('start all from wg');
+
+			$http.get('/payment/all-from-share').success(function(response) {
+				// Show user success message and clear form
+				console.log('response', response);
+				$scope.payments = response;
+
+			}).error(function(response) {
+				// Show user error message and clear form
+				$scope.error = response.message;
 			});
 		};
 
