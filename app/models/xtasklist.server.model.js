@@ -40,6 +40,10 @@ var XtasklistSchema = new Schema({
 		type: Object,
 		required: 'No user is assigned'
 	},
+	updated: {
+		type: Date,
+		default: Date.now
+	},
 	created: {
 		type: Date,
 		default: Date.now

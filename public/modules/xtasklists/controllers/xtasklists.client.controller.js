@@ -14,7 +14,10 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 			$scope.allUsers.forEach(function(user){
 				if(user.checked){
 					obj[user._id] = {};
+					obj[user._id].username = user.username;
 					obj[user._id].howOften = 0;
+					obj[user._id].monthly = 0;
+					obj[user._id].yearly = 0;
 					obj[user._id].crt = (user.username === $scope.first.name) ? true : false;
 					obj[user._id].turn = (user.username === $scope.first.name) ? 1 : counter++;
 					obj[user._id].isNext = (obj[user._id].turn !== 2) ? false : true;
