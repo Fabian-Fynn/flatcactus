@@ -16,13 +16,10 @@ exports.create = function(req, res) {
 	var payment = new Payment(req.body);
 	payment.user = req.user;
 	payment.wg_id = req.user.wg_id;
-	// console.log(User.me());
-	// console.log(payment.user);
 
+	//update user balance
 	req.user.updateBalance(req.body.amount);
-	// payment.user.balance += req.body.amount;
-	// payment.user.save();
-	// console.log(payment.user);
+
 	payment.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -65,7 +62,10 @@ exports.getAllFromWg = function(req, res) {
  */
 exports.update = function(req, res) {
 	var payment = req.payment ;
+	var amountDifference = req.body.amount - req.payment.amount;
 
+	//update user balance
+	req.user.updateBalance(amountDifference);
 	payment = _.extend(payment , req.body);
 
 	payment.save(function(err) {
@@ -84,6 +84,9 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var payment = req.payment ;
+
+	//update user balance
+	req.user.updateBalance(-req.payment.amount);
 
 	payment.remove(function(err) {
 		if (err) {
