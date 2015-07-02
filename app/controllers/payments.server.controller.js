@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var payment = new Payment(req.body);
 	payment.user = req.user;
+	payment.wg_id = req.user.wg_id;
 	// console.log(User.me());
 	// console.log(payment.user);
 
@@ -38,6 +39,25 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
 	res.jsonp(req.payment);
+};
+
+/*
+ * get all from a specific share
+ */
+exports.getAllFromWg = function(req, res) {
+	var wgID = req.wg._id;
+	console.log('wgID', wgID);
+
+	Payment.where({wg_id: wgID}).sort('-created').exec(function(err, payments){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(payments);
+		}
+	});
+
 };
 
 /**
