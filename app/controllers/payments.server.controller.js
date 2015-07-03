@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
  * Create a Payment
  */
 exports.create = function(req, res) {
+	var sumAmount = 0;
 	var payment = new Payment(req.body);
 	payment.user = req.user;
 	payment.wg_id = req.user.wg_id;
@@ -23,8 +24,17 @@ exports.create = function(req, res) {
 		});
 	}
 
-	//update user balance
-	req.user.updateBalance(req.body.amount);
+
+
+	//update users' balances
+	payment.users.forEach(function(user){
+		if (!user.creator) {
+			User.updateBalanceById(user._id, -user.amount);
+			sumAmount += user.amount;
+		}
+	});
+
+	req.user.updateBalance(sumAmount);
 
 	payment.save(function(err) {
 		if (err) {
@@ -67,12 +77,18 @@ exports.getAllFromWg = function(req, res) {
  * Update a Payment
  */
 exports.update = function(req, res) {
+	var sumAmount = 0;
 	var payment = req.payment ;
 	var amountDifference = req.body.amount - req.payment.amount;
 
 	//update user balance
-	req.user.updateBalance(amountDifference);
-	payment = _.extend(payment , req.body);
+	for (var i = 0; i < payment.users.length; i++) {
+		User.updateBalanceById(
+			payment.users[i]._id,
+			(req.body.users[i].amount - payment.users[i].amount));
+	}
+
+	payment = _.extend(payment, req.body);
 
 	payment.save(function(err) {
 		if (err) {
@@ -89,10 +105,18 @@ exports.update = function(req, res) {
  * Delete an Payment
  */
 exports.delete = function(req, res) {
+	var sumAmount = 0;
 	var payment = req.payment ;
 
-	//update user balance
-	req.user.updateBalance(-req.payment.amount);
+	//update users' balances
+	payment.users.forEach(function(user){
+		if (!user.creator) {
+			User.updateBalanceById(user._id, user.amount);
+			sumAmount += user.amount;
+		}
+	});
+
+	req.user.updateBalance(-sumAmount);
 
 	payment.remove(function(err) {
 		if (err) {
