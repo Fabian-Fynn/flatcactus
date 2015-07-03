@@ -163,9 +163,16 @@ UserSchema.statics.findById = function(userID) {
 UserSchema.methods.updateBalance = function(amount) {
 	console.log(amount);
 	this.balance = (parseFloat(this.balance)) + parseFloat(amount);
-	// this.balance = 0.0;
 	console.log(this.balance);
 	this.save();
+};
+
+UserSchema.statics.updateBalanceById = function(userID, amount) {
+	this.findOne({ '_id': userID }, function(err, user){
+		console.log(user);
+		user.balance = (parseFloat(user.balance)) + parseFloat(amount);
+		user.save();
+	});
 };
 
 mongoose.model('User', UserSchema);

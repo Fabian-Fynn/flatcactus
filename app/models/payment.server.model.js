@@ -25,7 +25,7 @@ var PaymentSchema = new Schema({
 		ref: 'User'
 	},
 	users: {
-		type: Object,
+		type: Array,
 		required: 'No user is assigned'
 	},
 	wg_id: {

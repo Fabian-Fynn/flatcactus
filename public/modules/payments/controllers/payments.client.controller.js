@@ -1,7 +1,7 @@
 'use strict';
 
 // Payments controller
-angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Payments', 'Users',
+angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Users', 'Payments',
 	function($scope, $http, $stateParams, $location, Authentication, users, Payments) {
 		$scope.authentication = Authentication;
 		$scope.equal = true;
@@ -11,22 +11,17 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		// Create new Payment
 		$scope.create = function() {
 			// Create new Payment object
-			$scope.allUsers.forEach(function(user){
-				if (user._id == $scope.authentication.user._id) {
-					user.amount = $scope.amount;
-				}
-				else {
-					user.amount = 0;
-				}
-			});
 
 			var payment = new Payments ({
 				name: this.name,
-				amount: this.amount
+				amount: this.amount,
+				users: this.allUsers
 			});
 
 			// Redirect after save
 			payment.$save(function(response) {
+				console.log('save');
+				console.log(response);
 				$location.path('payments/' + response._id);
 
 				// Clear form fields
@@ -98,8 +93,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		$scope.recalc = function(){
 			$scope.remainingAmount = $scope.amount;
 			var currentUser;
-			console.log('YOLO');
-
+			console.log($scope.allUsers)
 			if (!$scope.equal) {
 				$scope.allUsers.forEach(function(user){
 					if (user._id == $scope.authentication.user._id) {
@@ -138,23 +132,31 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					}
 				});
 			}
-		}
+		};
 
 		$scope.getUsers = function() {
 			$scope.removeBgClass();
 			console.log('getUsers');
-			$http.get('/my-share/allusers').success(function(res) {
-				$scope.allUsers = res;
-				$scope.first = { name: null };
+			if ($scope.payment) {
+				$scope.allUsers = $scope.payment.users;
 
-				$scope.allUsers.forEach(function(user){
-					user.checked = false;
-					user.first = false;
+			} else {
+				$http.get('/my-share/allusers').success(function(res) {
+					$scope.allUsers = res;
+
+					$scope.allUsers.forEach(function(user){
+						if (user._id == $scope.authentication.user._id) {
+								user.creator = true;
+						} else {
+							user.creator = false;
+						}
+					});
+
+				}).error(function(err){
+					$scope.error = err.data.message;
 				});
+			}
 
-			}).error(function(err){
-				$scope.error = err.data.message;
-			});
 		};
 
 		$scope.removeBgClass = function(){
