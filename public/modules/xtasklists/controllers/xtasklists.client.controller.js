@@ -4,14 +4,13 @@
 angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '$scope', '$http', '$stateParams', '$location', 'Authentication', 'Xtasklists', 'Wgs', 'Users', 'Flat',
 	function($rootScope, $scope, $http, $stateParams, $location, Authentication, Xtasklists, wgs, users, Flat) {
 		$scope.authentication = Authentication;
+		$scope.xtasklist = null;
 
 		// Create new Xtasklist
 		$scope.create = function() {
 			// Create new Xtasklist object
-			var obj = {};
-			var counter = 2;
-			console.log('first', $scope);
-
+			var obj = fillUserObject();
+			console.log('create task');
 
 			var xtasklist = new Xtasklists ({
 				name: this.name,
@@ -34,20 +33,31 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			});
 		};
 
-		function fillUserObject(forCreation){
+		function fillUserObject(){
+			var obj = {};
+			var counter = 2;
+
 			$scope.allUsers.forEach(function(user){
 				if(user.checked){
 					obj[user._id] = {};
 					obj[user._id].username = user.username;
-					obj[user._id].crt = (user.username === $scope.first.name) ? true : false;
+					obj[user._id].crt = (user.username === $scope.first.name);
+					obj[user._id].howOften = obj[user._id].monthly = obj[user._id].yearly = 0;
 					obj[user._id].turn = (user.username === $scope.first.name) ? 1 : counter++;
 					obj[user._id].isNext = (obj[user._id].turn !== 2) ? false : true;
-				}
 
-				obj[user._id].howOften = 0 || $scope.xtasklist[user._id].howOften;
-				obj[user._id].monthly = 0 || $scope.xtasklist[user._id].monthly;
-				obj[user._id].yearly = 0 || $scope.xtasklist[user._id].yearly;
+					if($scope.xtasklist){
+						if($scope.xtasklist.users[user._id]){
+							obj[user._id].crt = $scope.xtasklist.users[user._id].crt;
+							obj[user._id].howOften = $scope.xtasklist.users[user._id].howOften;
+							obj[user._id].monthly = $scope.xtasklist.users[user._id].monthly;
+							obj[user._id].yearly = $scope.xtasklist.users[user._id].yearly;
+						}
+					}
+				}
 			});
+
+			return obj;
 		}
 
 		// Remove existing Xtasklist
@@ -89,12 +99,21 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		// Update existing Xtasklist
 		$scope.update = function() {
 			var xtasklist = $scope.xtasklist;
+			xtasklist.users = fillUserObject();
 
-			xtasklist.$update(function() {
-				$location.path('xtasklists/' + xtasklist._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+			var path = '/xtasklists/' + xtasklist._id;
+			$http.put(path, xtasklist).success(function(task){
+				$location.path('tasklists/' + task._id);
+				$scope.xtasklist = null;
+			}).error(function(err){
+				$scope.error = err.data.message;
 			});
+
+			// xtasklist.$update(function() {
+			// 	$location.path('xtasklists/' + xtasklist._id);
+			// }, function(errorResponse) {
+			// 	$scope.error = errorResponse.data.message;
+			// });
 		};
 
 		// get all tasks from wg
@@ -143,11 +162,11 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 		$scope.setCurrent = function(name){
 			$scope.current = name;
-		}
+		};
 
 		$scope.editByList = function(id){
 			$location.path('tasklists/' + id + '/edit');
-		}
+		};
 
 		$scope.checkfirst = function() {
 			var count = 0;
@@ -172,11 +191,15 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 						user.first = false;
 					} else {
 						$scope.totalUser++;
-						if(user.turn === 1){
-							$scope.first.name = user.username;
-							user.first = true;
+
+						if($scope.xtasklist.users[user._id]){
+							user.checked = true;
+							if($scope.xtasklist.users[user._id].turn === 1){
+								$scope.first.name = user.username;
+								user.first = true;
+							}
+
 						}
-						if($scope.xtasklist.users[user._id]) user.checked = true;
 					}
 				});
 

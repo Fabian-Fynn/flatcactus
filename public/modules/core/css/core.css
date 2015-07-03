@@ -36,9 +36,18 @@
 	box-shadow: 0 0 9px 0 rgba(0,0,0,0.75);
 }
 
+.navbar-brand{
+	height: 70px;
+}
+
+.navbar-toggle{
+	padding-top: 18px;
+	padding-bottom: 18px;
+}
+
 .navbar-nav > li > a, .navbar-brand{
 	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-bottom: 25px !important;
 }
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
@@ -48,14 +57,16 @@
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-nav > li > a{
 	color: #181101;
-	-webkit-transition: color 0.4s ease; /* Safari */
-	transition: color 0.4s ease;
+	-webkit-transition: all 0.4s ease; /* Safari */
+	transition: all 0.4s ease;
 }
 
 
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
 	color: #df9006;
+	background: #f9f9f9;
+	cursor: pointer;
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {

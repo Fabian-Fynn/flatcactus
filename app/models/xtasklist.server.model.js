@@ -50,4 +50,9 @@ var XtasklistSchema = new Schema({
 	}
 });
 
+XtasklistSchema.pre('save', function(next) {
+	this.updated = Date.now;
+	next();
+});
+
 mongoose.model('Xtasklist', XtasklistSchema);
