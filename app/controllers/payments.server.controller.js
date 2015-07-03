@@ -34,6 +34,9 @@ exports.create = function(req, res) {
 		}
 	});
 
+	/*
+		Creator gets amount that others owe him as plus
+	*/
 	req.user.updateBalance(sumAmount);
 
 	payment.save(function(err) {
@@ -80,13 +83,27 @@ exports.update = function(req, res) {
 	var sumAmount = 0;
 	var payment = req.payment ;
 	var amountDifference = req.body.amount - req.payment.amount;
+	var currentUser;
 
-	//update user balance
+	//update users' balances
 	for (var i = 0; i < payment.users.length; i++) {
-		User.updateBalanceById(
-			payment.users[i]._id,
-			(req.body.users[i].amount - payment.users[i].amount));
+		if(!payment.users[i].creator) {
+			var diff = payment.users[i].amount - req.body.users[i].amount;
+			User.updateBalanceById(
+				payment.users[i]._id,
+				diff);
+			sumAmount += diff;
+		} else {
+			currentUser = payment.users[i];
+		}
 	}
+
+	/*
+		Creator gets amount that others owe him as plus
+	*/
+	User.updateBalanceById(
+		currentUser._id,
+		-sumAmount);
 
 	payment = _.extend(payment, req.body);
 
