@@ -11,9 +11,9 @@ module.exports = function(app) {
 		.post(users.requiresLogin, xtasklists.create);
 
 	app.route('/xtasklists/:xtasklistId')
-		//.get(xtasklists.read)
+		.get(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.read)
 		.put(users.requiresLogin, xtasklists.hasAuthorization, xtasklists.update)
-		.delete(users.requiresLogin, xtasklists.hasAuthorization, xtasklists.delete);
+		.delete(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.delete);
 
 	app.route('/xtasklist/all-from-share')
 		.get(users.requiresLogin, wgs.wgByUser, xtasklists.getAllFromWg);

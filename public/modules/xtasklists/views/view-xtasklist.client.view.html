@@ -2,11 +2,28 @@
 	<div class="page-header">
 		<h1 data-ng-bind="xtasklist.name"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == xtasklist.user._id))">
-		<a class="btn btn-primary" href="/#!/xtasklists/{{xtasklist._id}}/edit">
+
+	<div class="col-xs-4 col-sd-4 col-md-4 col-ld-4">
+		<small>INTERVAL</small><br>
+		{{xtasklist.interval}}
+	</div>
+
+	<div class="col-xs-4 col-sd-4 col-md-4 col-ld-4">
+		<small>USERS</small><br>
+		<span ng-repeat="user in xtasklist.users">{{user.username}}</span>
+	</div>
+
+	<div class="col-xs-4 col-sd-4 col-md-4 col-ld-4">
+		<small>STATUS</small><br>
+		<span ng-if="xtasklist.isDone">Done</span>
+		<span ng-if="!xtasklist.isDone">not Done</span>
+	</div>
+
+	<div class="pull-right">
+		<a class="btn btn-default" href="/#!/xtasklists/{{xtasklist._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
+		<a class="btn btn-danger" data-ng-click="remove();">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
@@ -14,8 +31,6 @@
 		<em class="text-muted">
 			Posted on
 			<span data-ng-bind="xtasklist.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="xtasklist.user.displayName"></span>
 		</em>
 	</small>
 </section>

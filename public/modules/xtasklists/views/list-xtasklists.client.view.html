@@ -3,7 +3,7 @@
         <h1>All tasks</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="xtasklist in tasks" data-ng-href="#!/xtasklists/{{xtasklist._id}}" class="list-group-item">
+        <a data-ng-repeat="xtasklist in tasks" data-ng-href="#!/tasklists/{{xtasklist._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Created at
 				<span data-ng-bind="xtasklist.created | date:'medium'"></span>
@@ -13,6 +13,6 @@
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="tasks.length">
-    	No Xtasklists yet, why don't you <a href="#!/tasklists/create">create one</a>?
+    	No task yet, why don't you <a href="#!/tasklists/create">create one</a>?
     </div>
 </section>

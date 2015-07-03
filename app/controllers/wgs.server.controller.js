@@ -160,19 +160,17 @@ exports.wgByID = function(req, res, next, id) {
 };
 
 exports.wgByUser = function(req, res, next) {
+	console.log('wg by user');
 	Wg.findById(req.user.wg_id).exec(function(err, wg) {
-		console.log('wg', wg);
 		if(err) return next(err);
 		if(!wg) return next(new Error('Failed to load!'));
 		req.wg = wg;
-		//res.jsonp(wg);
 		next();
 	});
 };
 
 exports.wgByPass = function(req, res, next, pass) {
 	Wg.findOne({'passphrase': pass}, function(err, wg) {
-		console.log('wg', wg);
 		if(err) return next(err);
 		if(!wg) return next(new Error('Failed to find flat-share with that passphrase'));
 		req.wg = wg;

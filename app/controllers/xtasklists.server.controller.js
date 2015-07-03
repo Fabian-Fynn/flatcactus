@@ -64,6 +64,7 @@ Date.prototype.addMonths = function(months){
  * Show the current Xtasklist
  */
 exports.read = function(req, res) {
+	console.log('read', req.xtasklist);
 	res.jsonp(req.xtasklist);
 };
 
@@ -83,9 +84,24 @@ exports.getAllFromWg = function(req, res) {
 			res.jsonp(tasklists);
 		}
 	});
-
 };
 
+/*
+ * check if the user is allowed
+ * to read the requested task
+ */
+exports.checkIfAllowed = function(req, res, next) { 
+	console.log('checkWG');
+	var wgFromUser = req.wg._id;
+	var userWg = req.user.wg_id;
+
+	console.log('wgFromUser === userWg', wgFromUser === userWg);
+
+	// if(wgFromUser !== userWg){
+	// 	return res.status(403).send('You are not allowed to view this task');
+	// }
+	next();
+};
 /**
  * Update a Xtasklist
  */
@@ -141,9 +157,9 @@ exports.list = function(req, res) {
  * Xtasklist middleware
  */
 exports.xtasklistByID = function(req, res, next, id) {
-	Xtasklist.findById(id).populate('user', 'displayName').exec(function(err, xtasklist) {
+	Xtasklist.findById(id).exec(function(err, xtasklist) {
 		if (err) return next(err);
-		if (! xtasklist) return next(new Error('Failed to load Xtasklist ' + id));
+		if (! xtasklist) return next(new Error('Failed to load task ' + id));
 		req.xtasklist = xtasklist ;
 		next();
 	});
