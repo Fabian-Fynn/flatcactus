@@ -135,6 +135,10 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			// });
 		};
 
+		$scope.editByList = function(id){
+			$location.path('tasklists/' + id + '/edit');
+		}
+
 		$scope.checkfirst = function() {
 			var count = 0;
 			$scope.allUsers.forEach(function(user){

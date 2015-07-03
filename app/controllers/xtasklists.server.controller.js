@@ -100,12 +100,14 @@ exports.checkIfAllowed = function(req, res, next) { 
 		if(wgFromUser === userWg){
 			next();
 		}
+	} else {
+		console.log('do error');
+		return res.status(403).send({
+			stat: '403',
+			message: 'You are not allowed to see this task'
+		});
 	}
-	console.log('do error');
-	return res.status(403).send({
-		stat: '403',
-		message: 'You are not allowed to see this task'
-	});
+
 };
 /**
  * Update a Xtasklist
