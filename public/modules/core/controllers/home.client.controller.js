@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Flat',
-	function($scope, Authentication, Flat) {
+angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat',
+	function($rootScope, $scope, Authentication, Flat) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.flat = Flat;
@@ -10,6 +10,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		$scope.addBgClass = function(){
 			document.getElementById('container_bg').className = 'container bg-index';
+		};
+
+		$scope.getError = function(){
+			document.getElementById('container_bg').className = 'container';
+			$scope.stat = $rootScope.attr.stat;
+			$scope.error = $rootScope.attr.error;
 		};
 	}
 ]);
