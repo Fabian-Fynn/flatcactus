@@ -17,6 +17,12 @@ exports.create = function(req, res) {
 	payment.user = req.user;
 	payment.wg_id = req.user.wg_id;
 
+	if(Object.keys(payment.users).length === 0){
+		return res.status(400).send({
+			message: 'No user assigned to this task'
+		});
+	}
+
 	//update user balance
 	req.user.updateBalance(req.body.amount);
 
