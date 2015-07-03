@@ -24,9 +24,7 @@ exports.create = function(req, res) {
 		});
 	}
 
-
-
-	//update users' balances
+	//update other users' balances
 	payment.users.forEach(function(user){
 		if (!user.creator) {
 			User.updateBalanceById(user._id, -user.amount);
@@ -34,9 +32,7 @@ exports.create = function(req, res) {
 		}
 	});
 
-	/*
-		Creator gets amount that others owe him as plus
-	*/
+	//Creator gets amount that others owe him as plus
 	req.user.updateBalance(sumAmount);
 
 	payment.save(function(err) {
@@ -85,7 +81,7 @@ exports.update = function(req, res) {
 	var amountDifference = req.body.amount - req.payment.amount;
 	var currentUser;
 
-	//update users' balances
+	//update other users' balances
 	for (var i = 0; i < payment.users.length; i++) {
 		if(!payment.users[i].creator) {
 			var diff = payment.users[i].amount - req.body.users[i].amount;
@@ -98,9 +94,7 @@ exports.update = function(req, res) {
 		}
 	}
 
-	/*
-		Creator gets amount that others owe him as plus
-	*/
+	//Creator gets amount that others owe him as plus
 	User.updateBalanceById(
 		currentUser._id,
 		-sumAmount);
@@ -125,7 +119,7 @@ exports.delete = function(req, res) {
 	var sumAmount = 0;
 	var payment = req.payment ;
 
-	//update users' balances
+	//update other users' balances
 	payment.users.forEach(function(user){
 		if (!user.creator) {
 			User.updateBalanceById(user._id, user.amount);
@@ -133,6 +127,7 @@ exports.delete = function(req, res) {
 		}
 	});
 
+ //Creator gets amount that others owe him as plus
 	req.user.updateBalance(-sumAmount);
 
 	payment.remove(function(err) {

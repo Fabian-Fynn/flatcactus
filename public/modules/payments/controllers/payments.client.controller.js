@@ -4,7 +4,6 @@
 angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Users', 'Payments',
 	function($scope, $http, $stateParams, $location, Authentication, users, Payments) {
 		$scope.authentication = Authentication;
-		$scope.equal = true;
 		$scope.remainingAmount = 999999999999;
 
 		// Create new Payment
@@ -19,8 +18,6 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 			// Redirect after save
 			payment.$save(function(response) {
-				console.log('save');
-				console.log(response);
 				$location.path('payments/' + response._id);
 
 				// Clear form fields
@@ -88,10 +85,11 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			});
 		};
 
+		//recalculate amounts (Creation)
 		$scope.recalc = function(){
 			$scope.remainingAmount = $scope.amount;
 			var currentUser;
-			console.log($scope.allUsers)
+
 			if (!$scope.equal) {
 				$scope.allUsers.forEach(function(user){
 					if (user._id == $scope.authentication.user._id) {
@@ -112,6 +110,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			}
 		};
 
+		//recalculate amounts (Update)
 		$scope.recalcUpdate = function(){
 			$scope.remainingAmount = $scope.payment.amount;
 			var currentUser;
@@ -136,10 +135,8 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			}
 		};
 
+		//toggle equal split (Creation)
 		$scope.checkEqual = function() {
-			console.log($scope.allUsers.length);
-			console.log($scope);
-
 			if ($scope.equal) {
 				$scope.allUsers.forEach(function(user){
 					user.amount = $scope.amount / $scope.allUsers.length;
@@ -156,8 +153,8 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			}
 		};
 
+		//toggle equal split (Update)
 		$scope.checkEqualUpdate = function() {
-
 			if ($scope.equal) {
 				$scope.payment.users.forEach(function(user){
 					user.amount = $scope.payment.amount / $scope.payment.users.length;
@@ -194,12 +191,6 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				});
 			}
 		};
-
-		$scope.getPaymentUsers = function() {
-			$scope.removeBgClass();
-			console.log('getPaymentUsers');
-			$scope.allUsers = $scope.payment.users;
-		}
 
 		$scope.removeBgClass = function(){
 			document.getElementById('container_bg').className = 'container';
