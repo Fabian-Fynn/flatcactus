@@ -1,4 +1,4 @@
-<section data-ng-controller="PaymentsController" data-ng-init="getUsers(); findOne()">
+<section data-ng-controller="PaymentsController" data-ng-init="findOne()">
     <div class="page-header">
         <h1>Edit Payment</h1>
     </div>
@@ -15,19 +15,19 @@
                     <label class="control-label" for="amount">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">&#x20ac;</span>
-                        <input type="number" min="0" step="5.00" placeholder="0.00" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" data-ng-model="payment.amount" id="amount" ng-change="recalc()" required />
+                        <input type="number" min="0" step="5.00" placeholder="0.00" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" data-ng-model="payment.amount" id="amount" ng-change="recalcUpdate()" required />
                     </div>
                 </div>
                 <div class="form-group">
                   <br>
                   <label class="control-label">Split equally</label>
-                  <input type="checkbox" data-ng-model="equal" ng-change="checkEqual()">
+                  <input type="checkbox" data-ng-model="equal" ng-change="checkEqualUpdate()">
                   <br>
                     <label class="control-label">Split amount</label>
-                    <div class="input-group mid-width" ng-repeat="u in allUsers">
+                    <div class="input-group mid-width" ng-repeat="u in payment.users">
                       <span class="form-control small">{{u.username}}</span>
                       <span class="input-group-addon">&#x20ac;</span>
-                      <input type="number" step="5.00" data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00" class="form-control currency split" data-ng-model="u.amount"  ng-change="recalc()" ng-disabled="equal || u._id == authentication.user._id"/>
+                      <input type="number" step="5.00" data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00" class="form-control currency split" data-ng-model="u.amount"  ng-change="recalcUpdate()" ng-disabled="equal || u._id == authentication.user._id"/>
                     </div>
                 </div>
                 <div class="form-group">

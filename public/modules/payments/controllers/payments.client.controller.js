@@ -6,7 +6,6 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		$scope.authentication = Authentication;
 		$scope.equal = true;
 		$scope.remainingAmount = 999999999999;
-		$scope.devidableAmount = $scope.amount;
 
 		// Create new Payment
 		$scope.create = function() {
@@ -79,7 +78,6 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		$scope.find = function() {
 			$scope.removeBgClass();
 			$scope.payments = Payments.query();
-
 		};
 
 		// Find existing Payment
@@ -114,6 +112,30 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			}
 		};
 
+		$scope.recalcUpdate = function(){
+			$scope.remainingAmount = $scope.payment.amount;
+			var currentUser;
+
+			if (!$scope.equal) {
+				$scope.payment.users.forEach(function(user){
+					if (user._id == $scope.authentication.user._id) {
+						currentUser = user;
+						currentUser.amount = $scope.payment.amount;
+					}
+				});
+				$scope.payment.users.forEach(function(user){
+					if (user._id != $scope.authentication.user._id) {
+						$scope.remainingAmount -= user.amount;
+					}
+				});
+				currentUser.amount = $scope.remainingAmount;
+			} else {
+				$scope.payment.users.forEach(function(user){
+					user.amount = $scope.payment.amount / $scope.payment.users.length;
+				});
+			}
+		};
+
 		$scope.checkEqual = function() {
 			console.log($scope.allUsers.length);
 			console.log($scope);
@@ -134,12 +156,28 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			}
 		};
 
+		$scope.checkEqualUpdate = function() {
+
+			if ($scope.equal) {
+				$scope.payment.users.forEach(function(user){
+					user.amount = $scope.payment.amount / $scope.payment.users.length;
+				});
+			} else {
+				$scope.payment.users.forEach(function(user){
+					if (user._id == $scope.authentication.user._id) {
+						user.amount = $scope.payment.amount;
+					}
+					else {
+						user.amount = 0;
+					}
+				});
+			}
+		};
+
 		$scope.getUsers = function() {
 			$scope.removeBgClass();
-			console.log('getUsers');
 			if ($scope.payment) {
 				$scope.allUsers = $scope.payment.users;
-
 			} else {
 				$http.get('/my-share/allusers').success(function(res) {
 					$scope.allUsers = res;
@@ -151,13 +189,17 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 							user.creator = false;
 						}
 					});
-
 				}).error(function(err){
 					$scope.error = err.data.message;
 				});
 			}
-
 		};
+
+		$scope.getPaymentUsers = function() {
+			$scope.removeBgClass();
+			console.log('getPaymentUsers');
+			$scope.allUsers = $scope.payment.users;
+		}
 
 		$scope.removeBgClass = function(){
 			document.getElementById('container_bg').className = 'container';
