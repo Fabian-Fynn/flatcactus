@@ -34,7 +34,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 
 			// Redirect after save
 			xtasklist.$save(function(response) {
-				$location.path('xtasklists/' + response._id);
+				$location.path('tasklists/' + response._id);
 
 				// Clear form fields
 				$scope.name = '';
@@ -47,6 +47,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 
 		// Remove existing Xtasklist
 		$scope.remove = function(xtasklist) {
+			console.log('remove', xtasklist);
 			if ( xtasklist ) {
 				xtasklist.$remove();
 
@@ -60,6 +61,22 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 					$location.path('xtasklists');
 				});
 			}
+		};
+
+		// remove by task
+		$scope.removeByTask = function(task) {
+			var path = '/xtasklists/' + task._id;
+
+			$http.delete(path).success(function(task){
+				for(var i in $scope.tasks){
+					if ($scope.tasks[i]._id === task._id) {
+						$scope.tasks.splice(i, 1);
+					}
+				}
+			}).error(function(response) {
+				// Show user error message and clear form
+				$scope.error = response.message;
+			});
 		};
 
 		// Update existing Xtasklist
