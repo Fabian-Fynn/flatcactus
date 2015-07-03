@@ -205,3 +205,18 @@
 .toggle.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
+
+/* short form cotrols */
+.form-control.small {
+	width: 5vw;
+	float: left;
+}
+
+.form-control.currency {
+	max-width: 15vw;
+	float:left;
+}
+
+.mid-width {
+	width: 25%;
+}

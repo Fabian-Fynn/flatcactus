@@ -1,18 +1,25 @@
 'use strict';
 
 // Payments controller
-angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Payments',
-	function($scope, $http, $stateParams, $location, Authentication, Payments) {
+angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Payments', 'Users',
+	function($scope, $http, $stateParams, $location, Authentication, users, Payments) {
 		$scope.authentication = Authentication;
+		$scope.equal = true;
+		$scope.remainingAmount = 999999999999;
+		$scope.devidableAmount = $scope.amount;
 
 		// Create new Payment
 		$scope.create = function() {
 			// Create new Payment object
-			if (this.operation === 'out') {
-				this.amount = this.amount * (-1);
-			}
-console.log(this);
-console.log(this.amount);
+			$scope.allUsers.forEach(function(user){
+				if (user._id == $scope.authentication.user._id) {
+					user.amount = $scope.amount;
+				}
+				else {
+					user.amount = 0;
+				}
+			});
+
 			var payment = new Payments ({
 				name: this.name,
 				amount: this.amount
@@ -85,6 +92,68 @@ console.log(this.amount);
 			$scope.removeBgClass();
 			$scope.payment = Payments.get({
 				paymentId: $stateParams.paymentId
+			});
+		};
+
+		$scope.recalc = function(){
+			$scope.remainingAmount = $scope.amount;
+			var currentUser;
+			console.log('YOLO');
+
+			if (!$scope.equal) {
+				$scope.allUsers.forEach(function(user){
+					if (user._id == $scope.authentication.user._id) {
+						currentUser = user;
+						currentUser.amount = $scope.amount;
+					}
+				});
+				$scope.allUsers.forEach(function(user){
+					if (user._id != $scope.authentication.user._id) {
+						$scope.remainingAmount -= user.amount;
+					}
+				});
+				currentUser.amount = $scope.remainingAmount;
+			} else {
+				$scope.allUsers.forEach(function(user){
+					user.amount = $scope.amount / $scope.allUsers.length;
+				});
+			}
+		};
+
+		$scope.checkEqual = function() {
+			console.log($scope.allUsers.length);
+			console.log($scope);
+
+			if ($scope.equal) {
+				$scope.allUsers.forEach(function(user){
+					user.amount = $scope.amount / $scope.allUsers.length;
+				});
+			} else {
+				$scope.allUsers.forEach(function(user){
+					if (user._id == $scope.authentication.user._id) {
+						user.amount = $scope.amount;
+					}
+					else {
+						user.amount = 0;
+					}
+				});
+			}
+		}
+
+		$scope.getUsers = function() {
+			$scope.removeBgClass();
+			console.log('getUsers');
+			$http.get('/my-share/allusers').success(function(res) {
+				$scope.allUsers = res;
+				$scope.first = { name: null };
+
+				$scope.allUsers.forEach(function(user){
+					user.checked = false;
+					user.first = false;
+				});
+
+			}).error(function(err){
+				$scope.error = err.data.message;
 			});
 		};
 
