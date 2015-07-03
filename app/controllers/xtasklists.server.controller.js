@@ -92,15 +92,22 @@ exports.getAllFromWg = function(req, res) {
  */
 exports.checkIfAllowed = function(req, res, next) { 
 	console.log('checkWG');
-	var wgFromUser = req.wg._id;
-	var userWg = req.user.wg_id;
+	if(req.wg){
+		var wgFromUser = req.wg._id.toString();
+		var userWg = req.user.wg_id.toString();
+		console.log('wgFromUser != userWg', wgFromUser !== userWg);
 
-	console.log('wgFromUser === userWg', wgFromUser === userWg);
+		if(wgFromUser === userWg){
+			next();
+		}
+	} else {
+		console.log('do error');
+		return res.status(403).send({
+			stat: '403',
+			message: 'You are not allowed to see this task'
+		});
+	}
 
-	// if(wgFromUser !== userWg){
-	// 	return res.status(403).send('You are not allowed to view this task');
-	// }
-	next();
 };
 /**
  * Update a Xtasklist

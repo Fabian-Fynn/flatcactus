@@ -10,7 +10,7 @@
 
 	<div class="col-xs-4 col-sd-4 col-md-4 col-ld-4">
 		<small>USERS</small><br>
-		<span ng-repeat="user in xtasklist.users">{{user.username}}</span>
+		<span ng-repeat="user in xtasklist.users">{{user.username}}<br></span>
 	</div>
 
 	<div class="col-xs-4 col-sd-4 col-md-4 col-ld-4">
@@ -19,11 +19,16 @@
 		<span ng-if="!xtasklist.isDone">not Done</span>
 	</div>
 
+	<div class="col-xs-12 col-sd-12 col-md-12 col-ld-12">
+		<hr>
+	</div>
+	<div class="clearfix"></div>
+
 	<div class="pull-right">
-		<a class="btn btn-default" href="/#!/xtasklists/{{xtasklist._id}}/edit">
+		<a class="btn btn-default" href="/#!/tasklists/{{xtasklist._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-danger" data-ng-click="remove();">
+		<a class="btn btn-danger" ng-click="remove()">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
