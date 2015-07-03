@@ -1,8 +1,8 @@
 'use strict';
 
 // Xtasklists controller
-angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Xtasklists', 'Wgs', 'Users', 'Flat',
-	function($scope, $http, $stateParams, $location, Authentication, Xtasklists, wgs, users, Flat) {
+angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '$scope', '$http', '$stateParams', '$location', 'Authentication', 'Xtasklists', 'Wgs', 'Users', 'Flat',
+	function($rootScope, $scope, $http, $stateParams, $location, Authentication, Xtasklists, wgs, users, Flat) {
 		$scope.authentication = Authentication;
 
 		// Create new Xtasklist
@@ -75,7 +75,9 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 				}
 			}).error(function(response) {
 				// Show user error message and clear form
+				console.log('error');
 				$scope.error = response.message;
+				$location.path('/');
 			});
 		};
 
@@ -115,9 +117,22 @@ angular.module('xtasklists').controller('XtasklistsController', ['$scope', '$htt
 		// Find existing Xtasklist
 		$scope.findOne = function() {
 			$scope.removeBgClass();
-			$scope.xtasklist = Xtasklists.get({
-				xtasklistId: $stateParams.xtasklistId
+			var path = '/xtasklists/' + $stateParams.xtasklistId;
+
+			$http.get(path).success(function(res){
+				$scope.xtasklist = res;
+			}).error(function(err){
+				console.log('ERROR', err);
+				$rootScope.attr = {};
+				$rootScope.attr.stat = err.stat;
+				$rootScope.attr.error = err.message;
+				// $scope.error = response.message;
+				$location.path('/error');
 			});
+
+			// $scope.xtasklist = Xtasklists.get({
+			// 	xtasklistId: $stateParams.xtasklistId
+			// });
 		};
 
 		$scope.checkfirst = function() {

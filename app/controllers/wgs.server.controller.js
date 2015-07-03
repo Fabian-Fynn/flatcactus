@@ -160,13 +160,17 @@ exports.wgByID = function(req, res, next, id) {
 };
 
 exports.wgByUser = function(req, res, next) {
-	console.log('wg by user');
-	Wg.findById(req.user.wg_id).exec(function(err, wg) {
-		if(err) return next(err);
-		if(!wg) return next(new Error('Failed to load!'));
-		req.wg = wg;
+	console.log('wg by user', req.user.wg_id);
+	if(!req.user.wg_id){
 		next();
-	});
+	} else {
+		Wg.findById(req.user.wg_id).exec(function(err, wg) {
+			if(err) return next(err);
+			if(!wg) return next(new Error('Failed to load'));
+			req.wg = wg;
+			next();
+		});
+	}
 };
 
 exports.wgByPass = function(req, res, next, pass) {

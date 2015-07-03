@@ -136,10 +136,10 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		$scope.getUsers = function() {
 			console.log('getUsers');
 			$http.get('/my-share/allusers').success(function(res) {
-				console.log('res[0]', res[0].username);
 				$scope.allUsers = res;
 				console.log('res', res);
 			}).error(function(err){
+				console.log('err', err);
 				$scope.error = err.data.message;
 			});
 		};
