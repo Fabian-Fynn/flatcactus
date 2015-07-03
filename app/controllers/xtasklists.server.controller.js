@@ -113,8 +113,9 @@ exports.checkIfAllowed = function(req, res, next) { 
  * Update a Xtasklist
  */
 exports.update = function(req, res) {
-	var xtasklist = req.xtasklist ;
-
+	var xtasklist = req.xtasklist;
+	console.log('xtasklist', req.xtasklist);
+	console.log('new task', req.body);
 	xtasklist = _.extend(xtasklist , req.body);
 
 	xtasklist.save(function(err) {

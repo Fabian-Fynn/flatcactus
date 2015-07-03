@@ -12,7 +12,7 @@ module.exports = function(app) {
 
 	app.route('/xtasklists/:xtasklistId')
 		.get(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.read)
-		.put(users.requiresLogin, xtasklists.hasAuthorization, xtasklists.update)
+		.put(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.update)
 		.delete(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.delete);
 
 	app.route('/xtasklist/all-from-share')
