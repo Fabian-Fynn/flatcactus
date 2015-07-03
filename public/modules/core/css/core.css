@@ -160,6 +160,12 @@
 	top: 15px;
 }
 
+.btn-list-small_before{
+	position: absolute;
+	right: 110px;
+	top: 15px;
+}
+
 .glyphicon-remove{
 	top: 2px;
 }
@@ -209,8 +215,8 @@
 /* line 75, ../sass/ng-animation.scss */
 .toggle.ng-leave {
   opacity: 1;
-  transition-duration: 500ms;
-  -webkit-transition-duration: 500ms;
+  transition-duration: 200ms;
+  -webkit-transition-duration: 200ms;
 }
 /* line 80, ../sass/ng-animation.scss */
 .toggle.ng-leave-active {
@@ -218,8 +224,8 @@
 }
 /* line 85, ../sass/ng-animation.scss */
 .toggle.ng-hide-add {
-  transition-duration: 500ms;
-  -webkit-transition-duration: 500ms;
+  transition-duration: 200ms;
+  -webkit-transition-duration: 200ms;
   opacity: 1;
 }
 /* line 89, ../sass/ng-animation.scss */
