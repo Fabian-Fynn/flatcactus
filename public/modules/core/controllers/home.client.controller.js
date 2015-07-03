@@ -16,6 +16,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			document.getElementById('container_bg').className = 'container';
 			$scope.stat = $rootScope.attr.stat;
 			$scope.error = $rootScope.attr.error;
+			$rootScope.attr = null;
 		};
 	}
 ]);
