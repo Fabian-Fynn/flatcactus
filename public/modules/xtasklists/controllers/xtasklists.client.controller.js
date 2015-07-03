@@ -152,23 +152,26 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			if(count === 0){ $scope.first.name = null; }
 		};
 
-		$scope.getUsers = function() {
+		function getUsers() {
 			$scope.removeBgClass();
 			console.log('getUsers');
 			$scope.interval = 'weekly';
 			$http.get('/my-share/allusers').success(function(res) {
 				$scope.allUsers = res;
-				$scope.first = { name: null };
-
-				$scope.allUsers.forEach(function(user){
-					user.checked = false;
-					user.first = false;
-				});
-
 			}).error(function(err){
 				$scope.error = err.data.message;
 			});
 		};
+
+		$scope.getAllForCreate = function(){
+			getUsers();
+			$scope.first = { name: null };
+
+			$scope.allUsers.forEach(function(user){
+				user.checked = false;
+				user.first = false;
+			});
+		}
 
 		$scope.removeBgClass = function(){
 			document.getElementById('container_bg').className = 'container';
