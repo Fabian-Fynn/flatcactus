@@ -117,6 +117,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		// Find existing Xtasklist
 		$scope.findOne = function() {
 			$scope.removeBgClass();
+			$scope.current = null;
 			var path = '/xtasklists/' + $stateParams.xtasklistId;
 
 			$http.get(path).success(function(res){
@@ -134,6 +135,10 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			// 	xtasklistId: $stateParams.xtasklistId
 			// });
 		};
+
+		$scope.setCurrent = function(name){
+			$scope.current = name;
+		}
 
 		$scope.editByList = function(id){
 			$location.path('tasklists/' + id + '/edit');
