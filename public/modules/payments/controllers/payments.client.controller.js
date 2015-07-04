@@ -158,6 +158,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			if ($scope.equal) {
 				$scope.payment.users.forEach(function(user){
 					user.amount = $scope.payment.amount / $scope.payment.users.length;
+					$scope.remainingAmount = user.amount;
 				});
 			} else {
 				$scope.payment.users.forEach(function(user){
