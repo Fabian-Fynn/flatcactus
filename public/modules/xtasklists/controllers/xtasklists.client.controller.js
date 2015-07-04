@@ -209,7 +209,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = 'container';
+			document.body.style.background = '#fff';
 		};
 	}
 ]);

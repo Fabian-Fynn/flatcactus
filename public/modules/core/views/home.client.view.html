@@ -1,4 +1,4 @@
-<section data-ng-controller="HomeController" class="row" ng-init="addBgClass()">
+<section data-ng-controller="HomeController" ng-init="addBgClass()">
 	<div class="content-center">
 			<div class="col-md-12">
 				<p class="index-title text-center animated tada" data-ng-hide="authentication.user && hasWg"><strong>flatcact.us</strong></p>
@@ -15,33 +15,23 @@
 				</div>
 		</div>
 	</div>
-	<div class="col-md-6 col-md-offset-3">
+	<div class="" id='dashboard' data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
 
-				<div class="box row" data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
+				<div >
 					<p class="title">Share dashboard</p>
-					<div class="col col-md-3">
-						<h3>People</h3>
-
-						<div class="person" ng-repeat="u in allUsers">
-							<!-- <div data-ng-model="UsersController" data-ng-init="findById(n)"> -->
-								<!-- <p data-ng-bind="n"></p> -->
-								<p data-ng-model="users" value="{{u.username}}">{{ u.username }} {{ u.balance }}</p>
-							<!-- </div> -->
-						</div>
+					<div class="dash-col">
+						<div class="item" id="motd" >a</div>
+						<div class="item" id="tasks" >b</div>
 					</div>
-					<div class="col col-md-3">
-						<h3>To-do</h3>
+					<div class="dash-col">
+						<div class="item" id="todo" >c</div>
+						<div class="item" id="shopping" >d</div>
 					</div>
-					<div class="col col-md-3">
-						<h3>Tasks</h3>
-					</div>
-					<div class="col col-md-3">
-						<h3>Financials</h3>
-						<a href="/#!/payments/create">
-							<p>Add payment</p>
-						</a>
+					<div class="dash-col">
+						<div class="item" id="clock" >e</div>
+						<div class="item" id="weather" >f</div>
+						<div class="item" id="financial" >g</div>
 					</div>
 				</div>
 	</div>
-	</section>
 </section>

@@ -194,7 +194,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = 'container';
+			document.body.style.background = '#fff';
 		};
 	}
 ]);

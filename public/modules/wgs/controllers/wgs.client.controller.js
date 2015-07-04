@@ -148,7 +148,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		};
 
 		$scope.removeBgClass = function(){
-			document.getElementById('container_bg').className = 'container';
+			document.body.style.background = '#fff';
 		};
 	}
 ]);

@@ -1,5 +1,12 @@
+html {
+	height: 100%;
+}
 .content {
 	margin-top: 70px;
+}
+
+.container {
+	height: auto;
 }
 .undecorated-link:hover {
 	text-decoration: none;
@@ -14,17 +21,22 @@
 	border-color: #78FA89;
 }
 
-.bg-index{
-	position: absolute;
-	top:0;
-	left:0;
-	width: 100vw;
-	min-height: 100vh;
-	background-image:url('/modules/core/img/brand/bg_another.jpg');
-	overflow: hidden;
-	background-size: cover;
-	background-repeat: none;
-	background-position: top center;
+body{
+	/*position: absolute;*/
+	/*top:0;*/
+	/*left:0;*/
+	/*width: 100vw;*/
+	/*height: 100vh;*/
+	background: url(/modules/core/img/brand/bg_another.jpg) no-repeat center center fixed;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	/*overflow: hidden;*/
+	/*background-size: cover;*/
+	/*background-repeat: none;*/
+	/*background-position: top center;*/
 }
 
 .navbar-inverse{
@@ -120,9 +132,7 @@
 }
 
 .box{
-	/* margin: 80px auto; */
-	margin-top: 15%;
-	background: rgba(255,255,255,0.9);
+	margin-top: 8%;
 	width: 100%;
 	padding: 15px;
 }
@@ -268,4 +278,78 @@
 
 .mid-width {
 	width: 25%;
+}
+
+#dashboard {
+	width: 100%;
+	height: 700px;
+	padding: 8% 15px 30px 15px;
+	padding-top: 4%; /* Change to margin-top for gap above dashboard */
+	background: rgba(255,255,255,0.9);
+	position: relative;
+
+}
+
+#dashboard .title {
+	padding: 0 0 15px 0;
+	font-size: 36px;
+	font-weight: 500;
+	color: rgb(51, 51, 51);
+}
+
+#dashboard .dash-col {
+  /*-moz-column-count: 3;
+  -moz-column-gap: 10px;
+  -webkit-column-count: 3;
+  -webkit-column-gap: 10px;
+  column-count: 3;
+  column-gap: 10px;*/
+	height: auto;
+  width: 100%;
+	padding-left: 1%;
+
+}
+@media (min-width: 1200px) {
+  #dashboard .dash-col {
+		height: 500px;
+		width: 33% ;
+		float: left;
+		box-sizing: border-box;
+	}
+}
+
+#dashboard .dash-col .item {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(54, 212, 155, 0.99);
+	margin-top: 5px;
+	box-sizing: border-box;
+}
+
+#motd {
+	height: 30% !important;
+}
+
+#tasks {
+	height: 70% !important;
+}
+
+#todo	{
+	height: 50% !important;
+}
+
+#shopping	{
+	height: 50% !important;
+}
+
+#clock {
+	height: 30% !important;
+}
+
+#weather {
+	height: 25% !important;
+}
+
+#financial {
+	height: 44% !important;
 }

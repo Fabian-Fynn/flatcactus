@@ -9,7 +9,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 		$scope.hasWg = ($scope.authentication.user.wg_id === null) ? false : true;
 
 		$scope.addBgClass = function(){
-			document.getElementById('container_bg').className = 'container bg-index';
+			document.body.style.background = 'url(/modules/core/img/brand/bg_another.jpg) no-repeat center center fixed';
 		};
 
 		$scope.getError = function(){
