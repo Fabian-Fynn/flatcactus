@@ -344,6 +344,40 @@ body{
 
 #clock {
 	height: 30% !important;
+	text-align: center;
+	padding-top: 32px;
+}
+
+#clock .large{
+	font-size: 2.5em;
+	font-family: 'Syncopate',sans-serif;
+	float: left;
+	margin-right: 5px;
+}
+
+#clock .time {
+	font-size: 4.0em;
+	display: block;
+}
+
+#clock .wrapper {
+	width: 70%;
+	height: 50%;
+	margin: auto;
+	text-align: center;
+	display: block;
+}
+
+.clock-hour {
+
+}
+
+.clock-minutes {
+
+}
+
+.widget-clock .digital {
+	float: left;
 }
 
 #weather {

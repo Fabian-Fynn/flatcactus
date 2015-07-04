@@ -28,7 +28,13 @@
 						<div class="item" id="shopping" >d</div>
 					</div>
 					<div class="dash-col">
-						<div class="item" id="clock" >e</div>
+						<div class="item" id="clock" >
+							<div class="wrapper">
+								<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
+								<span class="time large">: </span>
+								<ds-widget-clock class="clock-minutes" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
+							</div>
+						</div>
 						<div class="item" id="weather" >f</div>
 						<div class="item" id="financial" >g</div>
 					</div>
