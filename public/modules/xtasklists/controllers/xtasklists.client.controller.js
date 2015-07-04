@@ -36,9 +36,18 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		function fillUserObject(){
 			var obj = {};
 			var counter = 2;
+			var starter = false;
+
+			if($scope.xtasklist){
+				if(!$scope.allUsers[$scope.first.index].checked) starter = true
+			}
 
 			$scope.allUsers.forEach(function(user){
 				if(user.checked){
+					if(starter){
+						starter = false;
+						$scope.first.name = user.username;
+					}
 					obj[user._id] = {};
 					obj[user._id].username = user.username;
 					obj[user._id].crt = (user.username === $scope.first.name);
@@ -185,7 +194,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				$scope.first = { name: null };
 				$scope.totalUser = 0;
 
-				$scope.allUsers.forEach(function(user){
+				$scope.allUsers.forEach(function(user, index){
 					if(isForCreation){
 						user.checked = false;
 						user.first = false;
@@ -197,6 +206,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 							if($scope.xtasklist.users[user._id].turn === 1){
 								$scope.first.name = user.username;
 								user.first = true;
+								$scope.first.index = index;
 							}
 
 						}
