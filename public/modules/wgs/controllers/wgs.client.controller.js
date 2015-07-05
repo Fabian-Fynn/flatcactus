@@ -32,7 +32,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$scope.city = '';
 				$scope.country = '';
 
-				$location.path('wgs/' + response._id); // redirect
+				$location.path('/'); // redirect
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

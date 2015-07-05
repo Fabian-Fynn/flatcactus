@@ -18,7 +18,8 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				start: this.start,
 				interval: this.interval,
 				isDone: false,
-				users: obj
+				users: obj,
+				crtUser: $scope.first.name
 			});
 
 			// Redirect after save
@@ -193,6 +194,24 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				if(user.checked) count++;
 			});
 			if(count === 0){ $scope.first.name = null; }
+		};
+
+		$scope.setToDone = function(task,index){
+			console.log('setToDone: ID ' + task, index);
+
+			if(!task.isDone){
+				console.log('--- GO', task);
+				var xtasklist = task;
+				xtasklist.isDone = true;
+				console.log('xtask', xtasklist);
+
+				var path = '/xtasklists/' + xtasklist._id;
+				$http.put(path, xtasklist).success(function(t){
+					$scope.tasks[index] = t;
+				}).error(function(err){
+					$scope.error = err.data.message;
+				});
+			}
 		};
 
 		$scope.getUsers = function(isForCreation) {

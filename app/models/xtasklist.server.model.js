@@ -32,6 +32,9 @@ var XtasklistSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	crtUser: {
+		type: String
+	},
 	wg_id: {
 		type: Schema.ObjectId,
 		ref: 'Wg'
