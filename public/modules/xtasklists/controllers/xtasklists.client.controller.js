@@ -157,13 +157,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		// Find existing Xtasklist
-		$scope.findOne = function() {
+		$scope.findOne = function(isForCreation) {
 			$scope.removeBgClass();
 			$scope.current = null;
 			var path = '/xtasklists/' + $stateParams.xtasklistId;
 
 			$http.get(path).success(function(res){
 				$scope.xtasklist = res;
+				if(!isForCreation) $scope.getUsers(isForCreation)
 			}).error(function(err){
 				console.log('ERROR', err);
 				$rootScope.attr = {};
