@@ -9,6 +9,9 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			wgId: $scope.authentication.user.wg_id
 		}, function(){
 			$scope.weather = getWeather($scope.wg.city + ', ' + $scope.wg.country);
+			$scope.users = $scope.wg.users;
+			$scope.globale = {};
+			$scope.globale.wg = $scope.wg;
 		});
 
 		$rootScope.wg = $scope.wg;
@@ -19,7 +22,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 		$scope.addBgClass = function(){
 			document.body.style.background = 'url(/modules/core/img/brand/bg_another.jpg) no-repeat center center fixed';
 		};
-		
+
 		$scope.getError = function(){
 			document.getElementById('container_bg').className = 'container';
 			$scope.stat = $rootScope.attr.stat;
@@ -82,3 +85,20 @@ angular.module('core').directive('weatherIcon', function() {
         template: '<div style="float:left"><img ng-src="{{ imgurl() }}"></div>'
     };
 });
+
+angular.module("core").controller("BarCtrl", ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {
+	$scope.labels = [];
+	$scope.series = [];
+	$scope.data = [[]];
+
+	$http.get('/my-share/allusers').success(function(res) {
+		$scope.allUsers = res;
+		res.forEach(function(user){
+			$scope.data[0].push(user.balance);
+			$scope.labels.push(user.displayName);
+		})
+	}).error(function(err){
+		$scope.error = err.data.message;
+	});
+
+}]);
