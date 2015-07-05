@@ -1,6 +1,6 @@
-html {
+/* html {
 	height: 100%;
-}
+} */
 .content {
 	margin-top: 70px;
 }
@@ -19,6 +19,15 @@ html {
 }
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
+}
+
+.small-avatar{
+	height: 30px;
+	width: auto;
+	border-radius: 15px;
+	margin-top: -8px;
+	margin-bottom: -8px;
+	border: 2px solid #ddd;
 }
 
 body{

@@ -39,7 +39,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			var starter = false;
 
 			if($scope.xtasklist){
-				if(!$scope.allUsers[$scope.first.index].checked) starter = true
+				if(!$scope.allUsers[$scope.first.index].checked) starter = true;
 			}
 
 			$scope.allUsers.forEach(function(user){

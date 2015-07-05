@@ -19,7 +19,7 @@ module.exports = function(app) {
 		.post(users.requiresLogin, wgs.join);
 
 	app.route('/wgs/:wgId')
-		.get(wgs.read)
+		//.get(wgs.read)
 		.put(users.requiresLogin, wgs.hasAuthorization, wgs.update)
 		.delete(users.requiresLogin, wgs.hasAuthorization, wgs.delete);
 
