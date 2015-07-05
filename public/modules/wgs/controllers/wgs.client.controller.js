@@ -1,10 +1,11 @@
 'use strict';
 
 // Wgs controller
-angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs',
-	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs) {
+angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users',
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users) {
 		$scope.authentication = Authentication;
 		$scope.flat = Flat;
+		$scope.editingMotd = false;
 
 		// Create new Wg
 		$scope.create = function() {
@@ -148,6 +149,20 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				});
 			}
 		};
+
+		$scope.editMotd = function(user) {
+			if(!$scope.editingMotd){
+				$scope.editingMotd = true;
+			} else {
+				$scope.editingMotd = false;
+				$scope.allUsers.forEach(function(user){
+					if ($scope.authentication.user._id == user._id) {
+						$http.put('users/motd/', user);
+					}
+				})
+			}
+
+		}
 
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';

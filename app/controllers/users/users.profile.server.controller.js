@@ -10,6 +10,11 @@ var _ = require('lodash'),
 	User = mongoose.model('User'),
 	Wg = mongoose.model('Wg');
 
+exports.updateMotd = function(req, res) {
+	var user = req.user;
+	user.motd = req.body.motd;
+	user.save();
+};
 /**
  * Update user details
  */
