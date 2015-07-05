@@ -19,7 +19,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 		$scope.addBgClass = function(){
 			document.body.style.background = 'url(/modules/core/img/brand/bg_another.jpg) no-repeat center center fixed';
 		};
-
+		
 		$scope.getError = function(){
 			document.getElementById('container_bg').className = 'container';
 			$scope.stat = $rootScope.attr.stat;

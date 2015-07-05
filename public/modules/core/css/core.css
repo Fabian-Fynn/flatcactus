@@ -333,11 +333,47 @@ body{
 }
 
 #motd {
-	height: 30% !important;
+	height: 40% !important;
+}
+
+.motd {
+	height: 35px;
+}
+
+#motd .user {
+	float: left;
+	margin-right: 5px;
+}
+
+#motd .msg {
+	float: left;
+	width: auto;
+}
+
+#motd input.msg,
+#motd input.msg:active,
+#motd input.msg:focus {
+	float: left;
+	width: 70%;
+	height: 1.5em;
+	padding: 0;
+	border: none;
+	border-bottom: 1px solid rgb(196, 194, 194);
+	background: none;
+	appearance:none;
+	-moz-appearance:none; /* Firefox */
+	-webkit-appearance:none; /* Safari and Chrome */
+	outline-width: 0;
+}
+
+#motd .edit {
+	float: right;
+	background: rgb(232, 229, 229);
+
 }
 
 #tasks {
-	height: 70% !important;
+	height: 60% !important;
 }
 
 #todo	{

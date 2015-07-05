@@ -22,6 +22,15 @@
 					<div class="dash-col">
 						<div class="item" id="motd">
 							<h4>Messages of the day</h4>
+							<div class="motd" data-ng-repeat="user in allUsers">
+								<div class="user">{{user.username}}: </div>
+								<div class="msg" ng-show="user._id != authentication.user._id || !editingMotd">{{user.motd}}</div>
+
+								<input type="text" class="msg" ng-show="user._id == authentication.user._id && editingMotd" ng-model="user.motd"></input>
+
+								<button class="btn btn-xs edit" ng-if="user._id == authentication.user._id" ng-click="editMotd({{user}})">edit</button>
+								<br>
+							</div>
 						</div>
 						<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
 							<h4>Continous Tasks</h4>

@@ -13,6 +13,7 @@ module.exports = function(app) {
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
 	app.route('/users').put(users.update);
+	app.route('/users/motd').put(users.updateMotd);
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 
 	// to delete user

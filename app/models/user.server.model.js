@@ -68,6 +68,10 @@ var UserSchema = new Schema({
 		default: 0,
 		type: Number
 	},
+	motd: {
+		type: String,
+		default: ''
+	},
 	password: {
 		type: String,
 		default: '',
@@ -134,6 +138,12 @@ UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
+UserSchema.methods.editMotd = function() {
+	console.log('model',this);
+	// return this.password === this.hashPassword(password);
+};
+
+
 /**
  * Find possible not used username
  */
@@ -173,6 +183,14 @@ UserSchema.statics.updateBalanceById = function(userID, amount) {
 		user.balance = (parseFloat(user.balance)) + parseFloat(amount);
 		user.save();
 	});
+};
+
+UserSchema.methods.updateMotd = function(message) {
+	// console.log(message);
+	console.log('YOLO');
+	this.motd = message;
+	// console.log(this.balance);
+	this.save();
 };
 
 mongoose.model('User', UserSchema);
