@@ -5,6 +5,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 	function($rootScope, $scope, $http, $stateParams, $location, Authentication, Xtasklists, wgs, users, Flat) {
 		$scope.authentication = Authentication;
 		$scope.xtasklist = null;
+		// $scope.findFromWg();
 
 		// Create new Xtasklist
 		$scope.create = function() {
@@ -127,14 +128,22 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 		// get all tasks from wg
 		$scope.findFromWg = function() {
-			$scope.removeBgClass();
-			console.log('start all from wg');
+			// $scope.removeBgClass();
+			// console.log('start all from wg');
 
 			$http.get('/xtasklist/all-from-share').success(function(response) {
 				// Show user success message and clear form
-				console.log('response', response);
+				// console.log('response', response);
 				$scope.tasks = response;
-
+				// console.log('$scope.tasks', $scope.tasks)
+				$scope.tasks.forEach(function(task){
+					// console.log(task.users);
+					for (var userKey in task.users) {
+							if(task.users[userKey].crt) {
+								task.current = task.users[userKey];
+							}
+					}
+				})
 			}).error(function(response) {
 				// Show user error message and clear form
 				$scope.error = response.message;
@@ -195,6 +204,10 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				$scope.totalUser = 0;
 
 				$scope.allUsers.forEach(function(user, index){
+					console.log(user)
+					if(user.current){
+						$scope.currentUser = user;
+					}
 					if(isForCreation){
 						user.checked = false;
 						user.first = false;
@@ -208,7 +221,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 								user.first = true;
 								$scope.first.index = index;
 							}
-
 						}
 					}
 				});

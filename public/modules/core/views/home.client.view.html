@@ -23,8 +23,14 @@
 						<div class="item" id="motd">
 							<h4>Messages of the day</h4>
 						</div>
-						<div class="item" id="tasks">
+						<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
 							<h4>Continous Tasks</h4>
+							<div data-ng-repeat="xtasklist in tasks">
+								<p>
+									{{xtasklist.name}}  {{xtasklist.current.username}}
+								</p>
+
+							</div>
 						</div>
 					</div>
 					<div class="dash-col">
