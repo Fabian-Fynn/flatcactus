@@ -4,7 +4,6 @@
 angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users',
 	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users) {
 		$scope.authentication = Authentication;
-		$scope.flat = Flat;
 		$scope.editingMotd = false;
 
 		// Create new Wg
@@ -33,7 +32,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$scope.city = '';
 				$scope.country = '';
 
-				$location.path('wgs/' + response._id); // redirect
+				$location.path('/'); // redirect
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -69,14 +68,13 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 
 				$http.put('/my-share/leave', wg).success(function(response) {
 					// Show user success message and clear form
-					$scope.flat.wg = Flat.wg = response;
+					$scope.authentication.user.wg_id = Authentication.user.wg_id = null;
+					$location.path('/');
 				}).error(function(response) {
 					// Show user error message and clear form
 					$scope.error = response.message;
 				});
 			}
-			$scope.authentication.user.wg_id = null;
-			$location.path('/');
 		};
 
 		// Update existing Wg

@@ -18,7 +18,8 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				start: this.start,
 				interval: this.interval,
 				isDone: false,
-				users: obj
+				users: obj,
+				crtUser: $scope.first.name
 			});
 
 			// Redirect after save
@@ -157,13 +158,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		// Find existing Xtasklist
-		$scope.findOne = function() {
+		$scope.findOne = function(isForCreation) {
 			$scope.removeBgClass();
 			$scope.current = null;
 			var path = '/xtasklists/' + $stateParams.xtasklistId;
 
 			$http.get(path).success(function(res){
 				$scope.xtasklist = res;
+				if(!isForCreation) $scope.getUsers(isForCreation)
 			}).error(function(err){
 				console.log('ERROR', err);
 				$rootScope.attr = {};
@@ -192,6 +194,24 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				if(user.checked) count++;
 			});
 			if(count === 0){ $scope.first.name = null; }
+		};
+
+		$scope.setToDone = function(task,index){
+			console.log('setToDone: ID ' + task, index);
+
+			if(!task.isDone){
+				console.log('--- GO', task);
+				var xtasklist = task;
+				xtasklist.isDone = true;
+				console.log('xtask', xtasklist);
+
+				var path = '/xtasklists/' + xtasklist._id;
+				$http.put(path, xtasklist).success(function(t){
+					$scope.tasks[index] = t;
+				}).error(function(err){
+					$scope.error = err.data.message;
+				});
+			}
 		};
 
 		$scope.getUsers = function(isForCreation) {
