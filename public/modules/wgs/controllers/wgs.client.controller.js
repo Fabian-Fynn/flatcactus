@@ -15,6 +15,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				number: this.number,
 				zip: this.zip,
 				city: this.city,
+				country: this.country,
 				created_from: $scope.authentication.user.username
 			});
 
@@ -29,6 +30,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$scope.number = '';
 				$scope.zip = '';
 				$scope.city = '';
+				$scope.country = '';
 
 				$location.path('wgs/' + response._id); // redirect
 			}, function(errorResponse) {

@@ -1,11 +1,19 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat',
-	function($rootScope, $scope, Authentication, Flat) {
+angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat', 'Wgs', '$http',
+	function($rootScope, $scope, Authentication, Flat, Wgs, $http) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
+		$scope.wg = Wgs.get({
+			wgId: $scope.authentication.user.wg_id
+		}, function(){
+			$scope.weather = getWeather($scope.wg.city + ', ' + $scope.wg.country);
+		});
+
+		$rootScope.wg = $scope.wg;
 		$scope.flat = Flat;
+		$rootScope.flat = Flat;
 		$scope.hasWg = ($scope.authentication.user.wg_id === null) ? false : true;
 
 		$scope.addBgClass = function(){
@@ -18,5 +26,59 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			$scope.error = $rootScope.attr.error;
 			$rootScope.attr = null;
 		};
+
+/**
+ * Code from http://jsfiddle.net/huAxS/2/
+ */
+		function getWeather(location) {
+			var weather = { temp: {}, clouds: null };
+			$http.jsonp('http://api.openweathermap.org/data/2.5/weather?q=' + location +'&units=metric&callback=JSON_CALLBACK').success(function(data) {
+					if (data) {
+							if (data.main) {
+									weather.temp.current = data.main.temp;
+									weather.temp.min = data.main.temp_min;
+									weather.temp.max = data.main.temp_max;
+							}
+							weather.clouds = data.clouds ? data.clouds.all : undefined;
+					}
+			});
+
+			return weather;
+		}
 	}
 ]);
+
+/**
+ * Code from http://jsfiddle.net/huAxS/2/
+ */
+
+angular.module('core').filter('temp', function($filter) {
+    return function(input, precision) {
+        precision = 1;
+
+        var numberFilter = $filter('number');
+        return numberFilter(input, precision) + '\u00B0C';
+    };
+});
+
+angular.module('core').directive('weatherIcon', function() {
+    return {
+        restrict: 'E', replace: true,
+        scope: {
+            cloudiness: '@'
+        },
+        controller: function($scope) {
+            $scope.imgurl = function() {
+                var baseUrl = 'https://ssl.gstatic.com/onebox/weather/128/';
+                if ($scope.cloudiness < 20) {
+                    return baseUrl + 'sunny.png';
+                } else if ($scope.cloudiness < 90) {
+                   return baseUrl + 'partly_cloudy.png';
+                } else {
+                    return baseUrl + 'cloudy.png';
+                }
+            };
+        },
+        template: '<div style="float:left"><img ng-src="{{ imgurl() }}"></div>'
+    };
+});

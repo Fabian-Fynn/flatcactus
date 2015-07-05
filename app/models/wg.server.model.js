@@ -41,6 +41,12 @@ var WgSchema = new Schema({
 		required: 'Please enter the city',
 		trim: true
 	},
+	country: {
+		type: String,
+		default: '',
+		required: 'Please enter the country',
+		trim: true
+	},
 	passphrase: {
 		type: String
 	},

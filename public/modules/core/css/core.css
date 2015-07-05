@@ -318,12 +318,18 @@ body{
 	}
 }
 
+#dashboard .dash-col h3{
+	font-size:
+}
+
 #dashboard .dash-col .item {
   display: inline-block;
   width: 100%;
-  background-color: rgba(54, 212, 155, 0.99);
+  /*background-color: rgba(54, 212, 155, 0.99);*/
+	border: 1px solid rgb(217, 213, 224);
 	margin-top: 5px;
 	box-sizing: border-box;
+	padding: 15px;
 }
 
 #motd {
@@ -343,9 +349,8 @@ body{
 }
 
 #clock {
-	height: 30% !important;
+	height: 20% !important;
 	text-align: center;
-	padding-top: 32px;
 }
 
 #clock .large{
@@ -361,19 +366,11 @@ body{
 }
 
 #clock .wrapper {
-	width: 70%;
-	height: 50%;
+	width: 78%;
+	height: 100%;
 	margin: auto;
 	text-align: center;
 	display: block;
-}
-
-.clock-hour {
-
-}
-
-.clock-minutes {
-
 }
 
 .widget-clock .digital {
@@ -381,9 +378,24 @@ body{
 }
 
 #weather {
-	height: 25% !important;
+	height: 26% !important;
+	margin-top: 0 !important;
+}
+
+#weather h4 {
+	margin-top: 2px;
+	margin-bottom: 8px;
+}
+
+#weather h5 {
+	margin-top: 18px;
+}
+
+#weather img {
+	height: 70px;
+	margin-right: 10px;
 }
 
 #financial {
-	height: 44% !important;
+	height: 53% !important;
 }
