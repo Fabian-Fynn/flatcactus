@@ -312,14 +312,16 @@ body{
 	width: 25%;
 }
 
+/* - - - - - - - - Dashboard */
+
 #dashboard {
 	width: 100%;
-/*	height: 700px; */
-	padding: 8% 15px 30px 15px;
-	padding-top: 4%; /* Change to margin-top for gap above dashboard */
-	background: rgba(255,255,255,0.9);
-	position: relative;
-
+  height: 100%;
+  padding: 4% 30px 3% 30px;
+  padding-top: 4%;
+  position: fixed;
+  display: initial;
+  left: 0;
 }
 
 #dashboard .title {
@@ -343,7 +345,7 @@ body{
 }
 @media (min-width: 1200px) {
   #dashboard .dash-col {
-		height: 500px;
+		height: 80%;
 		width: 33% ;
 		float: left;
 		box-sizing: border-box;
@@ -357,8 +359,8 @@ body{
 #dashboard .dash-col .item {
   display: inline-block;
   width: 100%;
-  /*background-color: rgba(54, 212, 155, 0.99);*/
-	border: 1px solid rgb(217, 213, 224);
+  background-color: #F8F6F2;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 	margin-top: 5px;
 	box-sizing: border-box;
 	padding: 15px;
@@ -417,7 +419,8 @@ body{
 }
 
 #clock {
-	height: 20% !important;
+	width: 54% !important;
+	height: 135px !important;
 	text-align: center;
 }
 
@@ -434,9 +437,9 @@ body{
 }
 
 #clock .wrapper {
-	width: 78%;
+	width: 85%;
 	height: 100%;
-	margin: auto;
+	margin: 15px auto;
 	text-align: center;
 	display: block;
 }
@@ -446,8 +449,9 @@ body{
 }
 
 #weather {
-	height: 26% !important;
-	margin-top: 0 !important;
+	width: 45%  !important;
+	height: 135px !important;
+	float: right;
 }
 
 #weather h4 {
@@ -465,7 +469,7 @@ body{
 }
 
 #financial {
-	height: 53% !important;
+	height: auto !important;
 }
 
 #financial .chart-container{

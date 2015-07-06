@@ -17,59 +17,56 @@
 	</div>
 	<div class="" id='dashboard' data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-show="authentication.user && hasWg">
 
-				<div >
-					<p class="title">Share dashboard</p>
-					<div class="dash-col">
-						<div class="item" id="motd">
-							<h4>Messages of the day</h4>
-							<div class="motd" data-ng-repeat="user in allUsers">
-								<div class="user"><img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile"> </div>
-								<div class="msg" ng-show="user._id != authentication.user._id || !editingMotd">{{user.motd}}</div>
+				<div class="dash-col">
+					<div class="item" id="motd">
+						<h4>Messages of the day</h4>
+						<div class="motd" data-ng-repeat="user in allUsers">
+							<div class="user"><img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile"> </div>
+							<div class="msg" ng-show="user._id != authentication.user._id || !editingMotd">{{user.motd}}</div>
 
-								<input type="text" class="msg" ng-show="user._id == authentication.user._id && editingMotd" ng-model="user.motd"></input>
+							<input type="text" class="msg" ng-show="user._id == authentication.user._id && editingMotd" ng-model="user.motd"></input>
 
-								<button class="btn btn-xs edit" ng-if="user._id == authentication.user._id" ng-click="editMotd({{user}})">edit</button>
-								<br>
-							</div>
-						</div>
-						<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
-							<h4>Continuous Tasks</h4>
-							<div data-ng-repeat="xtasklist in tasks">
-								<p>
-									{{xtasklist.name}}
-									<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
-									{{xtasklist.current.username}}
-								</p>
-
-							</div>
+							<button class="btn btn-xs edit" ng-if="user._id == authentication.user._id" ng-click="editMotd({{user}})">edit</button>
+							<br>
 						</div>
 					</div>
-					<div class="dash-col">
-						<div class="item" id="todo">
-							<h4>Todo list</h4>
-						</div>
-						<div class="item" id="shopping">
-							<h4>Shopping list</h4>
+					<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
+						<h4>Continuous Tasks</h4>
+						<div data-ng-repeat="xtasklist in tasks">
+							<p>
+								{{xtasklist.name}}
+								<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
+								{{xtasklist.current.username}}
+							</p>
+
 						</div>
 					</div>
-					<div class="dash-col">
-						<div class="item" id="clock">
-							<div class="wrapper">
-								<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
-								<span class="time large">: </span>
-								<ds-widget-clock class="clock-minutes" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
-							</div>
+				</div>
+				<div class="dash-col">
+					<div class="item" id="todo">
+						<h4>Todo list</h4>
+					</div>
+					<div class="item" id="shopping">
+						<h4>Shopping list</h4>
+					</div>
+				</div>
+				<div class="dash-col">
+					<div class="item" id="clock">
+						<div class="wrapper">
+							<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
+							<span class="time large">: </span>
+							<ds-widget-clock class="clock-minutes" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
 						</div>
-						<div class="item" id="weather">
-					    <h4>Weather in {{wg.city}}, {{wg.country}}</h4>
-					    <weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
-					    <h5>Current: {{ weather.temp.current | temp:2 }}</h5>
-					    min: {{ weather.temp.min | temp }}, max: {{ weather.temp.max | temp }}
-						</div>
-						<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
-							<h4>Financial overview</h4>
-							<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
-						</div>
+					</div>
+					<div class="item" id="weather">
+				    <h4>Weather in {{wg.city}}, {{wg.country}}</h4>
+				    <weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
+				    <h5>Current: {{ weather.temp.current | temp:2 }}</h5>
+				    min: {{ weather.temp.min | temp }}, max: {{ weather.temp.max | temp }}
+					</div>
+					<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
+						<h4>Financial overview</h4>
+						<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
 					</div>
 				</div>
 	</div>
