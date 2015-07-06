@@ -90,13 +90,18 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		// remove by task
-		$scope.removeByTask = function(task) {
+		$scope.removeByTask = function(task,fromDetailView) {
 			var path = '/xtasklists/' + task._id;
 
 			$http.delete(path).success(function(task){
-				for(var i in $scope.tasks){
-					if ($scope.tasks[i]._id === task._id) {
-						$scope.tasks.splice(i, 1);
+				if(fromDetailView){
+					$scope.xtasklist = null;
+					$location.path('/tasklists');
+				} else {
+					for(var i in $scope.tasks){
+						if ($scope.tasks[i]._id === task._id) {
+							$scope.tasks.splice(i, 1);
+						}
 					}
 				}
 			}).error(function(response) {
@@ -217,6 +222,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		$scope.getUsers = function(isForCreation) {
 			$scope.removeBgClass();
 			$scope.interval = 'weekly';
+			$scope.curDate = new Date();
 
 			$http.get('/my-share/allusers').success(function(res) {
 				$scope.allUsers = res;
