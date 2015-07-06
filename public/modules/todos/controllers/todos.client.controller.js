@@ -17,7 +17,7 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 
 			// Redirect after save
 			todo.$save(function(response) {
-				$location.path('todos');
+				// $location.path('todos');
 				if(fromListInput){
 					$scope.todos.unshift(response);
 				}
@@ -63,7 +63,6 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		};
 
 		$scope.getAll = function(){
-			$scope.removeBgClass();
 			$http.get('/todo/all-from-share').success(function(res){
 				$scope.todos = res;
 			}).error(function(err){
