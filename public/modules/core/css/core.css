@@ -306,7 +306,7 @@ body{
 
 #dashboard {
 	width: 100%;
-	height: 700px;
+/*	height: 700px; */
 	padding: 8% 15px 30px 15px;
 	padding-top: 4%; /* Change to margin-top for gap above dashboard */
 	background: rgba(255,255,255,0.9);
