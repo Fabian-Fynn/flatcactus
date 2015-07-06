@@ -21,6 +21,10 @@
 	border-color: #78FA89;
 }
 
+.clear-bg{
+	background-color: #fff !important;
+}
+
 .small-avatar{
 	height: 30px;
 	width: auto;
