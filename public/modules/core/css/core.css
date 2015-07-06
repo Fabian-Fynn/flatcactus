@@ -1,6 +1,10 @@
 /* html {
 	height: 100%;
 } */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .content {
 	margin-top: 70px;
 }
@@ -466,4 +470,135 @@ body{
 
 #financial .chart-container canvas{
 	height: 100%;
+}
+
+/* - - - - - - - - Todos */
+.todo-items {
+  display: flex;
+  flex-direction: column;
+  counter-reset: done-items undone-items;
+}
+
+.todo-h2 {
+	margin: 20px;
+  position: relative;
+  margin: 0;
+  padding: 10px 40px;
+  font-size: 1.2em;
+}
+
+.todo-h2::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 0px;
+  width: 30px;
+  background-color: #d2d6d6;
+}
+
+.todo-h2::after {
+  display: block;
+  float: right;
+  font-weight: normal;
+}
+
+.todo-done {
+  order: 3;
+}
+
+.todo-done::after {
+  content: ' (' counter(done-items) ')';
+}
+
+.todo-undone {
+  order: 1;
+}
+
+.todo-undone::after {
+  content: ' (' counter(undone-items) ')';
+}
+
+/* hide inputs offscreen, but at the same vertical positions as the correpsonding labels, so that tabbing scrolls the viewport as expected */
+.todo-input {
+  display: block;
+  height: 53px;
+  margin: 0 0 -53px -9999px !important;
+  order: 2;
+  outline: none;
+/*   counter-increment: undone-items; */
+}
+
+.todo-input:checked {
+  order: 4;
+  /* counter-increment: done-items; */
+}
+
+.todo-label{
+  display: block;
+  position: relative;
+  padding: 15px 0 10px 40px;
+  border-top: 1px dashed #eee;
+  order: 2;
+  cursor: pointer;
+  animation: undone .5s;
+}
+
+.todo-order{
+	order:2;
+	counter-increment: undone-items;
+}
+
+.todo-order-done{
+	order:4;
+	counter-increment: done-items;
+}
+
+.todo-label::before {
+  content: '\f10c'; /* circle outline */
+  display: block;
+  position: absolute;
+  top: 14px;
+  left: 5px;
+  font: 1.5em 'FontAwesome';
+}
+
+.todo-label:hover, .todo-input:focus + .todo-label {
+  background-color: rgba(255, 255, 255, .2);
+}
+
+.todo-input:checked + .todo-label {
+  order: 4;
+  animation: done .5s;
+}
+
+.todo-input:checked + .todo-label::before,
+.todo-input:disabled + .todo-label::before
+ {
+  content: '\f058'; /* circle checkmark */
+}
+
+@keyframes undone {
+  0% {
+    opacity: 0;
+    background-color: rgba(255, 255, 255, .4);
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, .4);
+  }
+}
+
+@keyframes done {
+  0% {
+    opacity: 0;
+    background-color: rgba(255, 255, 255, .4);
+    transform: translateY(-20px);
+  }
+  50% {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, .4);
+  }
 }

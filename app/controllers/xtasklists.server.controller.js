@@ -104,7 +104,7 @@ exports.checkIfAllowed = function(req, res, next) { 
 		console.log('do error');
 		return res.status(403).send({
 			stat: '403',
-			message: 'You are not allowed to see this task'
+			message: 'You are not allowed to see this'
 		});
 	}
 

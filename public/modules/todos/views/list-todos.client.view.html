@@ -1,0 +1,18 @@
+<section data-ng-controller="TodosController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Todos</h1>
+    </div>
+    <div class="todo-items">
+      <span data-ng-repeat="todo in todos track by $index" ng-attr-id="{{ 'todo-item-' + $index }}" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}" ng-click="setToDone($index, todo)">
+        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-disabled="todo.isDone">
+        <label class="todo-label" for="{{'item' + $index}}" ng-disabled="todo.isDone">{{todo.name}}</label>
+      </span>
+
+      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Done</h2>
+      <h2 class="todo-h2 todo-done" aria-hidden="true">Done</h2>
+    </div>
+
+    <div class="alert alert-warning text-center" data-ng-hide="!todos.$resolved || todos.length">
+    	No Todos yet, why don't you <a href="/#!/todos/create">create one</a>?
+    </div>
+</section>
