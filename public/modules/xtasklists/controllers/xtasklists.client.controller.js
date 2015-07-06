@@ -149,7 +149,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 								task.current = task.users[userKey];
 							}
 					}
-				})
+				});
 			}).error(function(response) {
 				// Show user error message and clear form
 				$scope.error = response.message;
@@ -170,7 +170,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 			$http.get(path).success(function(res){
 				$scope.xtasklist = res;
-				if(!isForCreation) $scope.getUsers(isForCreation)
+				if(!isForCreation) $scope.getUsers(isForCreation);
 			}).error(function(err){
 				console.log('ERROR', err);
 				$rootScope.attr = {};
@@ -231,7 +231,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				$scope.totalUser = 0;
 
 				$scope.allUsers.forEach(function(user, index){
-					console.log(user)
 					if(user.current){
 						$scope.currentUser = user;
 					}

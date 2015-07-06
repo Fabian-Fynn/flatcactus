@@ -157,10 +157,9 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 					if ($scope.authentication.user._id == user._id) {
 						$http.put('users/motd/', user);
 					}
-				})
+				});
 			}
-
-		}
+		};
 
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
