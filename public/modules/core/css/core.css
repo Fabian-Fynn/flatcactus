@@ -520,6 +520,13 @@ body{
   content: ' (' counter(undone-items) ')';
 }
 
+.todo-done_small{
+	font-style: normal;
+	font-size: 0.8em;
+	color: #ccc;
+	font-weight: 300;
+}
+
 /* hide inputs offscreen, but at the same vertical positions as the correpsonding labels, so that tabbing scrolls the viewport as expected */
 .todo-input {
   display: block;

@@ -11,13 +11,14 @@ module.exports = function(app) {
 		//.get(users.requiresLogin, todos.list)
 		.post(users.requiresLogin, todos.create);
 
+	app.route('/todo/all-from-share')
+		.get(users.requiresLogin, wgs.wgByUser, todos.getAllFromWg);
+
 	app.route('/todos/:todoId')
-		.get(users.requiresLogin,wgs.wgByUser, xtasklists.checkIfAllowed, todos.read)
+		.get(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, todos.read)
 		.put(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, todos.update)
 		.delete(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, todos.delete);
 
-	app.route('/todos/all-from-share')
-		.get(users.requiresLogin,wgs.wgByUser, xtasklists.checkIfAllowed, todos.list);
 	// Finish by binding the Todo middleware
 	app.param('todoId', todos.todoByID);
 };

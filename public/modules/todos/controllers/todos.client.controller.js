@@ -56,9 +56,17 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		// Find a list of Todos
 		$scope.find = function() {
 			$scope.removeBgClass();
-
-			$http.get('/')
 			$scope.todos = Todos.query();
+		};
+
+		$scope.getAll = function(){
+			$scope.removeBgClass();
+			$http.get('/todo/all-from-share').success(function(res){
+				$scope.todos = res;
+			}).error(function(err){
+				console.log('error at get', err);
+				$scope.error = err.message;
+			});
 		};
 
 		// Find existing Todo
@@ -75,7 +83,7 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 				console.log('GOO');
 				$scope.todos[index].isDone = true;
 			}
-		}
+		};
 
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
