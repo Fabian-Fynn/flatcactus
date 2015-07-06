@@ -500,6 +500,19 @@ input.msg:focus {
 		font-size: 2.7vw;
 		display: block;
 	}
+
+  #clock .weekday {
+    font-size: 2vw;
+    line-height: 0.8em;
+    margin-top: -10px;
+    margin-bottom: 1px;
+  }
+
+  #clock .date {
+    font-size: 2vw;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 @media (min-width: 1400px) {
