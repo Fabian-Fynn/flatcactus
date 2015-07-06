@@ -19,7 +19,7 @@
 
 				<div class="dash-col">
 					<div class="item" id="motd">
-						<h4>Messages of the day</h4>
+						<h3>Messages of the day</h3>
 						<div class="motd" data-ng-repeat="user in allUsers">
 							<div class="user"><img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile"> </div>
 							<div class="msg" ng-show="user._id != authentication.user._id || !editingMotd">{{user.motd}}</div>
@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
-						<h4>Continuous Tasks</h4>
+						<h3>Continuous Tasks</h3>
 						<div data-ng-repeat="xtasklist in tasks">
 							<p>
 								{{xtasklist.name}}
@@ -43,11 +43,26 @@
 					</div>
 				</div>
 				<div class="dash-col">
-					<div class="item" id="todo">
-						<h4>Todo list</h4>
+					<div class="item" id="todo" data-ng-controller="TodosController" data-ng-init="getAll()">
+						<h3>Todo list</h3>
+		        <div class="controls">
+		            <input type="text" data-ng-model="name" id="name" class="msg" placeholder="New Todo" ng-keypress="($event.which === 13)?create(true):0" required>
+		            <button class="btn btn-xs edit" id="create" ng-click="create(true)">Add</button>
+		        </div>
+						<div class="container">
+							<div class="todo-items" ng-hide="">
+					      <span data-ng-repeat="todo in todos track by $index" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}">
+					        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="todo.isDone" ng-click="setToDone($index, todo)">
+					        <label class="todo-label" for="{{'item' + $index}}">{{todo.name}} <i ng-show="todo.isDone" class="todo-done_small"> done by <strong>{{todo.done_by}}</strong> {{todo.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+					      </span>
+
+					      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Done</h2>
+					      <h2 class="todo-h2 todo-done" aria-hidden="true">Done</h2>
+					    </div>
+						</div>
 					</div>
 					<div class="item" id="shopping">
-						<h4>Shopping list</h4>
+						<h3>Shopping list</h3>
 					</div>
 				</div>
 				<div class="dash-col">
@@ -74,7 +89,7 @@
 					</div>
 
 					<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
-						<h4>Financial overview</h4>
+						<h3>Financial overview</h3>
 						<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
 					</div>
 				</div>
