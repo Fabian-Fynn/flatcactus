@@ -317,16 +317,10 @@ body{
 #dashboard {
 	width: 100%;
   height: 100%;
-  padding: 4% 30px 3% 30px;
+  padding: 4% 0 3% 0 !important;
   padding-top: 4%;
   display: initial;
   left: 0;
-}
-
-@media (min-width: 1200px) {
-	#dashboard {
-		position: fixed;
-	}
 }
 
 #dashboard .title {
@@ -337,18 +331,18 @@ body{
 }
 
 #dashboard .dash-col {
-  /*-moz-column-count: 3;
-  -moz-column-gap: 10px;
-  -webkit-column-count: 3;
-  -webkit-column-gap: 10px;
-  column-count: 3;
-  column-gap: 10px;*/
 	height: auto;
-  width: 100%;
-	padding-left: 1%;
+  width: 96%;
+	padding-left: 0.5%;
+	padding-right: 0.5%;
 
 }
 @media (min-width: 1200px) {
+  #dashboard {
+		position: fixed;
+		padding: 4% 30px 3% 30px !important;
+	}
+
   #dashboard .dash-col {
 		height: 80%;
 		width: 33% ;
@@ -486,7 +480,7 @@ body{
 
 #weather h5 {
 	float: right;
-	font-size: 40px;
+	font-size: 6em;
 	width: 100%;
 	text-align:right;
 	/*margin-top: 18px;*/
@@ -494,7 +488,7 @@ body{
 #weather p {
 	float: right;
 	text-align: right;
-	font-size: 30px;
+	font-size: 4em;
 	/*margin-top: 35px;*/
 }
 
