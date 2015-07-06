@@ -86,7 +86,22 @@ angular.module('core').directive('weatherIcon', function() {
     };
 });
 
-angular.module("core").controller("BarCtrl", ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {
+angular.module("core")
+.config(['ChartJsProvider', function (ChartJsProvider) {
+    // Configure all charts
+    ChartJsProvider.setOptions({
+      colours: ['#ffbf00', '#fbd843'],
+			scaleBeginAtZero: true,
+			showScale:true,
+      responsive: true,
+			scaleBeginAtZero : false
+    });
+    // Configure all line charts
+    ChartJsProvider.setOptions('Line', {
+      datasetFill: false
+    });
+  }])
+.controller("BarCtrl", ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {
 	$scope.labels = [];
 	$scope.series = [];
 	$scope.data = [[]];
@@ -95,7 +110,7 @@ angular.module("core").controller("BarCtrl", ['$scope','Authentication',  'Wgs',
 		$scope.allUsers = res;
 		res.forEach(function(user){
 			$scope.data[0].push(user.balance);
-			$scope.labels.push(user.displayName);
+			$scope.labels.push(user.firstName);
 		})
 	}).error(function(err){
 		$scope.error = err.data.message;
