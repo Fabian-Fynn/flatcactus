@@ -124,7 +124,7 @@ exports.removeUser = function(req, res) {
 		if(error){ console.log('error'); }
 	});
 
-	User.update({ _id: req.user._id }, { $set: { wg_id: null }}, function(error, user){
+	User.update({ _id: req.user._id }, { $set: { wg_id: null, balance: 0 }}, function(error, user){
 		if(error){ 
 			console.log('error');
 			return res.status(400).send({
