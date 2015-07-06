@@ -208,6 +208,9 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				console.log('--- GO', task);
 				var xtasklist = task;
 				xtasklist.isDone = true;
+				xtasklist.users[$scope.authentication.user._id].howOften++;
+				xtasklist.users[$scope.authentication.user._id].monthly++;
+				xtasklist.users[$scope.authentication.user._id].yearly++;
 				console.log('xtask', xtasklist);
 
 				var path = '/xtasklists/' + xtasklist._id;
