@@ -2,6 +2,8 @@
 
 module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
+	var wgs = require('../../app/controllers/wgs.server.controller');
+	var xtasklists = require('../../app/controllers/xtasklists.server.controller');
 	var shoppinglists = require('../../app/controllers/shoppinglists.server.controller');
 
 	// Shoppinglists Routes
@@ -10,9 +12,9 @@ module.exports = function(app) {
 		.post(users.requiresLogin, shoppinglists.create);
 
 	app.route('/shoppinglists/:shoppinglistId')
-		.get(shoppinglists.read)
-		.put(users.requiresLogin, shoppinglists.hasAuthorization, shoppinglists.update)
-		.delete(users.requiresLogin, shoppinglists.hasAuthorization, shoppinglists.delete);
+		// .get(shoppinglists.read)
+		.put(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, shoppinglists.update)
+		.delete(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, shoppinglists.delete);
 
 	// Finish by binding the Shoppinglist middleware
 	app.param('shoppinglistId', shoppinglists.shoppinglistByID);
