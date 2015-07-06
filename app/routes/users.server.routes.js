@@ -15,6 +15,7 @@ module.exports = function(app) {
 	app.route('/users').put(users.update);
 	app.route('/users/motd').put(users.updateMotd);
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
+	app.route('/users/:userId').put(users.requiresLogin, users.update);
 
 	// to delete user
 	app.route('/user/delete').get(users.me);
