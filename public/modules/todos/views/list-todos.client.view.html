@@ -2,6 +2,15 @@
     <div class="page-header">
         <h1>Todos</h1>
     </div>
+    <div class="form-group">
+        <label class="control-label" for="name">Add Todo</label>
+        <div class="controls">
+            <input type="text" data-ng-model="name" id="name" class="col-md-11 setWidth form-control" placeholder="Name" ng-keypress="($event.which === 13)?create(true):0" required>
+            <button class="btn btn-default col-md-1" id="create" ng-click="create(true)">Add</button>
+        </div>
+    </div>
+    <p class="clearfix"></p>
+    <hr>
     <div class="todo-items" ng-hide="!todos.length">
       <span data-ng-repeat="todo in todos track by $index" ng-attr-id="{{ 'todo-item-' + $index }}" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}" ng-click="setToDone($index, todo)">
         <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-disabled="todo.isDone">

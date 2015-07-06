@@ -6,8 +6,9 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		$scope.authentication = Authentication;
 
 		// Create new Todo
-		$scope.create = function() {
+		$scope.create = function(fromListInput) {
 			// Create new Todo object
+			console.log('name', this.name);
 			var todo = new Todos ({
 				name: this.name,
 				created_by: $scope.authentication.user.displayName,
@@ -17,7 +18,9 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 			// Redirect after save
 			todo.$save(function(response) {
 				$location.path('todos');
-
+				if(fromListInput){
+					$scope.todos.push(response);
+				}
 				// Clear form fields
 				$scope.name = '';
 			}, function(errorResponse) {

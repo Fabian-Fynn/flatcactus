@@ -172,6 +172,10 @@ body{
   .toggle{
     width: 720px;
   }
+	.setWidth{
+		width: 50% !important;
+		display: inline-block;
+	}
 }
 
 @media (min-width: 992px) {
@@ -499,8 +503,6 @@ body{
 }
 
 .todo-h2::after {
-  display: block;
-  float: right;
   font-weight: normal;
 }
 
@@ -560,6 +562,10 @@ body{
 .todo-order-done{
 	order:4;
 	counter-increment: done-items;
+}
+
+.todo-order:hover, .todo-order-done:hover{
+	background-color: #f9f9f9;
 }
 
 .todo-label::before {
