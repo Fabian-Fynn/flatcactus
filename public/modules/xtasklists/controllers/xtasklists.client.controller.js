@@ -202,16 +202,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		$scope.setToDone = function(task,index){
-			console.log('setToDone: ID ' + task, index);
+			console.log('setToDone');
 
 			if(!task.isDone){
-				console.log('--- GO', task);
 				var xtasklist = task;
 				xtasklist.isDone = true;
 				xtasklist.users[$scope.authentication.user._id].howOften++;
 				xtasklist.users[$scope.authentication.user._id].monthly++;
 				xtasklist.users[$scope.authentication.user._id].yearly++;
-				console.log('xtask', xtasklist);
 
 				var path = '/xtasklists/' + xtasklist._id;
 				$http.put(path, xtasklist).success(function(t){
