@@ -9,6 +9,7 @@ angular.module('todos').run(['Menus',
 		// Menus.addSubMenuItem('topbar', 'todos', 'New Todo', 'todos/create');
 		Menus.addMenuItem('topbar', 'share', 'wgs', 'dropdown', '#', false, null, 0);
 		Menus.addSubMenuItem('topbar', 'wgs', 'todos', 'todos');
+		Menus.addSubMenuItem('topbar', 'wgs', 'shoppinglist', 'shoppinglists');
 		Menus.addSubMenuItem('topbar', 'wgs', 'passphrase', 'my-share/passphrase');
 		Menus.addSubMenuItem('topbar', 'wgs', 'leave this share', 'my-share/leave');
 	}
