@@ -5,7 +5,7 @@ angular.module('xtasklists').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'tasks', 'xtasklists', 'dropdown', '#');
-		Menus.addSubMenuItem('topbar', 'xtasklists', 'List tasks', 'tasklists');
-		Menus.addSubMenuItem('topbar', 'xtasklists', 'New tasklist', 'tasklists/create');
+		Menus.addSubMenuItem('topbar', 'xtasklists', 'list tasks', 'tasklists');
+		Menus.addSubMenuItem('topbar', 'xtasklists', 'new task', 'tasklists/create');
 	}
 ]);
