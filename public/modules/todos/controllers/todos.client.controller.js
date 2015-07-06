@@ -19,7 +19,7 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 			todo.$save(function(response) {
 				$location.path('todos');
 				if(fromListInput){
-					$scope.todos.push(response);
+					$scope.todos.unshift(response);
 				}
 				// Clear form fields
 				$scope.name = '';
