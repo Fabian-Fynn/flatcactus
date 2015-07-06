@@ -81,20 +81,18 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		};
 
 		$scope.setToDone = function(index,todo){
-			console.log('settoDone');
-			if(!$scope.todos[index].isDone){
 				var path = '/todos/' + todo._id;
 				var item = todo;
-				item.isDone = true;
-				item.done_when = new Date();
-				item.done_by = $scope.authentication.user.displayName;
+
+				item.isDone = (item.isDone) ? false : true;
+				item.done_when = (item.isDone) ? new Date() : null;
+				item.done_by = (item.isDone) ? $scope.authentication.user.displayName : '';
 				$http.put(path, item).success(function(res){
 					$scope.todos[index] = item;
 				}).error(function(err){
 					$scope.error = err.message;
-				})
+				});
 
-			}
 		};
 
 		$scope.removeBgClass = function(){

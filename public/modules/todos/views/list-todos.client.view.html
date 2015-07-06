@@ -12,9 +12,9 @@
     <p class="clearfix"></p>
     <hr>
     <div class="todo-items" ng-hide="!todos.length">
-      <span data-ng-repeat="todo in todos track by $index" ng-attr-id="{{ 'todo-item-' + $index }}" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}" ng-click="setToDone($index, todo)">
-        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-disabled="todo.isDone">
-        <label class="todo-label" for="{{'item' + $index}}" ng-disabled="todo.isDone">{{todo.name}} <i ng-if="todo.isDone" class="todo-done_small"> done by {{todo.done_by}} {{todo.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+      <span data-ng-repeat="todo in todos track by $index" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}">
+        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="todo.isDone" ng-click="setToDone($index, todo)">
+        <label class="todo-label" for="{{'item' + $index}}">{{todo.name}} <i ng-show="todo.isDone" class="todo-done_small"> done by {{todo.done_by}} {{todo.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
       </span>
 
       <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Done</h2>
