@@ -459,3 +459,11 @@ body{
 #financial {
 	height: 53% !important;
 }
+
+#financial .chart-container{
+	height: 100%;
+}
+
+#financial .chart-container canvas{
+	height: 100%;
+}

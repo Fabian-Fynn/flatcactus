@@ -23,7 +23,7 @@
 						<div class="item" id="motd">
 							<h4>Messages of the day</h4>
 							<div class="motd" data-ng-repeat="user in allUsers">
-								<div class="user">{{user.username}}: </div>
+								<div class="user"><img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile"> </div>
 								<div class="msg" ng-show="user._id != authentication.user._id || !editingMotd">{{user.motd}}</div>
 
 								<input type="text" class="msg" ng-show="user._id == authentication.user._id && editingMotd" ng-model="user.motd"></input>
@@ -33,10 +33,12 @@
 							</div>
 						</div>
 						<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
-							<h4>Continous Tasks</h4>
+							<h4>Continuous Tasks</h4>
 							<div data-ng-repeat="xtasklist in tasks">
 								<p>
-									{{xtasklist.name}}  {{xtasklist.current.username}}
+									{{xtasklist.name}}
+									<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
+									{{xtasklist.current.username}}
 								</p>
 
 							</div>
@@ -64,8 +66,9 @@
 					    <h5>Current: {{ weather.temp.current | temp:2 }}</h5>
 					    min: {{ weather.temp.min | temp }}, max: {{ weather.temp.max | temp }}
 						</div>
-						<div class="item" id="financial">
+						<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
 							<h4>Financial overview</h4>
+							<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
 						</div>
 					</div>
 				</div>

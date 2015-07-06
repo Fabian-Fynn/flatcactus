@@ -4,7 +4,8 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'flatcactus';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ds.clock', 'ngFileUpload', 'angular-datepicker'];
+
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ds.clock', 'ngFileUpload', 'chart.js', 'angular-datepicker'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
