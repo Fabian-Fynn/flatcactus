@@ -22,7 +22,7 @@ angular.module('wgs').config(['$stateProvider',
 		// 	templateUrl: 'modules/wgs/views/view-wg.client.view.html'
 		// }).
 		state('editWg', {
-			url: '/wgs/:wgId/edit',
+			url: '/my-share/edit',
 			templateUrl: 'modules/wgs/views/edit-wg.client.view.html'
 		}).
 		state('passWg', {

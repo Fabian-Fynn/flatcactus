@@ -102,7 +102,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		$scope.findOne = function() {
 			$scope.removeBgClass();
 			$scope.wg = Wgs.get({
-				wgId: $stateParams.wgId
+				wgId: $scope.authentication.user.wg_id
 			});
 		};
 
