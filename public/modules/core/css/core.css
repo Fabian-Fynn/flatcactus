@@ -41,6 +41,18 @@
 	border: 2px solid #ddd;
 }
 
+.avatar{
+	height: 50px;
+	width: auto;
+	max-width: 60px !important;
+	overflow: hidden;
+	border-radius: 100%;
+	margin-top: -8px;
+	margin-bottom: -8px;
+	margin-right: 5px;
+	border: 1px solid #ddd;
+}
+
 body{
 	/*position: absolute;*/
 	/*top:0;*/
@@ -387,60 +399,39 @@ input.msg:focus {
 	background: rgb(232, 229, 229);
 }
 
-/* drag box for profile foto */
-.drop-box {
-    background: #F8F8F8;
-    border: 4px dashed #DDD !important;
-    text-align: center;
-    padding: 10px;
-    margin: 10px;
-}
-
-.drop-box_border{
-    border-color: #0bf !important;
-}
-
-.dragover {
-    border-color: #3d4345 !important;
-}
-
-.drop-box_upload_complete{
-    background: #8CC76C;
-		color: #fff;
-    border-color: #436c2d !important;
-}
-
-/* layout for input fields */
-.mg-30{
-	margin-left: -30px !important;
-	margin-right: 30px !important;
-}
 
 /*MOTD*/
 
 #motd {
-	height: 40% !important;
+	height: auto !important;
 }
 
 .motd {
-	height: 35px;
+	height: 55px;
 }
 
 #motd .user {
 	float: left;
   width: 8%;
-	margin-right: 5px;
+	margin-right: 10px;
+}
+
+#motd .user img {
+  width: 100%;
+  height: auto;
 }
 
 #motd .msg {
 	float: left;
 	width: 78%;
+  margin-right: 10px;
 }
 
 /*TASKS*/
 
 #tasks {
-	height: 60% !important;
+	height: auto !important;
+  min-height: 30%;
 }
 
 /*TODOS*/
@@ -784,4 +775,33 @@ input.msg:focus {
     opacity: 1;
     background-color: rgba(255, 255, 255, .4);
   }
+}
+
+/* drag box for profile foto */
+.drop-box {
+    background: #F8F8F8;
+    border: 4px dashed #DDD !important;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.drop-box_border{
+    border-color: #0bf !important;
+}
+
+.dragover {
+    border-color: #3d4345 !important;
+}
+
+.drop-box_upload_complete{
+    background: #8CC76C;
+		color: #fff;
+    border-color: #436c2d !important;
+}
+
+/* layout for input fields */
+.mg-30{
+	margin-left: -30px !important;
+	margin-right: 30px !important;
 }
