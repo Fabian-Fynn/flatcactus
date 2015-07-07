@@ -89,6 +89,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		$scope.$watch('files', function(){
 			if($scope.files.length){
 				$scope.upload();
+				console.log('upload');
 			}
 		});
 
@@ -105,11 +106,8 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.progress = progressPercentage;
 			}).success(function (data, status, headers, config) {
 				$scope.success_photo = true;
-				$scope.user.avatar = Authentication.user.avatar = '/uploads/' + $scope.user._id + '.jpg';
-				console.log('data', data); console.log('status', status);
-				console.log('headers', headers); console.log('config', config);
-				console.log('fileName', data.replace("\"", ''));
-				console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+				console.log('done', data.img, '..', $scope.user.avatar);
+				$scope.user.avatar = Authentication.user.avatar = data.img;
 			}).error(function(err){
 				console.log('error', err);
 			});
