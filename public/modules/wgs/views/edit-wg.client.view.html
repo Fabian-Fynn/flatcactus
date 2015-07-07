@@ -1,6 +1,6 @@
 <section data-ng-controller="WgsController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit Wg</h1>
+        <h1>Edit Flat-Share</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
@@ -11,12 +11,49 @@
                         <input type="text" data-ng-model="wg.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <label class="control-label" for="street">Street</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="wg.street" id="street" class="form-control" placeholder="Street" required>
+                    </div>
                 </div>
-    				<div data-ng-show="error" class="text-danger">
-    					<strong data-ng-bind="error"></strong>
-    				</div>
+
+                <div class="form-group">
+                    <label class="control-label" for="number">House Number</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="wg.number" id="number" class="form-control" placeholder="House Number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="zip">ZIP Code</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="wg.zip" id="zip" class="form-control" placeholder="ZIP Code" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="city">City</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="wg.city" id="city" class="form-control" placeholder="City" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="city">Country</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="wg.country" id="country" class="form-control" placeholder="Country" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+					        <button type="submit" class="btn btn-large btn-primary" ng-class="{'btn-success': success}">Update <i ng-show="success" class="glyphicon glyphicon-ok"></i></button>
+                </div>
+
+        				<div data-ng-show="error" class="text-danger">
+        					<strong data-ng-bind="error"></strong>
+        				</div>
             </fieldset>
         </form>
     </div>

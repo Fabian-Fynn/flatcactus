@@ -16,7 +16,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				zip: this.zip,
 				city: this.city,
 				country: this.country,
-				created_from: $scope.authentication.user.username
+				created_from: $scope.authentication.user.displayName
 			});
 
 			// Redirect after save
@@ -85,7 +85,8 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			var wg = $scope.wg;
 
 			wg.$update(function() {
-				$location.path('wgs/' + wg._id);
+				$scope.success = true;
+				// $location.path('/');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
