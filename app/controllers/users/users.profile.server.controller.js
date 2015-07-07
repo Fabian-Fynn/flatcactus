@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 var _ = require('lodash'),
+	multiparty = require('multiparty'),
+	fs = require('fs'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
@@ -85,6 +87,55 @@ exports.deleteData = function(req, res) {
 		}
 	});
 
+};
+
+exports.profilePhoto = function(req, res){
+	var form = new multiparty.Form();
+
+	form.parse(req, function(err, fields, files) {
+		console.log('files', files);
+
+		var user = req.user;
+		var file = files.file[0];
+
+		var contentType = file.headers['content-type'];
+		var tmpPath = file.path;
+		var extIndex = tmpPath.lastIndexOf('.');
+		var extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
+		// uuid is for generating unique filenames.
+		var fileName = user._id + extension;
+		var destPath = process.cwd() + '/public/uploads/' + fileName;
+		console.log('fileName', fileName);
+
+		// Server side file type checker.
+		if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
+				fs.unlink(tmpPath);
+				return res.status(400).send('Unsupported file type.');
+		}
+
+		var is = fs.createReadStream(tmpPath);
+		var os = fs.createWriteStream(destPath);
+
+		if(is.pipe(os)) {
+				fs.unlink(tmpPath, function (err) { //To unlink the file from temp path after copy
+						if (err) {
+								res.status(400).send('Image cannot be saved. Error while writing.');
+						}
+				});
+				// update current user model
+				user.avatar = '/public/uploads/' + fileName;
+				user.save(function(err) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}
+					return res.json(user.avatar);
+				});
+		}else{
+				return res.status(400).send('Error with Stream. Image cannot be saved.');
+		}
+	});
 };
 
 /**

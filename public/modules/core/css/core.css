@@ -32,6 +32,8 @@
 .small-avatar{
 	height: 30px;
 	width: auto;
+	max-width: 60px !important;
+	overflow: hidden;
 	border-radius: 15px;
 	margin-top: -8px;
 	margin-bottom: -8px;
@@ -383,6 +385,29 @@ input.msg:focus {
   width: 8%;
 	float: right;
 	background: rgb(232, 229, 229);
+}
+
+/* drag box for profile foto */
+.drop-box {
+    background: #F8F8F8;
+    border: 4px dashed #DDD !important;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.drop-box_border{
+    border-color: #0bf !important;
+}
+
+.dragover {
+    border-color: #3d4345 !important;
+}
+
+.drop-box_upload_complete{
+    background: #8CC76C;
+		color: #fff;
+    border-color: #436c2d !important;
 }
 
 /* layout for input fields */

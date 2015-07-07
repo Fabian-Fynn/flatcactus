@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication', 'Upload',
+	function($scope, $http, $location, Users, Authentication, Upload) {
 		$scope.user = Authentication.user;
+		$scope.files = [];
 
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
@@ -82,6 +83,35 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.passwordDetails = null;
 			}).error(function(response) {
 				$scope.error = response.message;
+			});
+		};
+
+		$scope.$watch('files', function(){
+			if($scope.files.length){
+				$scope.upload();
+			}
+		});
+
+		$scope.upload = function(){
+			var file = $scope.files[0];
+			var user = $scope.user;
+
+			Upload.upload({
+				url: 'users/photo',
+				file: file
+			}).progress(function (evt) {
+				var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+				console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+				$scope.progress = progressPercentage;
+			}).success(function (data, status, headers, config) {
+				$scope.success_photo = true;
+				$scope.user.avatar = Authentication.user.avatar = '/uploads/' + $scope.user._id + '.jpg';
+				console.log('data', data); console.log('status', status);
+				console.log('headers', headers); console.log('config', config);
+				console.log('fileName', data.replace("\"", ''));
+				console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+			}).error(function(err){
+				console.log('error', err);
 			});
 		};
 

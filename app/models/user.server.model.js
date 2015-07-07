@@ -72,6 +72,10 @@ var UserSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	avatar: {
+		type: String,
+		default: '/modules/users/img/avatar.jpg'
+	},
 	password: {
 		type: String,
 		default: '',

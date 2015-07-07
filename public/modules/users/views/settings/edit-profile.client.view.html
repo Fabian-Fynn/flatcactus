@@ -12,13 +12,19 @@
 					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email">
-				</div>
-				<div class="form-group">
 					<label for="username">Username</label>
 					<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
 				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email">
+				</div>
+
+				<div class="text-center form-group">
+					<div ngf-drop ngf-select ng-model="files" class="drop-box" ng-class="{'drop-box_border': files.length, 'drop-box_upload_complete': success_photo}" ngf-drag-over-class="dragover" ngf-accept="'image/*,'"><span ng-show="!files || !files.length">Drop Images or Click here</span><span ng-show="files.length">{{files[0].name}}<br>Status: {{progress}}%</span></div>
+				<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+				</div>
+
 				<div class="text-center form-group">
 					<button type="submit" class="btn btn-large btn-primary" ng-class="{'btn-success': success}">Save Profile <i ng-show="success" class="glyphicon glyphicon-ok"></i></button>
 				</div>
