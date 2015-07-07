@@ -2,7 +2,7 @@
 
 // Wgs controller
 angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout',
-	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout) {
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout, jQuery) {
 		$scope.authentication = Authentication;
 		var timeout;
 
@@ -155,7 +155,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
     	timeout = $timeout(function(){
 
 				$scope.allUsers.forEach(function(user){
-					if ($scope.authentication.user._id == user._id) {
+					if ($scope.authentication.user._id === user._id) {
 						$http.put('users/motd/', user);
 					}
 				});

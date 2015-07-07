@@ -4,7 +4,6 @@
 angular.module('payments').controller('PaymentsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Users', 'Payments',
 	function($scope, $http, $stateParams, $location, Authentication, users, Payments) {
 		$scope.authentication = Authentication;
-		$scope.remainingAmount = 999999999999;
 
 		// Create new Payment
 		$scope.create = function() {
@@ -92,13 +91,13 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 			if (!$scope.equal) {
 				$scope.allUsers.forEach(function(user){
-					if (user._id == $scope.authentication.user._id) {
+					if (user._id === $scope.authentication.user._id) {
 						currentUser = user;
 						currentUser.amount = $scope.amount;
 					}
 				});
 				$scope.allUsers.forEach(function(user){
-					if (user._id != $scope.authentication.user._id) {
+					if (user._id !== $scope.authentication.user._id) {
 						$scope.remainingAmount -= user.amount;
 					}
 				});
@@ -117,13 +116,13 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 			if (!$scope.equal) {
 				$scope.payment.users.forEach(function(user){
-					if (user._id == $scope.authentication.user._id) {
+					if (user._id === $scope.authentication.user._id) {
 						currentUser = user;
 						currentUser.amount = $scope.payment.amount;
 					}
 				});
 				$scope.payment.users.forEach(function(user){
-					if (user._id != $scope.authentication.user._id) {
+					if (user._id !== $scope.authentication.user._id) {
 						$scope.remainingAmount -= user.amount;
 					}
 				});
@@ -143,7 +142,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				});
 			} else {
 				$scope.allUsers.forEach(function(user){
-					if (user._id == $scope.authentication.user._id) {
+					if (user._id === $scope.authentication.user._id) {
 						user.amount = $scope.amount;
 					}
 					else {
@@ -162,7 +161,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				});
 			} else {
 				$scope.payment.users.forEach(function(user){
-					if (user._id == $scope.authentication.user._id) {
+					if (user._id === $scope.authentication.user._id) {
 						user.amount = $scope.payment.amount;
 					}
 					else {
@@ -181,7 +180,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					$scope.allUsers = res;
 
 					$scope.allUsers.forEach(function(user){
-						if (user._id == $scope.authentication.user._id) {
+						if (user._id === $scope.authentication.user._id) {
 								user.creator = true;
 						} else {
 							user.creator = false;

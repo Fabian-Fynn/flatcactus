@@ -33,11 +33,21 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 
 		// Check if Date hase to be updated
 		$scope.dateTick = function() {
-			var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+			var weekday = [
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday'
+			];
 
 			var date = new Date();
 			$scope.weekday = weekday[date.getDay()];
-			$scope.date = date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
+			$scope.date = date.getDate() + '.' +
+				(date.getMonth()+1) + '.' +
+				date.getFullYear();
 
 			//If 23:53 or late check time every 0.5 sec else every 5 min
 			if (date.getHours() >= 23 && date.getMinutes() >= 53){
