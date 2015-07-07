@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var todo = new Todo(req.body);
-	todo.user = req.user;
 
 	todo.save(function(err) {
 		if (err) {
@@ -76,7 +75,6 @@ exports.list = function(req, res) {
 	var date = new Date(); // date a week ago
 	var last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
 
-	console.log('yeih', last);
 	Todo.where({wg_id: req.wg._id, done_when: { $gt: last }}).sort('-created').exec(function(err, todos) {
 		if (err) {
 			return res.status(400).send({

@@ -11,6 +11,9 @@ module.exports = function(app) {
 		//.get(shoppinglists.list)
 		.post(users.requiresLogin, shoppinglists.create);
 
+	app.route('/shoppinglist/all-from-share')
+		.get(users.requiresLogin, wgs.wgByUser, shoppinglists.getAllFromWg);
+
 	app.route('/shoppinglists/:shoppinglistId')
 		// .get(shoppinglists.read)
 		.put(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, shoppinglists.update)

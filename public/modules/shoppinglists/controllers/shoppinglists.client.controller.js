@@ -1,21 +1,22 @@
 'use strict';
 
 // Shoppinglists controller
-angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Shoppinglists',
-	function($scope, $stateParams, $location, Authentication, Shoppinglists) {
+angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Shoppinglists',
+	function($scope, $http, $stateParams, $location, Authentication, Shoppinglists) {
 		$scope.authentication = Authentication;
 
 		// Create new Shoppinglist
 		$scope.create = function() {
 			// Create new Shoppinglist object
 			var shoppinglist = new Shoppinglists ({
-				name: this.name
+				name: this.name,
+				created_by: $scope.authentication.user.displayName,
+				wg_id: $scope.authentication.user.wg_id
 			});
 
 			// Redirect after save
 			shoppinglist.$save(function(response) {
-				$location.path('shoppinglists/' + response._id);
-
+				$scope.shoppinglists.push(response);
 				// Clear form fields
 				$scope.name = '';
 			}, function(errorResponse) {
@@ -25,7 +26,7 @@ angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope',
 
 		// Remove existing Shoppinglist
 		$scope.remove = function(shoppinglist) {
-			if ( shoppinglist ) { 
+			if ( shoppinglist ) {
 				shoppinglist.$remove();
 
 				for (var i in $scope.shoppinglists) {
@@ -53,14 +54,43 @@ angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope',
 
 		// Find a list of Shoppinglists
 		$scope.find = function() {
+			$scope.removeBgClass();
 			$scope.shoppinglists = Shoppinglists.query();
 		};
 
 		// Find existing Shoppinglist
 		$scope.findOne = function() {
-			$scope.shoppinglist = Shoppinglists.get({ 
+			$scope.removeBgClass();
+			$scope.shoppinglist = Shoppinglists.get({
 				shoppinglistId: $stateParams.shoppinglistId
 			});
+		};
+
+		$scope.getAll = function(){
+			$http.get('/shoppinglist/all-from-share').success(function(res){
+				$scope.shoppinglists = res;
+			}).error(function(err){
+				console.log('error at get', err);
+				$scope.error = err.message;
+			});
+		};
+
+		$scope.setToDone = function(index,shop){
+				var path = '/shoppinglists/' + shop._id;
+				var item = shop;
+
+				item.isDone = (item.isDone) ? false : true;
+				item.done_when = (item.isDone) ? new Date() : null;
+				item.done_by = (item.isDone) ? $scope.authentication.user.displayName : '';
+				$http.put(path, item).success(function(res){
+					$scope.shoppinglists[index] = item;
+				}).error(function(err){
+					$scope.error = err.message;
+				});
+		};
+
+		$scope.removeBgClass = function(){
+			document.body.style.background = '#fff';
 		};
 	}
 ]);

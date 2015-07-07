@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var shoppinglist = new Shoppinglist(req.body);
-	shoppinglist.user = req.user;
 
 	shoppinglist.save(function(err) {
 		if (err) {
@@ -72,7 +71,7 @@ exports.delete = function(req, res) {
 /**
  * List of Shoppinglists
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Shoppinglist.find().sort('-created').populate('user', 'displayName').exec(function(err, shoppinglists) {
 		if (err) {
 			return res.status(400).send({
@@ -84,10 +83,27 @@ exports.list = function(req, res) {
 	});
 };
 
+exports.getAllFromWg = function(req,res){
+	var date = new Date(); // date a week ago
+	var last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+
+	console.log('yeih', req);
+	Shoppinglist.where({wg_id: req.wg._id, $or: [{ done_when: { $gte: last }}, { done_when: null }]}).sort('-created').exec(function(err, todos) {
+		if (err) {
+			console.log('getallshoppingitems');
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(todos);
+		}
+	});
+};
+
 /**
  * Shoppinglist middleware
  */
-exports.shoppinglistByID = function(req, res, next, id) { 
+exports.shoppinglistByID = function(req, res, next, id) {
 	Shoppinglist.findById(id).populate('user', 'displayName').exec(function(err, shoppinglist) {
 		if (err) return next(err);
 		if (! shoppinglist) return next(new Error('Failed to load Shoppinglist ' + id));
