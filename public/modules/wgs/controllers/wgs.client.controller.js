@@ -1,10 +1,10 @@
 'use strict';
 
 // Wgs controller
-angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users',
-	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users) {
+angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout',
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout) {
 		$scope.authentication = Authentication;
-		$scope.editingMotd = false;
+		var timeout;
 
 		// Create new Wg
 		$scope.create = function() {
@@ -149,17 +149,24 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		};
 
 		$scope.editMotd = function(user) {
-			if(!$scope.editingMotd){
-				$scope.editingMotd = true;
-			} else {
-				$scope.editingMotd = false;
+			$timeout.cancel(timeout); //cancel the last timeout
+    	timeout = $timeout(function(){
+
 				$scope.allUsers.forEach(function(user){
 					if ($scope.authentication.user._id == user._id) {
 						$http.put('users/motd/', user);
 					}
 				});
-			}
+
+				$scope.motdStatus = 'saved.';
+				jQuery('.notice').fadeIn('slow');
+				setTimeout(function(){
+					jQuery('.notice').fadeOut('slow');
+				}, 800);
+    	}, 500);
+
 		};
+
 
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
