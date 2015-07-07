@@ -211,7 +211,7 @@ exports.hasAuthorization = function(req, res, next) {
 
 exports.isAllowedToLeave = function(req, res, next) {
 	console.log('req.user.wg_id', req.user.wg_id, 'req.body._id', req.body._id);
-	if(req.user.wg_id !== req.body._id) {
+	if(req.user.wg_id.toString() !== req.body._id.toString()) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

@@ -383,7 +383,12 @@ input.msg:focus {
   width: 8%;
 	float: right;
 	background: rgb(232, 229, 229);
+}
 
+/* layout for input fields */
+.mg-30{
+	margin-left: -30px !important;
+	margin-right: 30px !important;
 }
 
 /*MOTD*/
