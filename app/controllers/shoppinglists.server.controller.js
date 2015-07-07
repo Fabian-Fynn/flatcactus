@@ -87,14 +87,14 @@ exports.getAllFromWg = function(req,res){
 	var date = new Date(); // date a week ago
 	var last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
 
-	Shoppinglist.where({wg_id: req.wg._id, $or: [{ done_when: { $gte: last }}, { done_when: null }]}).sort('-created').exec(function(err, todos) {
+	Shoppinglist.where({wg_id: req.wg._id, $or: [{ done_when: { $gte: last }}, { done_when: null }]}).sort('-created').exec(function(err, shop) {
 		if (err) {
 			console.log('getallshoppingitems');
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(todos);
+			res.jsonp(shop);
 		}
 	});
 };
