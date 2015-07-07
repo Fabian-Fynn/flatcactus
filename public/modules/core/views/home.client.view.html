@@ -72,8 +72,8 @@
 				    <div class="container">
 							<div class="todo-items" ng-hide="">
 					      <span data-ng-repeat="shop in shoppinglists track by $index" ng-class="{'todo-order': !shop.isDone, 'todo-order-done': shop.isDone}">
-					        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="shop.isDone" ng-click="setToDone($index, shop)">
-					        <label class="todo-label" for="{{'item' + $index}}">{{shop.name}} <i ng-show="shop.isDone" class="todo-done_small"> done by <strong>{{shop.done_by}}</strong> {{shop.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+					        <input class="todo-input" id="{{'shop' + $index}}" type="checkbox" ng-checked="shop.isDone" ng-click="setToDone($index, shop)">
+					        <label class="todo-label" for="{{'shop' + $index}}">{{shop.name}} <i ng-show="shop.isDone" class="todo-done_small"> done by <strong>{{shop.done_by}}</strong> {{shop.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
 					      </span>
 
 					      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Bought yet</h2>
