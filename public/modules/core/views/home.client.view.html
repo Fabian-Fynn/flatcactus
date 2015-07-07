@@ -21,7 +21,11 @@
 					<div class="item" id="motd">
 						<h3>Messages of the day</h3>
 						<div class="motd" data-ng-repeat="user in allUsers">
+<<<<<<< HEAD
 							<div class="user"><img ng-src="{{user.avatar}}" class="avatar" alt="profile"> </div>
+=======
+							<div class="user"><img ng-src="{{user.avatar}}" class="small-avatar" alt="profile"> </div>
+>>>>>>> 0031d7b7d9d9e67fc8f42cb8e050364f0de220d0
 							<div class="msg" ng-show="user._id != authentication.user._id " myclass={{user._id}}>{{user.motd}}</div>
 
 							<input type="text" class="msg {{user._id}}" placeholder="Enter your message" ng-class="myclass" ng-show="user._id == authentication.user._id" ng-model="user.motd"
@@ -36,8 +40,8 @@
 						<h3>Continuous Tasks</h3>
 						<div data-ng-repeat="xtasklist in tasks">
 							<p>
-								{{xtasklist.name}}
 								<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
+								{{xtasklist.name}}
 								{{xtasklist.current.username}}
 							</p>
 

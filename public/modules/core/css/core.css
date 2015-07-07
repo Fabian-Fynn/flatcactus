@@ -399,6 +399,33 @@ input.msg:focus {
 	background: rgb(232, 229, 229);
 }
 
+/* drag box for profile foto */
+.drop-box {
+    background: #F8F8F8;
+    border: 4px dashed #DDD !important;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.drop-box_border{
+    border-color: #0bf !important;
+}
+
+.dragover {
+    border-color: #3d4345 !important;
+}
+
+.drop-box_upload_complete{
+    background: #CEE4C2;
+    border-color: #436c2d !important;
+}
+
+/* layout for input fields */
+.mg-30{
+	margin-left: -30px !important;
+	margin-right: 30px !important;
+}
 
 /*MOTD*/
 
@@ -775,33 +802,4 @@ input.msg:focus {
     opacity: 1;
     background-color: rgba(255, 255, 255, .4);
   }
-}
-
-/* drag box for profile foto */
-.drop-box {
-    background: #F8F8F8;
-    border: 4px dashed #DDD !important;
-    text-align: center;
-    padding: 10px;
-    margin: 10px;
-}
-
-.drop-box_border{
-    border-color: #0bf !important;
-}
-
-.dragover {
-    border-color: #3d4345 !important;
-}
-
-.drop-box_upload_complete{
-    background: #8CC76C;
-		color: #fff;
-    border-color: #436c2d !important;
-}
-
-/* layout for input fields */
-.mg-30{
-	margin-left: -30px !important;
-	margin-right: 30px !important;
 }
