@@ -91,7 +91,6 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 				}).error(function(err){
 					$scope.error = err.message;
 				});
-
 		};
 
 		$scope.removeBgClass = function(){

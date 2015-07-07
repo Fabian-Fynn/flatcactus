@@ -13,16 +13,31 @@ var ShoppinglistSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Shoppinglist name',
+		required: 'Please fill item name',
 		trim: true
+	},
+	created_by: {
+		type: String
 	},
 	created: {
 		type: Date,
 		default: Date.now
 	},
-	user: {
+	isDone: {
+		type: Boolean,
+		default: false
+	},
+	done_by: {
+		type: String,
+		default: ''
+	},
+	done_when: {
+		type: Date,
+		default: null
+	},
+	wg_id: {
 		type: Schema.ObjectId,
-		ref: 'User'
+		ref: 'Wg'
 	}
 });
 

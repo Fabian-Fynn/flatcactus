@@ -1,19 +1,27 @@
-<section data-ng-controller="ShoppinglistsController" data-ng-init="find()">
+<section data-ng-controller="ShoppinglistsController" data-ng-init="getAll(); removeBgClass()">
     <div class="page-header">
-        <h1>Shoppinglists</h1>
+        <h1>Shopping Items</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="shoppinglist in shoppinglists" data-ng-href="#!/shoppinglists/{{shoppinglist._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="shoppinglist.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="shoppinglist.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="shoppinglist.name"></h4>
-        </a>
+    <div class="form-group">
+        <label class="control-label" for="name">Add Item</label>
+        <div class="controls">
+            <input type="text" data-ng-model="name" id="name" class="col-md-11 setWidth form-control" placeholder="Name" ng-keypress="($event.which === 13)?create(true):0" required>
+            <button class="btn btn-default col-md-1" id="create" ng-click="create(true)">Add</button>
+        </div>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!shoppinglists.$resolved || shoppinglists.length">
-    	No Shoppinglists yet, why don't you <a href="/#!/shoppinglists/create">create one</a>?
+    <p class="clearfix"></p>
+    <hr>
+    <div class="todo-items" ng-hide="!shoppinglists.length">
+      <span data-ng-repeat="shop in shoppinglists track by $index" ng-class="{'todo-order': !shop.isDone, 'todo-order-done': shop.isDone}">
+        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="shop.isDone" ng-click="setToDone($index, shop)">
+        <label class="todo-label" for="{{'item' + $index}}">{{shop.name}} <i ng-show="shop.isDone" class="todo-done_small"> done by <strong>{{shop.done_by}}</strong> {{shop.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+      </span>
+
+      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not buyed yet</h2>
+      <h2 class="todo-h2 todo-done" aria-hidden="true">Buyed</h2>
+    </div>
+
+    <div class="alert alert-warning text-center" data-ng-hide="shoppinglists.length">
+    	No item yet, why don't you create one?
     </div>
 </section>

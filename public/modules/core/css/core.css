@@ -605,6 +605,10 @@ input.msg:focus {
 	height: 100%;
 }
 
+.remove-margin-left{
+	margin-left: -15px;
+}
+
 /* - - - - - - - - Todos */
 .todo-items {
   display: flex;
