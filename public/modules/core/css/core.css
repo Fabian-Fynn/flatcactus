@@ -41,6 +41,18 @@
 	border: 2px solid #ddd;
 }
 
+.avatar{
+	height: 50px;
+	width: auto;
+	max-width: 60px !important;
+	overflow: hidden;
+	border-radius: 100%;
+	margin-top: -8px;
+	margin-bottom: -8px;
+	margin-right: 5px;
+	border: 1px solid #ddd;
+}
+
 body{
 	/*position: absolute;*/
 	/*top:0;*/
@@ -419,28 +431,35 @@ input.msg:focus {
 /*MOTD*/
 
 #motd {
-	height: 40% !important;
+	height: auto !important;
 }
 
 .motd {
-	height: 35px;
+	height: 55px;
 }
 
 #motd .user {
 	float: left;
   width: 8%;
-	margin-right: 5px;
+	margin-right: 10px;
+}
+
+#motd .user img {
+  width: 100%;
+  height: auto;
 }
 
 #motd .msg {
 	float: left;
 	width: 78%;
+  margin-right: 10px;
 }
 
 /*TASKS*/
 
 #tasks {
-	height: 60% !important;
+	height: auto !important;
+  min-height: 30%;
 }
 
 /*TODOS*/
