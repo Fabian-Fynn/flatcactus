@@ -187,7 +187,7 @@ exports.wgByPass = function(req, res, next, pass) {
 
 function isUserInWg(myArray, searchTerm) {
     for(var i = 0; i < myArray.length; i++) {
-        if (myArray[i] === searchTerm) return true;
+        if (myArray[i].toString() === searchTerm) return true;
     }
     return false;
 }
@@ -199,6 +199,7 @@ exports.hasAuthorization = function(req, res, next) {
 	// if (req.wg.user.id !== req.user.id) {
 	// 	return res.status(403).send('User is not authorized');
 	// }
+
 	if(!isUserInWg(req.wg.users, req.user.id)){
 		return res.status(403).send('User is not authorized');
 	}
@@ -206,6 +207,7 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 exports.isAllowedToLeave = function(req, res, next) {
+	console.log('req.user.wg_id', req.user.wg_id, 'req.body._id', req.body._id);
 	if(req.user.wg_id != req.body._id) {
 		return res.status(403).send('User is not authorized');
 	}

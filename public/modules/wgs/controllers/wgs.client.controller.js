@@ -59,8 +59,11 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			var wg = $scope.wg;
 
 			if(wg.users.length <= 1){
+				console.log('delete wg', wg);
 				wg.$remove();
+				$location.path('/');
 			} else {
+				console.log('update wg');
 				var arr = wg.users;
 				var index = arr.indexOf($scope.authentication.user._id);
 				arr.splice(index, 1);
@@ -125,8 +128,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			$http.post('/wgs/join', myObj).success(function(response) {
 				// Show user success message and clear form
 				$scope.authentication.user.wg_id = response._id;
-				$scope.flat.wg = Flat.wg = response;
-				$location.path('wgs/' + response._id);
+				$location.path('/');
 
 			}).error(function(response) {
 				// Show user error message and clear form
