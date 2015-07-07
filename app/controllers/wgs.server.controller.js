@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
+	crypto = require('crypto'),
 	Wg = mongoose.model('Wg'),
 	User = mongoose.model('User'),
 	_ = require('lodash');
@@ -18,8 +19,8 @@ exports.create = function(req, res) {
 	wg.created_from = req.user.username;
 
 	User.update({ _id: req.user.id }, { $set: { wg_id: wg._id }}, function(error, doc){
-		console.log(error);
-		console.log(doc);
+		if(err) console.log(error);
+		console.log('user update, added wgID');
 	});
 
 	wg.save(function(err) {
@@ -119,7 +120,9 @@ exports.removeUser = function(req, res) {
 	var wg = req.body;
 	console.log('server.wg', wg);
 
-	Wg.update({ _id: wg._id },{ $set: { users: wg.users }}, function(error,wg){
+	var newPass = crypto.randomBytes(16).toString('base64');
+
+	Wg.update({ _id: wg._id },{ $set: { users: wg.users, passphrase: newPass }}, function(error,wg){
 		console.log('update users');
 		if(error){ console.log('error'); }
 	});
