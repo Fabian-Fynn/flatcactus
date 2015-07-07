@@ -419,39 +419,46 @@ input.msg:focus {
 	height: 50% !important;
 }
 
-#todo .container {
+#todo .container,
+#shopping .container {
   height: 80%;
   overflow-x: scroll;
   width: 100%;
   padding-left: 5px;
 }
 
-#todo h2::before	{
+#todo h2::before,
+#shopping h2::before {
   display: none;
 }
 
-#todo h2	{
+#todo h2,
+#shopping h2	{
   font-size: 15px;
 	padding: 8px 0;
   line-height: 1 !important;
 }
 
-#todo h3 {
+#todo h3,
+#shopping h3 {
   margin: 5px 0 10px 0;
   line-height: 1 !important;
 }
 
-#todo input.msg {
+#todo input.msg,
+#shopping input.msg {
   padding-left: 5px;
   margin-bottom: 10px;
 }
 
-#todo label::before {
+#todo label::before,
+#shopping label::before {
   top: 6px;
   /*padding: -10px 0px;  */
 }
 
-#todo label {
+#todo label,
+#shopping label {
   padding: 5px 30px;
 }
 
