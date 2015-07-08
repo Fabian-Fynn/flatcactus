@@ -1,8 +1,8 @@
 'use strict';
 
 // Todos controller
-angular.module('todos', ['ngSocketIO']).controller('TodosController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Todos', '$socket',
-	function($scope, $http, $stateParams, $location, Authentication, Todos, $socket) {
+angular.module('todos').controller('TodosController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', '$socket', 'Todos',
+	function($scope, $http, $stateParams, $location, Authentication, $socket, Todos) {
 		$scope.authentication = Authentication;
 
 		// Create new Todo

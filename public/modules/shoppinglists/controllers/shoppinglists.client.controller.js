@@ -1,8 +1,8 @@
 'use strict';
 
 // Shoppinglists controller
-angular.module('shoppinglists', ['ngSocketIO']).controller('ShoppinglistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Shoppinglists', '$socket',
-	function($scope, $http, $stateParams, $location, Authentication, Shoppinglists, $socket) {
+angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', '$socket', 'Shoppinglists',
+	function($scope, $http, $stateParams, $location, Authentication, $socket, Shoppinglists) {
 		$scope.authentication = Authentication;
 		// var socket = io.connect();
 		// Create new Shoppinglist
