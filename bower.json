@@ -17,7 +17,8 @@
     "animateCSS": "~1.2.1",
     "angular-ui-clock": "~0.4.0",
     "ng-file-upload": "~5.0.9",
-    "angular-native-picker": "~1.0.4"
+    "angular-native-picker": "~1.0.4",
+    "angular-socketio": "*"
   },
   "note": {
     "description": "Updating this causes trouble because I've changed it.",

@@ -1,8 +1,8 @@
 'use strict';
 
 // Todos controller
-angular.module('todos').controller('TodosController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Todos',
-	function($scope, $http, $stateParams, $location, Authentication, Todos) {
+angular.module('todos', ['ngSocketIO']).controller('TodosController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Todos', '$socket',
+	function($scope, $http, $stateParams, $location, Authentication, Todos, $socket) {
 		$scope.authentication = Authentication;
 
 		// Create new Todo
@@ -96,5 +96,10 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
 		};
+
+		socket.on('todos.update', function (post) {
+			$scope.getAll();
+		});
+
 	}
 ]);

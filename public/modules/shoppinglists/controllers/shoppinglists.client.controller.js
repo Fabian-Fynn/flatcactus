@@ -1,10 +1,10 @@
 'use strict';
 
 // Shoppinglists controller
-angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Shoppinglists',
-	function($scope, $http, $stateParams, $location, Authentication, Shoppinglists) {
+angular.module('shoppinglists', ['ngSocketIO']).controller('ShoppinglistsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Shoppinglists', '$socket',
+	function($scope, $http, $stateParams, $location, Authentication, Shoppinglists, $socket) {
 		$scope.authentication = Authentication;
-
+		// var socket = io.connect();
 		// Create new Shoppinglist
 		$scope.create = function() {
 			// Create new Shoppinglist object
@@ -92,5 +92,10 @@ angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope',
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
 		};
+
+		socket.on('shoppings.update', function (post) {
+			$scope.getAll();
+		});
+
 	}
 ]);
