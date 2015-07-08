@@ -126,12 +126,16 @@
 						<div class="h3-pad-dash">
 				    	<h3 class="h3-dash">Time</h3>
 						</div>
-						<div class="wrapper">
-							<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
-							<span class="time large">: </span>
-							<ds-widget-clock class="clock-minutes" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
-							<p class="weekday">{{weekday}}</p>
-							<p class="date">{{date}}</p>
+						<div class="pad-dash-item-content">
+							<div class="wrap-clock">
+								<ds-widget-clock class="clock-hour clock-font" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
+								<span class="time large clock-font">:</span>
+								<ds-widget-clock class="clock-minutes clock-font" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
+							</div>
+							<div class="wrap-date">
+								<p class="weekday">{{weekday}}</p>
+								<p class="date">{{date}}</p>
+							</div>
 						</div>
 					</div>
 

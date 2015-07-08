@@ -43,10 +43,14 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 				'Saturday'
 			];
 
+			var months = [
+				'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+			];
+
 			var date = new Date();
 			$scope.weekday = weekday[date.getDay()];
-			$scope.date = date.getDate() + '.' +
-				(date.getMonth()+1) + '.' +
+			$scope.date = date.getDate() + '. ' +
+				months[date.getMonth()] + ' ' +
 				date.getFullYear();
 
 			//If 23:53 or late check time every 0.5 sec else every 5 min

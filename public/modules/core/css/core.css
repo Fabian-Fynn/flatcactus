@@ -414,6 +414,19 @@ body{
 	height: 100%;
 }
 
+.wrap-clock{
+	width: 74%;
+	margin-top: -15px;
+	margin-left: 13%;
+	font-size: 1.4em;
+}
+
+.wrap-date{
+	border-top: 1px solid rgba(0,0,0,0.1);
+	margin-top: 45px;
+	padding-top: 25px;
+}
+
 input.msg,
 input.msg:active,
 input.msg:focus {
@@ -625,15 +638,21 @@ input.msg:focus {
 	float: right;
 }
 
+#clock .clock-font{
+	font-size: 1.4em;
+}
+
+#clock .weekday {
+	margin-top: 10px;
+	color: rgba(56, 40, 5, 0.5) !important
+}
+
 #clock .large{
-	font-size: 2.5em;
-	font-family: 'Syncopate',sans-serif;
 	float: left;
-	margin-right: 5px;
 }
 
 #clock .time {
-	font-size: 6.6vw;
+	text-align:center;
 	display: block;
 }
 
@@ -652,28 +671,25 @@ input.msg:focus {
 @media (min-width: 1200px) {
 	#clock .time {
 		text-align: center;
-		font-size: 2.7vw;
 		display: block;
 	}
 
   #clock .weekday {
-    font-size: 2vw;
     line-height: 0.8em;
     margin-top: -10px;
     margin-bottom: 1px;
   }
 
   #clock .date {
-    font-size: 2vw;
     margin-top: 0;
     margin-bottom: 0;
+		font-size:1.3em;
   }
 }
 
 @media (min-width: 1400px) {
 	#clock .time {
 		text-align: center;
-		font-size: 2.8vw;
 		display: block;
 	}
 }
