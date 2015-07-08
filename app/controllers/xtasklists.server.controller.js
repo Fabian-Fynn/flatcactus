@@ -56,7 +56,7 @@ Date.prototype.addDays = function(days){
 
 Date.prototype.addMonths = function(months){
 	var dat = new Date(this.valueOf());
-	dat.setDate(dat.getMonth() + months);
+	dat.setMonth(dat.getMonth() + months);
 	return dat;
 };
 
@@ -128,6 +128,43 @@ exports.update = function(req, res) {
 				res.jsonp(task);
 			});
 		}
+	});
+};
+
+/*
+ * UPDATE all tasks from a wg
+ */
+function updateDaily(task){
+	var crt = new Date();
+	if(crt.getDate() !== task.start.getDate() && crt.getMonth() !== task.start.getMonth()){
+		var difInMilSecs = crt.getTime() - task.start.getTime();
+		var dif = Math.floor(difInMilSecs);
+
+	}
+}
+
+function updateWeekly(task){
+	var crt = new Date();
+}
+
+function updateMonthly(task){
+	var crt = new Date();
+
+}
+
+function getDayDifference(time){
+	time /= 1000;
+	var days = Math.floor(time / 86400);
+	return days;
+}
+
+exports.updateAllTasks = function(){
+	Xtasklist.where({wg_id: req.user.wg_id}).exec(function(err, tasks){
+		tasks.forEach(function(elem){
+			if(elem.interval === 'daily') updateDaily(elem);
+			if(elem.interval === 'weekly') updateWeekly(elem);
+			if(elem.interval === 'monthly') updateMonthly(elem);
+		});
 	});
 };
 

@@ -19,7 +19,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				interval: this.interval,
 				isDone: false,
 				users: obj,
-				crtUser: $scope.first.name
+				crtUser: $scope.first.name // is the user-id
 			});
 
 			// Redirect after save

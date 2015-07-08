@@ -10,6 +10,8 @@ module.exports = function(app) {
 		//.get(xtasklists.list)
 		.post(users.requiresLogin, xtasklists.create);
 
+	app.route('/xtasklists/updateAll').post(users.requiresLogin, xtasklists.updateAllTasks);
+
 	app.route('/xtasklists/:xtasklistId')
 		.get(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.read)
 		.put(users.requiresLogin, wgs.wgByUser, xtasklists.checkIfAllowed, xtasklists.update)

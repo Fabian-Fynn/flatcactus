@@ -29,6 +29,21 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			$rootScope.attr = null;
 		};
 
+		$scope.updateTasks = function(){
+			if($scope.authentication.user.wg_id){
+				$scope.taskUpdates = null;
+				var date = new Date();
+
+				if(!$scope.taskUpdates || $scope.taskUpdates.getDay() < date.getDay())
+					$http.post('/xtasklists/updateAll').success(function(err, res){
+						$scope.taskUpdates = new Date();
+						console.log('WORKED');
+					}).error(function(res){
+						console.log('ERROR');
+					});
+			}
+		};
+
 		// Check if Date hase to be updated
 		$scope.dateTick = function() {
 			var weekday = [
