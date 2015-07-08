@@ -84,7 +84,6 @@ WgSchema.statics.notifyUsers = function(socketio, wgID, msg) {
 			}
 		});
 	});
-
 };
 
 mongoose.model('Wg', WgSchema);

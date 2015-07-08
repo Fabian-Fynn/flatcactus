@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	_ = require('lodash');
 
-	
+
 /**
  * Create a Wg
  */
@@ -217,3 +217,13 @@ exports.isAllowedToLeave = function(req, res, next) {
 	}
 	next();
 };
+
+exports.loggon = function(req, res) {
+	User.update({ _id: req.body.user._id }, { $set: { socket_id: req.body.socketID }}, function(error, user){
+		if(error){ 
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+	});
+}

@@ -59,6 +59,16 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			}
 		};
 
+		$scope.loggon = function(){
+			var data = {
+				user: $scope.authentication.user,
+				socketID: socket.io.engine.id
+			}
+			$http.post('/wgs/loggon', data).success(function(response) {
+				// console.log('res', res);
+			});
+		}
+
 /**
  * Code from http://jsfiddle.net/huAxS/2/
  */
@@ -140,6 +150,7 @@ angular.module('core')
 			$scope.data[0].push(user.balance);
 			$scope.labels.push(user.firstName);
 		});
+
 	}).error(function(err){
 		$scope.error = err.data.message;
 	});

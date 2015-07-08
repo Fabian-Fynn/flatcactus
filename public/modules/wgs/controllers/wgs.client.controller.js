@@ -1,8 +1,8 @@
 'use strict';
 
 // Wgs controller
-angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout',
-	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout, jQuery) {
+angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout', '$socket',
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout, jQuery, $socket) {
 		$scope.authentication = Authentication;
 		var timeout;
 
