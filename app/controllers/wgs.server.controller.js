@@ -95,8 +95,6 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var wg = req.wg ;
-	console.log('remove', wg);
-	console.log('user', req);
 
 	wg.remove(function(err) {
 		if (err) {
@@ -119,7 +117,6 @@ exports.delete = function(req, res) {
 
 exports.removeUser = function(req, res) {
 	var wg = req.body;
-	console.log('server.wg', wg);
 
 	var newPass = crypto.randomBytes(16).toString('base64');
 
@@ -167,7 +164,6 @@ exports.wgByID = function(req, res, next, id) {
 };
 
 exports.wgByUser = function(req, res, next) {
-	console.log('wg by user', req.user.wg_id);
 	if(!req.user.wg_id){
 		next();
 	} else {
@@ -211,7 +207,6 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 exports.isAllowedToLeave = function(req, res, next) {
-	console.log('req.user.wg_id', req.user.wg_id, 'req.body._id', req.body._id);
 	if(req.user.wg_id.toString() !== req.body._id.toString()) {
 		return res.status(403).send('User is not authorized');
 	}

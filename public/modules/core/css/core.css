@@ -255,8 +255,12 @@ body{
 	top: 15px;
 }
 
-.your-task{
-	border-left: 3px solid #0bf;
+.your-task_not{
+	border-left: 3px solid #de0404;
+}
+
+.your-task_done{
+	border-left: 3px solid #04cc06;
 }
 
 .glyphicon-remove{

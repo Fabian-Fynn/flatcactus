@@ -56,7 +56,7 @@ Date.prototype.addDays = function(days){
 
 Date.prototype.addMonths = function(months){
 	var dat = new Date(this.valueOf());
-	dat.setDate(dat.getMonth() + months);
+	dat.setMonth(dat.getMonth() + months);
 	return dat;
 };
 
@@ -64,7 +64,6 @@ Date.prototype.addMonths = function(months){
  * Show the current Xtasklist
  */
 exports.read = function(req, res) {
-	console.log('read', req.xtasklist);
 	res.jsonp(req.xtasklist);
 };
 
@@ -114,8 +113,9 @@ exports.checkIfAllowed = function(req, res, next) { 
  */
 exports.update = function(req, res) {
 	var xtasklist = req.xtasklist;
-	console.log('xtasklist', req.xtasklist);
-	console.log('new task', req.body);
+	var user = req.body.crtUser;
+	req.body.crtUser = req.user._id;
+
 	xtasklist = _.extend(xtasklist , req.body);
 
 	xtasklist.save(function(err) {
@@ -124,8 +124,47 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(xtasklist);
+			Xtasklist.findById(xtasklist._id).populate('crtUser').exec(function(err, task){
+				res.jsonp(task);
+			});
 		}
+	});
+};
+
+/*
+ * UPDATE all tasks from a wg
+ */
+function updateDaily(task){
+	var crt = new Date();
+	if(crt.getDate() !== task.start.getDate() && crt.getMonth() !== task.start.getMonth()){
+		var difInMilSecs = crt.getTime() - task.start.getTime();
+		var dif = Math.floor(difInMilSecs);
+
+	}
+}
+
+function updateWeekly(task){
+	var crt = new Date();
+}
+
+function updateMonthly(task){
+	var crt = new Date();
+
+}
+
+function getDayDifference(time){
+	time /= 1000;
+	var days = Math.floor(time / 86400);
+	return days;
+}
+
+exports.updateAllTasks = function(){
+	Xtasklist.where({wg_id: req.user.wg_id}).exec(function(err, tasks){
+		tasks.forEach(function(elem){
+			if(elem.interval === 'daily') updateDaily(elem);
+			if(elem.interval === 'weekly') updateWeekly(elem);
+			if(elem.interval === 'monthly') updateMonthly(elem);
+		});
 	});
 };
 
@@ -165,7 +204,7 @@ exports.list = function(req, res) {
  * Xtasklist middleware
  */
 exports.xtasklistByID = function(req, res, next, id) {
-	Xtasklist.findById(id).exec(function(err, xtasklist) {
+	Xtasklist.findById(id).populate('crtUser').exec(function(err, xtasklist) {
 		if (err) return next(err);
 		if (! xtasklist) return next(new Error('Failed to load task ' + id));
 		req.xtasklist = xtasklist ;
