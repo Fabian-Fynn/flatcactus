@@ -12,7 +12,7 @@
 		<small>USERS</small><br>
 			<span ng-repeat="user in xtasklist.users">
 				<span class="hide" ng-if="user.crt" ng-init="setCurrent(user.username)"></span>
-				<span>{{user.username}}<br></span>
+				<span>{{user.username}} <i ng-show="user.isNext">(next)</i><br></span>
 		</span>
 	</div>
 
