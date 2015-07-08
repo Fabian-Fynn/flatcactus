@@ -88,6 +88,8 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 
 		$scope.$watch('files', function(){
 			if($scope.files.length){
+				$scope.success_photo = false;
+				$scope.error_photo = false;
 				$scope.upload();
 				console.log('upload');
 			}
@@ -108,6 +110,8 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.success_photo = true;
 				$scope.user.avatar = Authentication.user.avatar = data.img;
 			}).error(function(err){
+				$scope.error_photo = true;
+				$scope.error_photo_msg = err;
 				console.log('error', err);
 			});
 		};
