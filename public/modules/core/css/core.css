@@ -400,7 +400,7 @@ body{
   display: inline-block;
   width: 100%;
   background-color: #fffdf5;
-	box-shadow: 0 0px 20px rgba(0,0,0,0.7);
+	box-shadow: 0 0px 10px rgba(0,0,0,0.7);
 	margin-top: 2%;
 	box-sizing: border-box;
 	color: #382805 !important;
@@ -587,6 +587,21 @@ input.msg:focus {
 	height: 50% !important;
 }
 
+#shopping .container::-webkit-scrollbar,
+#todo .container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+#shopping .container::-webkit-scrollbar-track,
+#todo .container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+#shopping .container::-webkit-scrollbar-thumb,
+#todo .container::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.5);
+}
+
 /*CLOCK*/
 
 #clock {
@@ -698,6 +713,7 @@ margin-bottom: -30px; */
 
 #weather .temps-small{
 	color: rgba(56, 40, 5, 0.5) !important;
+	display: block;
 }
 
 #weather .temps-all{
