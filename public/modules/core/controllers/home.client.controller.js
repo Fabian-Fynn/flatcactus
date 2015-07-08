@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat', 'Wgs', '$http',
-	function($rootScope, $scope, Authentication, Flat, Wgs, $http) {
+angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat', 'Wgs', '$http', '$location',
+	function($rootScope, $scope, Authentication, Flat, Wgs, $http, $location) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.wg = Wgs.get({
@@ -15,9 +15,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 		});
 
 		$rootScope.wg = $scope.wg;
-		$scope.flat = Flat;
-		$rootScope.flat = Flat;
-		$scope.hasWg = ($scope.authentication.user.wg_id === null) ? false : true;
+		$scope.hasWg = ($scope.authentication.user.wg_id) ? true : false;
 
 		$scope.addBgClass = function(){
 			$scope.dateTick();
@@ -43,10 +41,14 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 				'Saturday'
 			];
 
+			var months = [
+				'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+			];
+
 			var date = new Date();
 			$scope.weekday = weekday[date.getDay()];
-			$scope.date = date.getDate() + '.' +
-				(date.getMonth()+1) + '.' +
+			$scope.date = date.getDate() + '. ' +
+				months[date.getMonth()] + ' ' +
 				date.getFullYear();
 
 			//If 23:53 or late check time every 0.5 sec else every 5 min

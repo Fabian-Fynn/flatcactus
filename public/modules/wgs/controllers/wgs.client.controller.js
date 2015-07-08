@@ -59,6 +59,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 
 			if(wg.users.length <= 1){
 				console.log('delete wg', wg);
+				$scope.authentication.user.wg_id = Authentication.user.wg_id = null;
 				wg.$remove();
 				$location.path('/');
 			} else {
@@ -71,10 +72,12 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				$http.put('/my-share/leave', wg).success(function(response) {
 					// Show user success message and clear form
 					$scope.authentication.user.wg_id = Authentication.user.wg_id = null;
+					console.log($scope.authentication.user.wg_id, Authentication.user.wg_id);
 					$location.path('/');
 				}).error(function(response) {
 					// Show user error message and clear form
-					$scope.error = response.message;
+					console.log('ERROR')
+					$scope.error = response;
 				});
 			}
 		};

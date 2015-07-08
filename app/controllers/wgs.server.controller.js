@@ -50,9 +50,9 @@ exports.join = function(req, res) {
 			});
 		}
 
-		Wg.update({ _id: wg._id },{ $push: { users: req.body.userId }}, function(){});
+		Wg.update({ _id: wg._id },{ $push: { users: req.user._id }}, function(){});
 
-		user = User.update({ _id: req.body.userId }, { $set: { wg_id: wg._id }}, function(error, user){
+		user = User.update({ _id: req.user._id }, { $set: { wg_id: wg._id }}, function(error, user){
 			if(err){ 
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)

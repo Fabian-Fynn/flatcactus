@@ -15,8 +15,7 @@
 				</div>
 		</div>
 	</div>
-	<div class="" id='dashboard' data-ng-controller="WgsController" data-ng-init="getUsers()" data-ng-if="authentication.user && hasWg">
-
+	<div class="" id="dashboard" data-ng-controller="WgsController" data-ng-if="authentication.user && hasWg" ng-init="getUsers()">
 				<div class="dash-col">
 					<div class="item" id="motd">
 						<div class="h3-pad-dash">
@@ -42,15 +41,12 @@
 						</div>
 						<div class="pad-dash-item-content">
 							<div class="container">
-								<div data-ng-repeat="xtasklist in tasks">
-
-								<div class="small-user-avatar">
-									<img ng-src="{{xtasklist.current.avatar}}" class="" alt="profile">
-								</div>
-								<p>
-								{{xtasklist.name}}
-								</p>
-
+								<div data-ng-repeat="xtasklist in tasks" class="tasks-dash" ng-click="toTask(xtasklist._id)">
+									<div class="task-link">
+										<img ng-src="{{xtasklist.crtUser.avatar}}" class="avatar pad-right_10 avatar-float-left no-mar-top-img" alt="profile">
+										<span class="task-user">{{xtasklist.crtUser.displayName}}</span><span class="task-name"><strong>{{xtasklist.name}}</strong></span>
+									</div>
+									<span class="clearfix"></span>
 								</div>
 							</div>
 						</div>
@@ -113,13 +109,13 @@
 						</div>
 						<div class="temps">
 							<div class="col-md-12 text-center temps-all">
-								<div class="col-md-4">
+								<div class="col-md-4 smaller-pad">
 									<span class="temps-small">crt</span>{{ weather.temp.current | temp:2 }}
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-4 smaller-pad">
 									<span class="temps-small">min</span>{{ weather.temp.min | temp }}
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-4 smaller-pad">
 									<span class="temps-small">max</span>{{ weather.temp.max | temp }}
 								</div>
 							</div>
@@ -130,12 +126,16 @@
 						<div class="h3-pad-dash">
 				    	<h3 class="h3-dash">Time</h3>
 						</div>
-						<div class="wrapper">
-							<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
-							<span class="time large">: </span>
-							<ds-widget-clock class="clock-minutes" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
-							<p class="weekday">{{weekday}}</p>
-							<p class="date">{{date}}</p>
+						<div class="pad-dash-item-content">
+							<div class="wrap-clock">
+								<ds-widget-clock class="clock-hour clock-font" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
+								<span class="time large clock-font">:</span>
+								<ds-widget-clock class="clock-minutes clock-font" theme="dark" show-digital="true" digital-format="'mm a'"></ds-widget-clock>
+							</div>
+							<div class="wrap-date">
+								<p class="weekday">{{weekday}}</p>
+								<p class="date">{{date}}</p>
+							</div>
 						</div>
 					</div>
 
