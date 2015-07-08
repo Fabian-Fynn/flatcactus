@@ -97,9 +97,8 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 			document.body.style.background = '#fff';
 		};
 
-		socket.on('todos.update', function (post) {
+		socket.on('todo.update', function (post) {
 			$scope.getAll();
 		});
-
 	}
 ]);

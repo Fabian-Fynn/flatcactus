@@ -61,7 +61,6 @@ exports.update = function(req, res) {
  * Delete User
  */
 exports.deleteData = function(req, res) {
-	console.log('req.user', req.user);
 	var user = req.user;
 
 	user.remove(function(err) {
@@ -82,7 +81,6 @@ exports.deleteData = function(req, res) {
 					}
 				});
 			}
-			console.log('req.logout');
 			req.logout();
 			res.json(user);
 		}
@@ -161,5 +159,4 @@ exports.getAllFromWg = function(req, res) {
 			}
 			return res.json(docs);
 	});
-
 };

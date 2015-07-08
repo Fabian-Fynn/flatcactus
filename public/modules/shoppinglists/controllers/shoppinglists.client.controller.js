@@ -93,7 +93,7 @@ angular.module('shoppinglists').controller('ShoppinglistsController', ['$scope',
 			document.body.style.background = '#fff';
 		};
 
-		socket.on('shoppings.update', function (post) {
+		socket.on('shopping.update', function (post) {
 			$scope.getAll();
 		});
 

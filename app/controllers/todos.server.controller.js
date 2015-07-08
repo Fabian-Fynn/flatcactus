@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Todo = mongoose.model('Todo'),
+	Wg = mongoose.model('Wg'),
 	_ = require('lodash');
 
 /**
@@ -20,8 +21,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('todos.update', todo);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'todo.update');
 			res.jsonp(todo);
 		}
 	});
@@ -48,8 +48,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('todos.update', todo);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'todo.update');
 			res.jsonp(todo);
 		}
 	});
@@ -67,8 +66,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('todos.update', todo);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'todo.update');
 			res.jsonp(todo);
 		}
 	});
