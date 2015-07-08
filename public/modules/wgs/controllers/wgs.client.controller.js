@@ -22,7 +22,6 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			// Redirect after save
 			wg.$save(function(response) {
 				$scope.authentication.user.wg_id = response._id;
-				$scope.flat.wg = Flat.wg = wg;
 
 				// Clear form fields
 				$scope.name = '';
@@ -169,7 +168,6 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
     	}, 500);
 
 		};
-
 
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';

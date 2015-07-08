@@ -1,35 +1,39 @@
 <section class="row" data-ng-controller="SettingsController" ng-init="removeBgClass()">
-	<h3 class="col-md-12 text-center">Edit your profile</h3>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+	<div class="page-header col-md-12 text-center mg-30">
+			<h1>Edit your profile</h1>
+	</div>
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-8">
 		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
 			<fieldset>
-				<div class="form-group">
+				<div class="form-group col-xs-6 col-md-6 mg-30">
 					<label for="firstName">First Name</label>
 					<input type="text" id="firstName" name="firstName" class="form-control" data-ng-model="user.firstName" placeholder="First Name">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-6 col-md-6 mg-30">
 					<label for="lastName">Last Name</label>
 					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-6 col-md-6 mg-30">
 					<label for="username">Username</label>
 					<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-6 col-md-6 mg-30">
 					<label for="email">Email</label>
 					<input type="email" id="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email">
 				</div>
 
-				<div class="text-center form-group">
-					<div ngf-drop ngf-select ng-model="files" class="drop-box" ng-class="{'drop-box_border': files.length, 'drop-box_upload_complete': success_photo}" ngf-drag-over-class="dragover" ngf-accept="'image/*,'"><span ng-show="!files || !files.length">Drop Images or Click here</span><span ng-show="files.length">{{files[0].name}}<br>Status: {{progress}}%</span></div>
-				<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+				<div class="form-group col-xs-12 col-md-12 mg-30">
+					<label for="photo">Profile Photo (max 3MB)</label>
+					<div ngf-drop ngf-select ng-model="files" class="drop-box" ng-class="{'drop-box_border': files.length, 'drop-box_upload_complete': success_photo}" ngf-max-size='3000000' ngf-drag-over-class="dragover" ngf-accept="'image/*,'"><span ng-show="!files || !files.length">Drop Images or Click here (jpeg / png)</span><span ng-show="files.length">{{files[0].name}}<br>Status: {{progress}}%</span></div>
+					<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 				</div>
+				<p class="clearfix"></p>
 
-				<div class="text-center form-group">
+				<div class="text-center form-group col-xs-12 col-md-12 mg-30">
 					<button type="submit" class="btn btn-large btn-primary" ng-class="{'btn-success': success}">Save Profile <i ng-show="success" class="glyphicon glyphicon-ok"></i></button>
 				</div>
 
-				<div class="form-group text-center">
+				<div class="form-group text-center col-xs-12 col-md-12 mg-30">
 					<a class="text-center btn btn-large btn-danger" href="/#!/user/delete">Delete Account</a>
 				</div>
 
