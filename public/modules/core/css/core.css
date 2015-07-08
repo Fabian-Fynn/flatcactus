@@ -436,6 +436,10 @@ input.msg:focus {
 	background: #F5EAD0;
 }
 
+.edit:hover{
+	background: #f6f0e2;
+}
+
 /* drag box for profile foto */
 .drop-box {
     background: #F8F8F8;

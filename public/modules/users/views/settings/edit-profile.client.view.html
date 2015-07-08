@@ -24,7 +24,7 @@
 
 				<div class="form-group col-xs-12 col-md-12 mg-30">
 					<label for="photo">Profile Photo (max 3MB)</label>
-					<div ngf-drop ngf-select ng-model="files" class="drop-box" ng-class="{'drop-box_border': files.length, 'drop-box_upload_complete': success_photo}" ngf-max-size='3000000' ngf-drag-over-class="dragover" ngf-accept="'image/*,'"><span ng-show="!files || !files.length">Drop Images or Click here (jpeg / png)</span><span ng-show="files.length">{{files[0].name}}<br><img ng-show="!success_photo" src="/modules/core/img/loaders/photo_load.gif" style="height: 20px;"><strong ng-show="success_photo">Done</strong></span></div>
+					<div ngf-drop ngf-select ng-model="files" class="drop-box" ng-class="{'drop-box_border': files.length, 'drop-box_upload_complete': success_photo}" ngf-max-size='3000000' ngf-drag-over-class="dragover" ngf-accept="'image/*,'"><span ng-show="!files || !files.length">Drop Images or Click here (jpeg / png)</span><span ng-show="files.length">{{files[0].name}}<br><img ng-show="files.length" ng-hide="success_photo || error_photo" src="/modules/core/img/loaders/photo_load.gif" style="height: 20px;"><strong ng-show="success_photo">Done</strong><strong ng-show="error_photo" ng-bind="error_photo_msg"></strong></span></div>
 					<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 				</div>
 				<p class="clearfix"></p>
