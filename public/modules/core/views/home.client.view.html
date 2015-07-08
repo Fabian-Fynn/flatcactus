@@ -34,13 +34,14 @@
 					</div>
 					<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
 						<h3>Continuous Tasks</h3>
-						<div data-ng-repeat="xtasklist in tasks">
-							<p>
-								<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
-								{{xtasklist.name}}
-								{{xtasklist.current.username}}
-							</p>
+						<div class="container">
+							<div data-ng-repeat="xtasklist in tasks">
+								<p>
+									<img ng-src="{{xtasklist.current.fullUser.avatar}}" class="small-avatar" alt="profile">
+									{{xtasklist.name}}
+								</p>
 
+							</div>
 						</div>
 					</div>
 				</div>

@@ -444,8 +444,9 @@ input.msg:focus {
 }
 
 #motd .user img {
-  width: 100%;
-  height: auto;
+  height: 55px;
+  width: auto;
+  max-width: 55px !important;
 }
 
 #motd .msg {
@@ -457,8 +458,22 @@ input.msg:focus {
 /*TASKS*/
 
 #tasks {
-	height: auto !important;
-  min-height: 30%;
+	height: 60% !important;
+}
+
+#tasks .container {
+  margin-top: 10px;
+  height: 87% !important;
+  padding-top: 20px;
+}
+
+#tasks p {
+  height: 40px;
+}
+
+#tasks img {
+  height: 90%;
+  width: auto;
 }
 
 /*TODOS*/
@@ -468,7 +483,8 @@ input.msg:focus {
 }
 
 #todo .container,
-#shopping .container {
+#shopping .container,
+#tasks .container{
   height: 80%;
   overflow-x: scroll;
   width: 100%;
