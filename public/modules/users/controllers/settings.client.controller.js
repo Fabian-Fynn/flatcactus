@@ -106,7 +106,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.progress = progressPercentage;
 			}).success(function (data, status, headers, config) {
 				$scope.success_photo = true;
-				console.log('done', data.img, '..', $scope.user.avatar);
 				$scope.user.avatar = Authentication.user.avatar = data.img;
 			}).error(function(err){
 				console.log('error', err);

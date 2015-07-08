@@ -97,6 +97,7 @@ exports.profilePhoto = function(req, res){
 		console.log('files', files);
 
 		var user = req.user;
+		var oldAvatar = user.avatar;
 		var file = files.file[0];
 
 		var contentType = file.headers['content-type'];
@@ -130,6 +131,7 @@ exports.profilePhoto = function(req, res){
 							message: errorHandler.getErrorMessage(err)
 						});
 					}
+					if(oldAvatar !== '/modules/users/img/avatar.jpg') fs.unlink(process.cwd() + '/public/' + oldAvatar);
 					return res.json({img: user.avatar});
 				});
 		}else{
