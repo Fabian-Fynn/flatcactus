@@ -15,9 +15,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 		});
 
 		$rootScope.wg = $scope.wg;
-		$scope.flat = Flat;
-		$rootScope.flat = Flat;
-		$scope.hasWg = ($scope.authentication.user.wg_id === null) ? false : true;
+		$scope.hasWg = ($scope.authentication.user.wg_id) ? true : false;
 
 		$scope.addBgClass = function(){
 			$scope.dateTick();

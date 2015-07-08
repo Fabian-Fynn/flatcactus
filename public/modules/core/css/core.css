@@ -50,7 +50,7 @@
 	margin-top: -8px;
 	margin-bottom: -8px;
 	margin-right: 5px;
-	border: 2px solid #ddd;
+	border: 2px solid rgba(56, 40, 5, 0.2);
 }
 
 .avatar-float-left{
