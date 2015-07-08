@@ -19,89 +19,117 @@
 
 				<div class="dash-col">
 					<div class="item" id="motd">
-						<h3>Messages of the day</h3>
-						<div class="motd" data-ng-repeat="user in allUsers">
-							<div class="user avatar"><img ng-src="{{user.avatar}}" class="" alt="profile"> </div>
-							<div class="msg" ng-show="user._id != authentication.user._id " myclass={{user._id}}>{{user.motd}}</div>
+						<div class="h3-pad-dash">
+							<h3 class="h3-dash">Messages of the day</h3>
+						</div>
+						<div class="pad-dash-item-content">
+							<div class="motd" data-ng-repeat="user in allUsers">
+								<div class="user"><img ng-src="{{user.avatar}}" class="avatar" alt="profile"> </div>
+								<div class="msg" ng-show="user._id != authentication.user._id " myclass={{user._id}}>{{user.motd}}</div>
 
-							<input type="text" class="msg {{user._id}}" placeholder="Enter your message" ng-class="myclass" ng-show="user._id == authentication.user._id" ng-model="user.motd"
-							ng-change="editMotd(user)"
-							></input>
+								<input type="text" class="msg {{user._id}}" placeholder="Enter your message" ng-class="myclass" ng-show="user._id == authentication.user._id" ng-model="user.motd"
+								ng-change="editMotd(user)"
+								></input>
 
-							<div class="notice" ng-show="user._id == authentication.user._id" ng-bind-html="motdStatus"></div>
-							<br>
+								<div class="notice" ng-show="user._id == authentication.user._id" ng-bind-html="motdStatus"></div>
+								<br>
+							</div>
 						</div>
 					</div>
 					<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
-						<h3>Continuous Tasks</h3>
-						<div class="container">
-							<div data-ng-repeat="xtasklist in tasks">
+						<div class="h3-pad-dash">
+							<h3 class="h3-dash">Continuous Tasks</h3>
+						</div>
+						<div class="pad-dash-item-content">
+							<div class="container">
+								<div data-ng-repeat="xtasklist in tasks">
 
-								<div class="small-user-avatar">
-									<img ng-src="{{xtasklist.current.fullUser.avatar}}" class="" alt="profile">
+									<div class="">
+										<img ng-src="{{xtasklist.current.fullUser.avatar}}" class="avatar avatar-float-left" alt="profile">
+									</div>
+									<p>
+									{{xtasklist.name}}
+									</p>
+
 								</div>
-								<p>
-								{{xtasklist.name}}
-								</p>
-
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="dash-col">
 					<div class="item" id="todo" data-ng-controller="TodosController" data-ng-init="getAll()">
-						<h3>Todo list</h3>
-		        <div class="controls">
-		            <input type="text" data-ng-model="name" id="name" class="msg" placeholder="New Todo" ng-keypress="($event.which === 13)?create(true):0" required>
-		            <button class="btn btn-xs edit" id="create" ng-click="create(true)">Add</button>
-		        </div>
-						<div class="container">
-							<div class="todo-items" ng-hide="">
-					      <span data-ng-repeat="todo in todos track by $index" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}">
-					        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="todo.isDone" ng-click="setToDone($index, todo)">
-					        <label class="todo-label" for="{{'item' + $index}}">{{todo.name}} <i ng-show="todo.isDone" class="todo-done_small"> done by <strong>{{todo.done_by}}</strong> {{todo.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
-					      </span>
+						<div class="h3-pad-dash">
+							<h3 class="h3-dash">Todo list</h3>
+						</div>
+						<div class="pad-dash-item-content">
+			        <div class="controls">
+			            <input type="text" data-ng-model="name" id="name" class="msg" placeholder="New Todo" ng-keypress="($event.which === 13)?create(true):0" required>
+			            <button class="btn btn-xs edit" id="create" ng-click="create(true)">Add</button>
+			        </div>
+							<div class="container">
+								<div class="todo-items" ng-hide="">
+						      <span data-ng-repeat="todo in todos track by $index" ng-class="{'todo-order': !todo.isDone, 'todo-order-done': todo.isDone}">
+						        <input class="todo-input" id="{{'item' + $index}}" type="checkbox" ng-checked="todo.isDone" ng-click="setToDone($index, todo)">
+						        <label class="todo-label" for="{{'item' + $index}}">{{todo.name}} <i ng-show="todo.isDone" class="todo-done_small"> done by <strong>{{todo.done_by}}</strong> {{todo.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+						      </span>
 
-					      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Done</h2>
-					      <h2 class="todo-h2 todo-done" aria-hidden="true">Done</h2>
-					    </div>
+						      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Done</h2>
+						      <h2 class="todo-h2 todo-done" aria-hidden="true">Done</h2>
+						    </div>
+							</div>
 						</div>
 					</div>
 					<div class="item" id="shopping" data-ng-controller="ShoppinglistsController" data-ng-init="getAll()">
-						<h3>Shopping list</h3>
+						<div class="h3-pad-dash">
+							<h3 class="h3-dash">Shopping list</h3>
+						</div>
+						<div class="pad-dash-item-content">
 			        <div class="controls">
 								<input type="text" data-ng-model="name" id="name" class="msg" placeholder="Add Item" ng-keypress="($event.which === 13)?create(true):0" required>
 		            <button class="btn btn-xs edit" id="create" ng-click="create(true)">Add</button>
 			        </div>
-				    <div class="container">
-							<div class="todo-items" ng-hide="">
-					      <span data-ng-repeat="shop in shoppinglists track by $index" ng-class="{'todo-order': !shop.isDone, 'todo-order-done': shop.isDone}">
-					        <input class="todo-input" id="{{'shop' + $index}}" type="checkbox" ng-checked="shop.isDone" ng-click="setToDone($index, shop)">
-					        <label class="todo-label" for="{{'shop' + $index}}">{{shop.name}} <i ng-show="shop.isDone" class="todo-done_small"> done by <strong>{{shop.done_by}}</strong> {{shop.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
-					      </span>
+					    <div class="container">
+								<div class="todo-items" ng-hide="">
+						      <span data-ng-repeat="shop in shoppinglists track by $index" ng-class="{'todo-order': !shop.isDone, 'todo-order-done': shop.isDone}">
+						        <input class="todo-input" id="{{'shop' + $index}}" type="checkbox" ng-checked="shop.isDone" ng-click="setToDone($index, shop)">
+						        <label class="todo-label" for="{{'shop' + $index}}">{{shop.name}} <i ng-show="shop.isDone" class="todo-done_small"> done by <strong>{{shop.done_by}}</strong> {{shop.done_when | date:"dd.MM.yyyy (H:mm)"}}</i></label>
+						      </span>
 
-					      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Bought yet</h2>
-					      <h2 class="todo-h2 todo-done" aria-hidden="true">Bought</h2>
-					    </div>
+						      <h2 class="todo-h2 todo-undone" aria-hidden="true">Not Bought yet</h2>
+						      <h2 class="todo-h2 todo-done" aria-hidden="true">Bought</h2>
+						    </div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="dash-col">
 					<div class="item" id="weather">
-				    <h4>Weather in {{wg.city}}, {{wg.country}}</h4>
-						<div class="temps">
-					    <h5>{{ weather.temp.current | temp:2 }}</h5>
-							<br>
-							<p>
-						    {{ weather.temp.min | temp }} <br> {{ weather.temp.max | temp }}
-							</p>
+						<div class="h3-pad-dash text-center">
+				    	<h3 class="h3-dash">Weather</h3>
 						</div>
-						<div class="icon">
+						<div class="icon col-md-offset-2 col-md-8 text-center">
 							<weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
+							<span class="temps-city">{{ wg.city }}</span>
+						</div>
+						<div class="temps">
+							<div class="col-md-12 text-center temps-all">
+								<div class="col-md-4">
+									<span class="temps-small">crt </span>{{ weather.temp.current | temp:2 }}
+								</div>
+								<div class="col-md-4">
+									<span class="temps-small">min </span>{{ weather.temp.min | temp }}
+								</div>
+								<div class="col-md-4">
+									<span class="temps-small">max </span>{{ weather.temp.max | temp }}
+								</div>
+							</div>
 						</div>
 
 					</div>
 					<div class="item" id="clock">
+						<div class="h3-pad-dash">
+				    	<h3 class="h3-dash">Time</h3>
+						</div>
 						<div class="wrapper">
 							<ds-widget-clock class="clock-hour" theme="dark" show-digital="true" digital-format="'hh'"></ds-widget-clock>
 							<span class="time large">: </span>
@@ -112,8 +140,12 @@
 					</div>
 
 					<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
-						<h3>Financial overview</h3>
-						<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
+						<div class="h3-pad-dash">
+							<h3 class="h3-dash">Financial overview</h3>
+						</div>
+						<div class="pad-dash-item-content">
+							<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
+						</div>
 					</div>
 				</div>
 	</div>
