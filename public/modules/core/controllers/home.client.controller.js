@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat', 'Wgs', '$http',
-	function($rootScope, $scope, Authentication, Flat, Wgs, $http) {
+angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication', 'Flat', 'Wgs', '$http', '$location',
+	function($rootScope, $scope, Authentication, Flat, Wgs, $http, $location) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$scope.wg = Wgs.get({
@@ -30,6 +30,11 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			$scope.error = $rootScope.attr.error;
 			$rootScope.attr = null;
 		};
+
+		$scope.toTask = function(id){
+			console.log('/tasklists/' + id);
+			$location.path('tasklists/' + id);
+		}
 
 		// Check if Date hase to be updated
 		$scope.dateTick = function() {

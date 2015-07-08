@@ -42,11 +42,12 @@
 						</div>
 						<div class="pad-dash-item-content">
 							<div class="container">
-								<div data-ng-repeat="xtasklist in tasks" class="motd">
-
-										<img ng-src="{{xtasklist.crtUser.avatar}}" class="avatar avatar-float-left pad-right_10" alt="profile">
-										<span>{{xtasklist.name}}</span>
-									<p class="clearfix"></p>
+								<div data-ng-repeat="xtasklist in tasks" class="tasks-dash" ng-click="toTask(xtasklist._id)">
+									<div class="task-link">
+										<img ng-src="{{xtasklist.crtUser.avatar}}" class="avatar pad-right_10 avatar-float-left no-mar-top-img" alt="profile">
+										<span class="task-user">{{xtasklist.crtUser.displayName}}</span><span class="task-name"><strong>{{xtasklist.name}}</strong></span>
+									</div>
+									<span class="clearfix"></span>
 								</div>
 							</div>
 						</div>
