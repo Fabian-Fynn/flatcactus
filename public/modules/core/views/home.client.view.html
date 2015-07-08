@@ -15,8 +15,7 @@
 				</div>
 		</div>
 	</div>
-	<div class="" id="dashboard" data-ng-controller="WgsController" data-ng-if="authentication.user && hasWg">
-		<span ng-init="getUsers()"></span>
+	<div class="" id="dashboard" data-ng-controller="WgsController" data-ng-if="authentication.user && hasWg" ng-init="getUsers()">
 				<div class="dash-col">
 					<div class="item" id="motd">
 						<div class="h3-pad-dash">

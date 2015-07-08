@@ -179,6 +179,11 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			// });
 		};
 
+		$scope.toTask = function(id){
+			console.log('/tasklists/' + id);
+			$location.path('tasklists/' + id);
+		};
+
 		$scope.setCurrent = function(name){
 			$scope.current = name;
 		};

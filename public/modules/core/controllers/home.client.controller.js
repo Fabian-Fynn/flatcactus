@@ -29,11 +29,6 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			$rootScope.attr = null;
 		};
 
-		$scope.toTask = function(id){
-			console.log('/tasklists/' + id);
-			$location.path('tasklists/' + id);
-		}
-
 		// Check if Date hase to be updated
 		$scope.dateTick = function() {
 			var weekday = [
