@@ -389,6 +389,7 @@ body{
 	margin: 0;
 	padding: 10px 15px;
 	width: 100%;
+	border-bottom: 1px dashed #382805;
 }
 
 #dashboard .h3-dash{
@@ -399,7 +400,7 @@ body{
 #dashboard .dash-col .item {
   display: inline-block;
   width: 100%;
-  background-color: #fffdf5;
+  background-color: #fffefa;
 	box-shadow: 0 0px 10px rgba(0,0,0,0.7);
 	margin-top: 2%;
 	box-sizing: border-box;
@@ -434,6 +435,7 @@ input.msg:focus {
 	float: right;
 	margin-left:15px;
 	background: #F5EAD0;
+	border-radius: 0 !important;
 }
 
 .edit:hover{
@@ -508,6 +510,7 @@ input.msg:focus {
   /* margin-top: 10px; */
   height: 87% !important;
   /* padding-top: 20px; */
+	padding-left:0 !important;
 	padding-top:10px;
 	margin-top:-10px;
 }
@@ -520,6 +523,10 @@ input.msg:focus {
 
 #todo	{
 	height: 50% !important;
+}
+
+.pad-right_10{
+	margin-right: 15px;
 }
 
 #todo .container,
@@ -592,17 +599,20 @@ input.msg:focus {
 }
 
 #shopping .container::-webkit-scrollbar,
-#todo .container::-webkit-scrollbar {
+#todo .container::-webkit-scrollbar,
+#tasks .container::-webkit-scrollbar {
     width: 0.5em;
 }
 
 #shopping .container::-webkit-scrollbar-track,
-#todo .container::-webkit-scrollbar-track {
+#todo .container::-webkit-scrollbar-track,
+#tasks .container::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
 #shopping .container::-webkit-scrollbar-thumb,
-#todo .container::-webkit-scrollbar-thumb {
+#todo .container::-webkit-scrollbar-thumb,
+#tasks .container::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,0.5);
 }
 

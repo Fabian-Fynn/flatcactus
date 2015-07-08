@@ -42,15 +42,11 @@
 						</div>
 						<div class="pad-dash-item-content">
 							<div class="container">
-								<div data-ng-repeat="xtasklist in tasks">
+								<div data-ng-repeat="xtasklist in tasks" class="motd">
 
-								<div class="small-user-avatar">
-									<img ng-src="{{xtasklist.current.avatar}}" class="" alt="profile">
-								</div>
-								<p>
-								{{xtasklist.name}}
-								</p>
-
+										<img ng-src="{{xtasklist.crtUser.avatar}}" class="avatar avatar-float-left pad-right_10" alt="profile">
+										<span>{{xtasklist.name}}</span>
+									<p class="clearfix"></p>
 								</div>
 							</div>
 						</div>

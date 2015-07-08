@@ -3,16 +3,16 @@
         <h1>All tasks</h1>
     </div>
     <div class="list-group">
-      <div data-ng-repeat="xtasklist in tasks track by $index" class="list-group-item no-pad col-md-12" ng-class="{'your-task': xtasklist.crtUser === authentication.user.username}">
+      <div data-ng-repeat="xtasklist in tasks track by $index" class="list-group-item no-pad col-md-12" ng-class="{'your-task': xtasklist.crtUser._id === authentication.user._id}">
       <a data-ng-href="#!/tasklists/{{xtasklist._id}}" class="col-md-12 list-item-link">
   			<small class="list-group-item-text">
-  				<span ng-show="xtasklist.crtUser !== authentication.user.username">{{xtasklist.crtUser}}'s turn</span>
-          <span ng-show="xtasklist.crtUser === authentication.user.username">your turn</span>
+  				<span ng-show="xtasklist.crtUser._id !== authentication.user._id">{{xtasklist.crtUser.displayName}}'s turn</span>
+          <span ng-show="xtasklist.crtUser._id === authentication.user._id">your turn</span>
   			</small>
   			<h4 class="list-group-item-heading" data-ng-bind="xtasklist.name"></h4>
       </a>
 
-      <span class="btn btn-default btn-list-small_before_before" ng-if="xtasklist.crtUser === authentication.user.username" ng-class="{'btn-success': xtasklist.isDone}" title="mark as done" ng-click="setToDone(xtasklist, $index)">
+      <span class="btn btn-default btn-list-small_before_before" ng-if="xtasklist.crtUser._id === authentication.user._id" ng-class="{'btn-success': xtasklist.isDone}" title="mark as done" ng-click="setToDone(xtasklist, $index)">
         <i class="glyphicon glyphicon-ok"></i>
       </span>
 

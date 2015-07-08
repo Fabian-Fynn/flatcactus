@@ -47,7 +47,7 @@
                       <span class="input-group-addon">
                         <input type="checkbox" data-ng-model="u.checked" ng-change="checkfirst()">
                       </span>
-                      <span class="form-control">{{u.username}}</span>
+                      <span class="form-control">{{u.displayName}}</span>
                     </div>
                 </div>
 
@@ -55,9 +55,9 @@
                     <label class="control-label">Who starts the task?</label>
                     <div class="input-group" ng-repeat="u in allUsers" ng-if="u.checked">
                       <span class="input-group-addon">
-                        <input type="radio" data-ng-model="first.name" name="first" id="first" value="{{u.username}}">
+                        <input type="radio" data-ng-model="first.name" name="first" id="first" value="{{u._id}}">
                       </span>
-                      <span class="form-control">{{u.username}}</span>
+                      <span class="form-control">{{u.displayName}}</span>
                     </div>
                     <p class="help-block" ng-show="!first.name">It has to be someone!<br>Select a user please!</p>
                 </div>

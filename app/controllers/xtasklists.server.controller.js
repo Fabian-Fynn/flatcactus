@@ -75,7 +75,7 @@ exports.getAllFromWg = function(req, res) {
 	var wgID = req.wg._id;
 	console.log('wgID', wgID);
 
-	Xtasklist.where({wg_id: wgID}).sort('-created').exec(function(err, tasklists){
+	Xtasklist.find({wg_id: wgID}).populate('crtUser').exec(function(err, tasklists){
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
