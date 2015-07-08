@@ -33,7 +33,10 @@
 	<div class="clearfix"></div>
 
 	<div class="pull-right">
-		<a class="btn btn-default" href="/#!/tasklists/{{xtasklist._id}}/edit">
+		<a class="btn btn-default" ng-if="xtasklist.crtUser._id === authentication.user._id" ng-class="{'btn-success': xtasklist.isDone}" title="mark as done" ng-click="setToDone(xtasklist,0)">
+			<i class="glyphicon glyphicon-ok"></i>
+		</a>
+		<a class="btn btn-default" ng-href="/#!/tasklists/{{xtasklist._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
 		<a class="btn btn-danger" ng-click="removeByTask(xtasklist,true)">

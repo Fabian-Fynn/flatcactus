@@ -64,7 +64,6 @@ Date.prototype.addMonths = function(months){
  * Show the current Xtasklist
  */
 exports.read = function(req, res) {
-	console.log('read', req.xtasklist);
 	res.jsonp(req.xtasklist);
 };
 
@@ -114,8 +113,9 @@ exports.checkIfAllowed = function(req, res, next) { 
  */
 exports.update = function(req, res) {
 	var xtasklist = req.xtasklist;
-	console.log('xtasklist', req.xtasklist);
-	console.log('new task', req.body);
+	var user = req.body.crtUser;
+	req.body.crtUser = req.user._id;
+
 	xtasklist = _.extend(xtasklist , req.body);
 
 	xtasklist.save(function(err) {
@@ -124,7 +124,9 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(xtasklist);
+			Xtasklist.findById(xtasklist._id).populate('crtUser').exec(function(err, task){
+				res.jsonp(task);
+			});
 		}
 	});
 };
@@ -165,7 +167,7 @@ exports.list = function(req, res) {
  * Xtasklist middleware
  */
 exports.xtasklistByID = function(req, res, next, id) {
-	Xtasklist.findById(id).exec(function(err, xtasklist) {
+	Xtasklist.findById(id).populate('crtUser').exec(function(err, xtasklist) {
 		if (err) return next(err);
 		if (! xtasklist) return next(new Error('Failed to load task ' + id));
 		req.xtasklist = xtasklist ;

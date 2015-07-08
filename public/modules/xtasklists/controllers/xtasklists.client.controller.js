@@ -21,7 +21,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				users: obj,
 				crtUser: $scope.first.name
 			});
-			console.log('task', xtasklist);
 
 			// Redirect after save
 			xtasklist.$save(function(response) {
@@ -76,7 +75,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 		// Remove existing Xtasklist
 		$scope.remove = function(xtasklist) {
-			console.log('remove', xtasklist);
+			console.log('remove task');
 			if ( xtasklist ) {
 				xtasklist.$remove();
 
@@ -137,9 +136,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 		// get all tasks from wg
 		$scope.findFromWg = function() {
-			// $scope.removeBgClass();
-			// console.log('start all from wg');
-
 			$http.get('/xtasklist/all-from-share').success(function(response) {
 				// Show user success message and clear form
 				console.log('got all tasks from wg');
@@ -180,7 +176,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 		};
 
 		$scope.toTask = function(id){
-			console.log('/tasklists/' + id);
 			$location.path('tasklists/' + id);
 		};
 
