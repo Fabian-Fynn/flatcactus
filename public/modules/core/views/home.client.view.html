@@ -21,7 +21,7 @@
 					<div class="item" id="motd">
 						<h3>Messages of the day</h3>
 						<div class="motd" data-ng-repeat="user in allUsers">
-							<div class="user"><img ng-src="{{user.avatar}}" class="avatar" alt="profile"> </div>
+							<div class="user avatar"><img ng-src="{{user.avatar}}" class="" alt="profile"> </div>
 							<div class="msg" ng-show="user._id != authentication.user._id " myclass={{user._id}}>{{user.motd}}</div>
 
 							<input type="text" class="msg {{user._id}}" placeholder="Enter your message" ng-class="myclass" ng-show="user._id == authentication.user._id" ng-model="user.motd"
@@ -34,13 +34,17 @@
 					</div>
 					<div class="item" id="tasks" data-ng-controller="XtasklistsController" data-ng-init="findFromWg()">
 						<h3>Continuous Tasks</h3>
-						<div data-ng-repeat="xtasklist in tasks">
-							<p>
-								<img ng-src="/modules/users/img/avatar.jpg" class="small-avatar" alt="profile">
-								{{xtasklist.name}}
-								{{xtasklist.current.username}}
-							</p>
+						<div class="container">
+							<div data-ng-repeat="xtasklist in tasks">
 
+								<div class="small-user-avatar">
+									<img ng-src="{{xtasklist.current.fullUser.avatar}}" class="" alt="profile">
+								</div>
+								<p>
+								{{xtasklist.name}}
+								</p>
+
+							</div>
 						</div>
 					</div>
 				</div>

@@ -161,9 +161,9 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 				});
 
 				$scope.motdStatus = 'saved.';
-				jQuery('.notice').fadeIn('slow');
+				$('.notice').fadeIn('slow');
 				setTimeout(function(){
-					jQuery('.notice').fadeOut('slow');
+					$('.notice').fadeOut('slow');
 				}, 800);
     	}, 500);
 
