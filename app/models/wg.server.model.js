@@ -76,4 +76,15 @@ WgSchema.pre('save', function(next) {
 	next();
 });
 
+WgSchema.statics.notifyUsers = function(socketio, wgID, msg) {
+	this.findById(wgID).populate('users').exec(function(err, wg){
+		wg.users.forEach(function(user){
+			if(user.socket_id) {
+				socketio.to(user.socket_id).emit(msg);
+			}
+		});
+	});
+
+};
+
 mongoose.model('Wg', WgSchema);

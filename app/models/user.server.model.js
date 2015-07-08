@@ -190,9 +190,7 @@ UserSchema.statics.updateBalanceById = function(userID, amount) {
 UserSchema.statics.setSocketById = function(userID, socketID) {
 	this.findOne({ '_id': userID }, function(err, user){
 		user.socket_id = socketID;
-		console.log('user', socketID)
 		user.save();
-		console.log('user', user)
 	});
 };
 

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Shoppinglist = mongoose.model('Shoppinglist'),
+	Wg = mongoose.model('Wg'),
 	_ = require('lodash');
 
 /**
@@ -20,8 +21,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('shoppings.update', shoppinglist);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'shopping.update');
 			res.jsonp(shoppinglist);
 		}
 	});
@@ -48,8 +48,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('shoppings.update', shoppinglist);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'shopping.update');
 			res.jsonp(shoppinglist);
 		}
 	});
@@ -67,8 +66,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('shoppings.update', shoppinglist);
+			Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'shopping.update');
 			res.jsonp(shoppinglist);
 		}
 	});
