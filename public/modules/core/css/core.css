@@ -31,10 +31,10 @@
 
 .small-avatar{
 	height: 30px;
-	width: auto;
-	max-width: 60px !important;
+	width: 30px;
+	/*max-width: 60px !important;*/
 	overflow: hidden;
-	border-radius: 15px;
+	border-radius: 100%;
 	margin-top: -8px;
 	margin-bottom: -8px;
 	margin-right: 5px;
@@ -42,15 +42,33 @@
 }
 
 .avatar{
-	height: 50px;
+	height: 45px;
 	width: auto;
-	max-width: 60px !important;
+	/*max-width: 60px !simportant;*/
 	overflow: hidden;
 	border-radius: 100%;
 	margin-top: -8px;
 	margin-bottom: -8px;
 	margin-right: 5px;
 	border: 1px solid #ddd;
+}
+
+.small-user-avatar {
+  height: 35px;
+  width: 35px;
+  overflow: hidden;
+  border-radius: 100%;
+  margin-top: -8px;
+  margin-bottom: -8px;
+  margin-right: 5px;
+  border: 2px solid #ddd;
+  float: left;
+
+}
+
+.small-user-avatar img{
+  height: 35px;
+  width: auto;
 }
 
 body{
@@ -445,9 +463,10 @@ input.msg:focus {
 }
 
 #motd .user img {
-  height: 55px;
+  height: 45px;
   width: auto;
-  max-width: 55px !important;
+  margin: auto;
+  /*max-width: 45px !important;*/
 }
 
 #motd .msg {
@@ -470,11 +489,6 @@ input.msg:focus {
 
 #tasks p {
   height: 40px;
-}
-
-#tasks img {
-  height: 90%;
-  width: auto;
 }
 
 /*TODOS*/
