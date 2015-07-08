@@ -72,6 +72,10 @@ var UserSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	socket_id: {
+		type: String,
+		default: ''
+	},
 	avatar: {
 		type: String,
 		default: '/modules/users/img/avatar.jpg'
@@ -142,12 +146,6 @@ UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
-UserSchema.methods.editMotd = function() {
-	console.log('model',this);
-	// return this.password === this.hashPassword(password);
-};
-
-
 /**
  * Find possible not used username
  */
@@ -189,11 +187,17 @@ UserSchema.statics.updateBalanceById = function(userID, amount) {
 	});
 };
 
+UserSchema.statics.setSocketById = function(userID, socketID) {
+	this.findOne({ '_id': userID }, function(err, user){
+		user.socket_id = socketID;
+		console.log('user', socketID)
+		user.save();
+		console.log('user', user)
+	});
+};
+
 UserSchema.methods.updateMotd = function(message) {
-	// console.log(message);
-	console.log('YOLO');
 	this.motd = message;
-	// console.log(this.balance);
 	this.save();
 };
 

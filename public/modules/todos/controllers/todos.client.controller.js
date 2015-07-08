@@ -100,6 +100,5 @@ angular.module('todos').controller('TodosController', ['$scope', '$http', '$stat
 		socket.on('todos.update', function (post) {
 			$scope.getAll();
 		});
-
 	}
 ]);
