@@ -50,13 +50,14 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 						starter = false;
 						$scope.first.name = user.username;
 					}
+
 					obj[user._id] = {};
+					obj[user._id]._id = user._id;
 					obj[user._id].username = user.username;
 					obj[user._id].crt = (user.username === $scope.first.name);
 					obj[user._id].howOften = obj[user._id].monthly = obj[user._id].yearly = 0;
 					obj[user._id].turn = (user.username === $scope.first.name) ? 1 : counter++;
 					obj[user._id].isNext = (obj[user._id].turn !== 2) ? false : true;
-					obj[user._id].fullUser = user;
 
 					if($scope.xtasklist){
 						if($scope.xtasklist.users[user._id]){
@@ -146,9 +147,17 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 				$scope.tasks.forEach(function(task){
 					// console.log(task.users);
 					for (var userKey in task.users) {
-							if(task.users[userKey].crt) {
-								task.current = task.users[userKey];
-							}
+						if(task.users[userKey].crt) {
+							task.current = task.users[userKey];
+
+							$http.get('/my-share/allusers').success(function(u) {
+								u.forEach(function(us){
+										if (us._id === task.current._id) {
+											task.current.avatar = us.avatar;
+										}
+									});
+							});
+						}
 					}
 				});
 			}).error(function(response) {
