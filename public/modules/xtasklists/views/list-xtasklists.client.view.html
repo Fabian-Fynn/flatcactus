@@ -3,7 +3,7 @@
         <h1>All tasks</h1>
     </div>
     <div class="list-group">
-      <div data-ng-repeat="xtasklist in tasks track by $index" class="list-group-item no-pad col-md-12" ng-class="{'your-task': xtasklist.crtUser._id === authentication.user._id}">
+      <div data-ng-repeat="xtasklist in tasks track by $index" class="list-group-item no-pad col-md-12" ng-class="{'your-task_not': xtasklist.crtUser._id === authentication.user._id && !xtasklist.isDone, 'your-task_done': xtasklist.crtUser._id === authentication.user._id && xtasklist.isDone}">
       <a data-ng-href="#!/tasklists/{{xtasklist._id}}" class="col-md-12 list-item-link">
   			<small class="list-group-item-text">
   				<span ng-show="xtasklist.crtUser._id !== authentication.user._id">{{xtasklist.crtUser.displayName}}'s turn</span>
