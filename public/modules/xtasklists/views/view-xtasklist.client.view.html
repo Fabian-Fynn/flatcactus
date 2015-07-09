@@ -49,4 +49,7 @@
 			<span data-ng-bind="xtasklist.created | date:'mediumDate'"></span>
 		</em>
 	</small>
+	<div class="task-chart" ng-controller="TaskChartCtrl">
+		<canvas id="bar" class="chart chart-bar" data="data" labels="labels" series="series" legend="true"></canvas>
+	</div>
 </section>

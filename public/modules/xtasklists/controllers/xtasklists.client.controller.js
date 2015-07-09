@@ -267,4 +267,38 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 			document.body.style.background = '#fff';
 		};
 	}
-]);
+]).controller('TaskChartCtrl', ['$scope','Authentication',  'Wgs', 'Users', '$http', '$location', '$stateParams', function ( $scope,  Authentication, Wgs, Users, $http, $location, $stateParams) {
+	$scope.labels = [];
+	$scope.series = ['this month', 'this year'];
+	$scope.data = [[],[]];
+	var allUsers = [];
+
+	$http.get('/xtasklists/' + $stateParams.xtasklistId).success(function(res){
+		$scope.xtasklist = res;
+		var users = $scope.xtasklist.users
+
+		for (var key in users) {
+			if (users.hasOwnProperty(key)) {
+				console.log('users[key]',users[key]);
+				var user = users[key];
+
+				if (calcUserIndex(user, allUsers) === -1) {
+					allUsers.push(user);
+				}
+				$scope.labels.push(user.username);
+				$scope.data[0].push(user.monthly);
+				$scope.data[1].push(user.yearly);
+			}
+		}
+	});
+
+	function calcUserIndex(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i]._id === obj._id) {
+            return i;
+        }
+    }
+  	return -1;
+	}
+}]);
