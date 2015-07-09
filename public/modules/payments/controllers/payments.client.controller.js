@@ -96,6 +96,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					}
 					else {
 						if($scope.allUsers[count].amount) {
+
 								$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
 						}
 						else {
@@ -214,7 +215,8 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 	$http.get('/payment/all-from-share').success(function(response) {
 		$scope.payments = response;
-		var payments = response.reverse();
+		var payments = response.splice(0, 25);
+		payments.reverse();
 		var allUsers = [];
 
 		for (var i = 0; i < payments.length; i++) {
@@ -223,38 +225,26 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 			for (var j = 0; j < payments[i].users.length; j++) {
 				var user = payments[i].users[j];
-				if (isInList(user, allUsers) === -1) {
+				if (calcUserIndex(user, allUsers) === -1) {
 					allUsers.push(user);
 					$scope.series.push(user.displayName);
 					$scope.data.push(new Array());
 				}
-				$scope.data[isInList(user, allUsers)].push(payments[i].users[j].amount);
+				$scope.data[calcUserIndex(user, allUsers)].push(payments[i].users[j].amount);
 			}
 		}
 
-		function isInList(obj, list) {
+		function calcUserIndex(obj, list) {
 	    var i;
 	    for (i = 1; i <= list.length; i++) {
 	        if (list[i-1]._id === obj._id) {
 	            return i;
 	        }
 	    }
-    return -1;
-	}
-
+    	return -1;
+		}
 	}).error(function(response) {
 		// Show user error message and clear form
 		$scope.error = response.message;
 	});
-	// $http.get('/my-share/allusers').success(function(res) {
-	// 	$scope.allUsers = res;
-	// 	res.forEach(function(user){
-	// 		$scope.data[0].push(user.balance);
-	// 		$scope.labels.push(user.firstName);
-	// 	});
-	//
-	// }).error(function(err){
-	// 	$scope.error = err.data.message;
-	// });
-
 }]);
