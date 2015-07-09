@@ -53,6 +53,16 @@
 	border: 2px solid rgba(56, 40, 5, 0.2);
 }
 
+.avatar-edit{
+	height: 100px;
+	width: auto;
+	max-width: 150px !important;
+	overflow: hidden;
+	border-radius: 50px;
+	margin-right: 5px;
+	border: 4px solid rgba(56, 40, 5, 0.2);
+}
+
 .avatar-float-left{
 	float: left;
 }
