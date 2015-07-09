@@ -12,6 +12,12 @@
   			<h4 class="list-group-item-heading" data-ng-bind="xtasklist.name"></h4>
       </a>
 
+
+      <span class="btn btn-default btn-list-small_before_before" ng-if="!xtasklist.isDone && xtasklist.crtUser._id !== authentication.user._id" ng-class="{'btn-success': xtasklist.isDone}" title="take over this task" ng-click="setNewCrtUser(xtasklist, $index)">
+        <i class="glyphicon glyphicon-gift"></i>
+      </span>
+
+
       <span class="btn btn-default btn-list-small_before_before" ng-if="xtasklist.crtUser._id === authentication.user._id" ng-class="{'btn-success': xtasklist.isDone}" title="mark as done" ng-click="setToDone(xtasklist, $index)">
         <i class="glyphicon glyphicon-ok"></i>
       </span>
