@@ -275,7 +275,7 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 	$http.get('/xtasklists/' + $stateParams.xtasklistId).success(function(res){
 		$scope.xtasklist = res;
-		var users = $scope.xtasklist.users
+		var users = $scope.xtasklist.users;
 
 		for (var key in users) {
 			if (users.hasOwnProperty(key)) {

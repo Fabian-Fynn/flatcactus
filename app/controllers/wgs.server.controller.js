@@ -8,6 +8,10 @@ var mongoose = require('mongoose'),
 	crypto = require('crypto'),
 	Wg = mongoose.model('Wg'),
 	User = mongoose.model('User'),
+	Shoppinglist = mongoose.model('Shoppinglist'),
+	Payment = mongoose.model('Payment'),
+	Xtasklist = mongoose.model('Xtasklist'),
+	Todo = mongoose.model('Todo'),
 	_ = require('lodash');
 
 
@@ -59,7 +63,6 @@ exports.join = function(req, res) {
 				});
 			}
 		});
-
 		return res.json(wg);
 	});
 };
@@ -102,6 +105,11 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+
+			Shoppinglist.remove({wg_id: mongoose.Types.ObjectId(wg._id)});
+			Payment.remove({wg_id: mongoose.Types.ObjectId(wg._id)});
+			Xtasklist.remove({wg_id: mongoose.Types.ObjectId(wg._id)});
+			Todo.remove({wg_id: mongoose.Types.ObjectId(wg._id)});
 			User.update({ _id: req.user._id }, { $set: { wg_id: null }}, function(error, user){
 				if(error){ 
 					console.log('error');
