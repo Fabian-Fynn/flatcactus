@@ -53,6 +53,16 @@
 	border: 2px solid rgba(56, 40, 5, 0.2);
 }
 
+.avatar-edit{
+	height: 100px;
+	width: auto;
+	max-width: 150px !important;
+	overflow: hidden;
+	border-radius: 50px;
+	margin-right: 5px;
+	border: 4px solid rgba(56, 40, 5, 0.2);
+}
+
 .avatar-float-left{
 	float: left;
 }
@@ -463,7 +473,7 @@ body{
 #dashboard .dash-col .item {
   display: inline-block;
   width: 100%;
-  background-color: #fffefa;
+  background-color: rgb(255,254,253);
 	box-shadow: 0 0px 10px rgba(0,0,0,0.7);
 	margin-top: 2%;
 	box-sizing: border-box;

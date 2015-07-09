@@ -15,6 +15,7 @@ exports.create = function(req, res) {
 	var xtasklist = new Xtasklist(req.body);
 	xtasklist.user = req.user;
 	xtasklist.wg_id = req.user.wg_id;
+	xtasklist.origin = xtasklist.start;
 
 	if(Object.keys(xtasklist.users).length === 0){
 		return res.status(400).send({
@@ -113,8 +114,6 @@ exports.checkIfAllowed = function(req, res, next) { 
  */
 exports.update = function(req, res) {
 	var xtasklist = req.xtasklist;
-	var user = req.body.crtUser;
-	req.body.crtUser = req.user._id;
 
 	xtasklist = _.extend(xtasklist , req.body);
 
@@ -134,22 +133,139 @@ exports.update = function(req, res) {
 /*
  * UPDATE all tasks from a wg
  */
-function updateDaily(task){
-	var crt = new Date();
-	if(crt.getDate() !== task.start.getDate() && crt.getMonth() !== task.start.getMonth()){
-		var difInMilSecs = crt.getTime() - task.start.getTime();
-		var dif = Math.floor(difInMilSecs);
 
+function updateTheTask(t){
+	Xtasklist.update({_id: t._id}, {
+		$set: {
+			start: t.start,
+			end: t.end,
+			isDone: t.isDone,
+			crtUser: t.crtUser,
+			users: t.users,
+			updated: t.updated
+		}
+	}, function(err,ta){
+		if(err) console.log('ERROR');
+		console.log('updated task');
+	});
+}
+
+function updateDaily(task){
+	var t = task;
+	var crt = new Date();
+	if(crt > t.end){
+		var difInMilSecs = crt - t.origin;
+		var dif = getDayDifference(difInMilSecs); // dif in days from origin date start
+		var numOfUsers = Object.keys(t.users).length;
+		t.start = t.origin.addDays(dif);
+		t.end = t.start.addDays(1);
+		t.isDone = false;
+
+		var arr = [];
+		var nextTurnNum;
+
+		for(var user in t.users){
+			var obj = {};
+			obj.id = t.users[user]._id;
+			obj.name = t.users[user].username;
+			obj.turn = t.users[user].turn;
+			if(t.users[user].isNext){
+				if(dif > 1)
+				{ nextTurnNum = (dif) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
+
+				t.users[user].isNext = false;
+			}
+			arr.push(obj);
+		}
+
+		arr.sort(function(a,b){ return a.turn - b.turn; });
+		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
+		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
+		var idOfNext = arr[nextNextTurn].id;
+		t.users[idOfNext].isNext = true;
+		t.updated = new Date();
+
+		updateTheTask(t);
 	}
 }
 
 function updateWeekly(task){
+	var t = task;
 	var crt = new Date();
+	if(crt > t.end){
+		var difInMilSecs = crt - t.origin;
+		var dif = getDayDifference(difInMilSecs); // dif in days from origin date start
+		var numOfUsers = Object.keys(t.users).length;
+		// var turn = (dif/7) % numOfUsers; // whos next?
+		var passedWeeksInDays = Math.floor(dif/7);
+		t.start = t.origin.addDays(passedWeeksInDays);
+		t.end = t.start.addDays(7);
+		t.isDone = false;
+
+		var arr = [];
+		var nextTurnNum;
+
+		for(var user in t.users){
+			var obj = {};
+			obj.id = t.users[user]._id;
+			obj.name = t.users[user].username;
+			obj.turn = t.users[user].turn;
+			if(t.users[user].isNext){
+				if(passedWeeksInDays > 1)
+				{ nextTurnNum = (passedWeeksInDays) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
+
+				t.users[user].isNext = false;
+			}
+			arr.push(obj);
+		}
+
+		arr.sort(function(a,b){ return a.turn - b.turn; });
+		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
+		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
+		var idOfNext = arr[nextNextTurn].id;
+		t.users[idOfNext].isNext = true;
+		t.updated = new Date();
+
+		updateTheTask(t);
+	}
 }
 
 function updateMonthly(task){
+	var t = task;
 	var crt = new Date();
+	if(crt > t.end){
+		var difInMonths = monthDiff(t.origin, crt);
+		var numOfUsers = Object.keys(t.users).length;
+		// var turn = difInMonths % numOfUsers; // whos next?
+		t.start = t.origin.addMonths(difInMonths);
+		t.end = t.start.addMonths(1);
+		t.isDone = false;
 
+		var arr = [];
+		var nextTurnNum;
+
+		for(var user in t.users){
+			var obj = {};
+			obj.id = t.users[user]._id;
+			obj.name = t.users[user].username;
+			obj.turn = t.users[user].turn;
+			if(t.users[user].isNext){
+				if(difInMonths > 1)
+				{ nextTurnNum = (difInMonths) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
+				t.users[user].isNext = false;
+			}
+			arr.push(obj);
+		}
+
+		arr.sort(function(a,b){ return a.turn - b.turn; });
+		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
+		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
+		var idOfNext = arr[nextNextTurn].id;
+		t.users[idOfNext].isNext = true;
+		t.updated = new Date();
+
+		updateTheTask(t);
+	}
 }
 
 function getDayDifference(time){
@@ -158,7 +274,15 @@ function getDayDifference(time){
 	return days;
 }
 
-exports.updateAllTasks = function(){
+function monthDiff(d1, d2){
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
+exports.updateAllTasks = function(req){
 	Xtasklist.where({wg_id: req.user.wg_id}).exec(function(err, tasks){
 		tasks.forEach(function(elem){
 			if(elem.interval === 'daily') updateDaily(elem);

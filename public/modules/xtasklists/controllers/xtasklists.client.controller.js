@@ -54,7 +54,6 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 					obj[user._id] = {};
 					obj[user._id]._id = user._id;
 					obj[user._id].username = user.displayName;
-					obj[user._id].crt = (user._id === $scope.first.name);
 					obj[user._id].howOften = obj[user._id].monthly = obj[user._id].yearly = 0;
 					obj[user._id].turn = (user._id === $scope.first.name) ? 1 : counter++;
 					obj[user._id].isNext = (obj[user._id].turn !== 2) ? false : true;
