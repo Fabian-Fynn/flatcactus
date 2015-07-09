@@ -182,14 +182,16 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		};
 
 		$scope.copyClip = function(){
+
 			$('#passphrase').select();
-			
-			if (navigator.appVersion.indexOf("Mac")!=-1){
-				$('.notice').html('CMD+C to copy to clipboard.');
-			} else {
-				$('.notice').html('CRTL+C to copy to clipboard.');
+			if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				if (navigator.appVersion.indexOf("Mac")!=-1){
+					$('.notice').html('CMD+C to copy to clipboard.');
+				} else {
+					$('.notice').html('CRTL+C to copy to clipboard.');
+				}
+				$('.notice').fadeIn('slow');
 			}
-			$('.notice').fadeIn('slow');
 		};
 
 		socket.on('motd.update', function (res) {
