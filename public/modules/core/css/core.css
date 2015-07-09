@@ -343,7 +343,8 @@ body{
 
 /* short form cotrols */
 .form-control.small {
-	width: 5vw;
+  width: 11vw;
+  height: auto;
 	float: left;
 }
 
@@ -353,7 +354,12 @@ body{
 }
 
 .mid-width {
-	width: 25%;
+	width: 20vw;
+}
+
+.control-label.payment {
+  margin-bottom: 6px;
+  margin-right: 6px;
 }
 
 /* - - - - - - - - Dashboard */

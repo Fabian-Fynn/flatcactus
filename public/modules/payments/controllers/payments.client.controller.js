@@ -89,19 +89,24 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			$scope.remainingAmount = $scope.amount;
 			var currentUser;
 
+			//split equally is deactivated
 			if (!$scope.equal) {
+				var count = 0;
 				$scope.allUsers.forEach(function(user){
 					if (user._id === $scope.authentication.user._id) {
-						currentUser = user;
-						currentUser.amount = $scope.amount;
+						currentUser = count; //remember currentUser
 					}
-				});
-				$scope.allUsers.forEach(function(user){
-					if (user._id !== $scope.authentication.user._id) {
-						$scope.remainingAmount -= user.amount;
+					else {
+						if($scope.allUsers[count].amount) {
+							$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
+						}
 					}
+					count++;
 				});
-				currentUser.amount = $scope.remainingAmount;
+
+				//give current user remining amount
+				$scope.allUsers[currentUser].amount = $scope.remainingAmount;
+
 			} else {
 				$scope.allUsers.forEach(function(user){
 					user.amount = $scope.amount / $scope.allUsers.length;
