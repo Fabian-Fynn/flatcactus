@@ -181,6 +181,17 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			document.body.style.background = '#fff';
 		};
 
+		$scope.copyClip = function(){
+			$('#passphrase').select();
+			
+			if (navigator.appVersion.indexOf("Mac")!=-1){
+				$('.notice').html('CMD+C to copy to clipboard.');
+			} else {
+				$('.notice').html('CRTL+C to copy to clipboard.');
+			}
+			$('.notice').fadeIn('slow');
+		};
+
 		socket.on('motd.update', function (res) {
 			$scope.allUsers[res.order].motd = res.user.motd;
 		});

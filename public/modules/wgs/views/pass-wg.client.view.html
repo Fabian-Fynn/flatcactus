@@ -8,7 +8,11 @@
             Share it with your flat mates so they have access. The passphrase will change in case somebody leaves the flat share.
             <br><br>
             <label class="control-label">The current passphrase for this flat share is the following:</label>
-            <p>{{ wg.passphrase }}</p>
+            <br>
+            <input type=text class="msg" id="passphrase" value="{{ wg.passphrase }}" readonly>
+            <br>
+            <button class="btn btn-small pass" ng-click="copyClip()">Select</button>
+            <p class="notice pass"></p>
           </div>
       </div>
   </div>
