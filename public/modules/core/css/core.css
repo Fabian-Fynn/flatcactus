@@ -396,8 +396,13 @@ body{
 }
 
 .chart-line {
-  height: 300px !important;
+  height: auto !important;
   width: auto !important;
+  margin-bottom: 10px;
+}
+
+.payment-chart {
+  margin-bottom: 30px;
 }
 
 #passphrase {
