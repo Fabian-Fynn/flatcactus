@@ -57,11 +57,9 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		// get all payments from wg
 		$scope.findFromWg = function() {
 			$scope.removeBgClass();
-			console.log('start all from wg');
 
 			$http.get('/payment/all-from-share').success(function(response) {
 				// Show user success message and clear form
-				console.log('response', response);
 				$scope.payments = response;
 
 			}).error(function(response) {
@@ -184,7 +182,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				if($scope.authentication.user.wg_id){
 					$http.get('/my-share/allusers').success(function(res) {
 						$scope.allUsers = res;
-						console.log('allUsers', res)
+
 						$scope.allUsers.forEach(function(user){
 							if (user._id === $scope.authentication.user._id) {
 									user.creator = true;
@@ -207,13 +205,12 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 	$scope.labels = [];
 	$scope.series = ['Total'];
 	$scope.data = [[]];
+	$scope.legend = true;
 
 	$http.get('/payment/all-from-share').success(function(response) {
 		$scope.payments = response;
 		var payments = response.reverse();
 		var allUsers = [];
-
-
 
 		for (var i = 0; i < payments.length; i++) {
 			$scope.data[0].push(payments[i].amount);
@@ -228,13 +225,12 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				}
 				$scope.data[isInList(user, allUsers)].push(payments[i].users[j].amount);
 			}
-
 		}
 
 		function isInList(obj, list) {
 	    var i;
-	    for (i = 0; i < list.length; i++) {
-	        if (list[i]._id === obj._id) {
+	    for (i = 1; i <= list.length; i++) {
+	        if (list[i-1]._id === obj._id) {
 	            return i;
 	        }
 	    }
