@@ -395,6 +395,16 @@ body{
   margin-top: 0px;
 }
 
+.chart-line {
+  height: auto !important;
+  width: auto !important;
+  margin-bottom: 10px;
+}
+
+.payment-chart {
+  margin-bottom: 30px;
+}
+
 #passphrase {
   font-size: 20px;
   width: 100%;

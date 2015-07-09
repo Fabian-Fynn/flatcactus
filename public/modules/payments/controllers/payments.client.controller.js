@@ -57,11 +57,9 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		// get all payments from wg
 		$scope.findFromWg = function() {
 			$scope.removeBgClass();
-			console.log('start all from wg');
 
 			$http.get('/payment/all-from-share').success(function(response) {
 				// Show user success message and clear form
-				console.log('response', response);
 				$scope.payments = response;
 
 			}).error(function(response) {
@@ -98,11 +96,16 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					}
 					else {
 						if($scope.allUsers[count].amount) {
-							$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
+								$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
+						}
+						else {
+							$scope.allUsers[count].amount = 0;
 						}
 					}
 					count++;
 				});
+
+				console.log($scope.allUsers)
 
 				//give current user remining amount
 				$scope.allUsers[currentUser].amount = $scope.remainingAmount;
@@ -181,19 +184,21 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			if ($scope.payment) {
 				$scope.allUsers = $scope.payment.users;
 			} else {
-				$http.get('/my-share/allusers').success(function(res) {
-					$scope.allUsers = res;
+				if($scope.authentication.user.wg_id){
+					$http.get('/my-share/allusers').success(function(res) {
+						$scope.allUsers = res;
 
-					$scope.allUsers.forEach(function(user){
-						if (user._id === $scope.authentication.user._id) {
-								user.creator = true;
-						} else {
-							user.creator = false;
-						}
+						$scope.allUsers.forEach(function(user){
+							if (user._id === $scope.authentication.user._id) {
+									user.creator = true;
+							} else {
+								user.creator = false;
+							}
+						});
+					}).error(function(err){
+						$scope.error = err.data.message;
 					});
-				}).error(function(err){
-					$scope.error = err.data.message;
-				});
+			}
 			}
 		};
 
@@ -201,4 +206,55 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			document.body.style.background = '#fff';
 		};
 	}
-]);
+]).controller('LineCtrl', ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {
+	$scope.labels = [];
+	$scope.series = ['Total'];
+	$scope.data = [[]];
+	$scope.legend = true;
+
+	$http.get('/payment/all-from-share').success(function(response) {
+		$scope.payments = response;
+		var payments = response.reverse();
+		var allUsers = [];
+
+		for (var i = 0; i < payments.length; i++) {
+			$scope.data[0].push(payments[i].amount);
+			$scope.labels.push(payments[i].name);
+
+			for (var j = 0; j < payments[i].users.length; j++) {
+				var user = payments[i].users[j];
+				if (isInList(user, allUsers) === -1) {
+					allUsers.push(user);
+					$scope.series.push(user.displayName);
+					$scope.data.push(new Array());
+				}
+				$scope.data[isInList(user, allUsers)].push(payments[i].users[j].amount);
+			}
+		}
+
+		function isInList(obj, list) {
+	    var i;
+	    for (i = 1; i <= list.length; i++) {
+	        if (list[i-1]._id === obj._id) {
+	            return i;
+	        }
+	    }
+    return -1;
+	}
+
+	}).error(function(response) {
+		// Show user error message and clear form
+		$scope.error = response.message;
+	});
+	// $http.get('/my-share/allusers').success(function(res) {
+	// 	$scope.allUsers = res;
+	// 	res.forEach(function(user){
+	// 		$scope.data[0].push(user.balance);
+	// 		$scope.labels.push(user.firstName);
+	// 	});
+	//
+	// }).error(function(err){
+	// 	$scope.error = err.data.message;
+	// });
+
+}]);

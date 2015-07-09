@@ -145,11 +145,12 @@ angular.module('core')
       colours: ['#ffbf00', '#fbd843'],
 			showScale:true,
       responsive: true,
-			scaleBeginAtZero : false
+			scaleBeginAtZero : false,
+			maintainAspectRatio: false
     });
     // Configure all line charts
     ChartJsProvider.setOptions('Line', {
-      datasetFill: false
+			datasetFill: false
     });
   }])
 .controller('BarCtrl', ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {
