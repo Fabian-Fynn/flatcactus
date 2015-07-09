@@ -362,6 +362,29 @@ body{
   margin-right: 6px;
 }
 
+.viewPayment {
+  padding-bottom: 60px;
+}
+
+.viewPayment h2{
+  margin-top: 5px;
+}
+
+.viewPayment span {
+  width: auto;
+  margin-right: 3vw;
+  float: left;
+}
+
+.viewPayment .name {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.viewPayment .amount {
+  margin-top: 0px;
+}
+
 /* - - - - - - - - Dashboard */
 
 #dashboard {

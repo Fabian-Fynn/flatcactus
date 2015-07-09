@@ -1,7 +1,11 @@
 <section data-ng-controller="PaymentsController" data-ng-init="findOne()">
-	<div class="page-header">
+	<div class="page-header viewPayment">
 		<h1 data-ng-bind="payment.name"></h1>
 		<h2 data-ng-bind="payment.amount + ' &#8364;'"></h2>
+		<span ng-repeat="user in payment.users">
+			<p class="name">{{user.displayName}}</p>
+			<p class="amount">{{user.amount}} &#8364;</p>
+		</span>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == payment.user._id))">
 		<a class="btn btn-primary" href="/#!/payments/{{payment._id}}/edit">
