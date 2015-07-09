@@ -145,11 +145,15 @@ angular.module('core')
       colours: ['#ffbf00', '#fbd843'],
 			showScale:true,
       responsive: true,
-			scaleBeginAtZero : false
+			scaleBeginAtZero : false,
+			maintainAspectRatio: false
     });
     // Configure all line charts
     ChartJsProvider.setOptions('Line', {
-      datasetFill: false
+      datasetFill: false,
+			showLegend: true,
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
     });
   }])
 .controller('BarCtrl', ['$scope','Authentication',  'Wgs', 'Users', '$http', function ( $scope,  Authentication, Wgs, Users, $http) {

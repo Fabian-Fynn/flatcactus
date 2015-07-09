@@ -385,6 +385,11 @@ body{
   margin-top: 0px;
 }
 
+.chart-line {
+  height: 300px !important;
+  width: auto !important;
+}
+
 #passphrase {
   font-size: 20px;
   width: 100%;
