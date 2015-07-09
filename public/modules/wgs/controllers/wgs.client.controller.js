@@ -76,7 +76,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 					$location.path('/');
 				}).error(function(response) {
 					// Show user error message and clear form
-					console.log('ERROR')
+					console.log('ERROR');
 					$scope.error = response;
 				});
 			}

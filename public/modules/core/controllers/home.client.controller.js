@@ -78,11 +78,9 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			var data = {
 				user: $scope.authentication.user,
 				socketID: socket.io.engine.id
-			}
-			$http.post('/wgs/loggon', data).success(function(response) {
-				// console.log('res', res);
-			});
-		}
+			};
+			$http.post('/wgs/loggon', data);
+		};
 
 /**
  * Code from http://jsfiddle.net/huAxS/2/
