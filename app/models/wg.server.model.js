@@ -76,15 +76,14 @@ WgSchema.pre('save', function(next) {
 	next();
 });
 
-WgSchema.statics.notifyUsers = function(socketio, wgID, msg) {
+WgSchema.statics.notifyUsers = function(socketio, wgID, msg, res) {
 	this.findById(wgID).populate('users').exec(function(err, wg){
 		wg.users.forEach(function(user){
 			if(user.socket_id) {
-				socketio.to(user.socket_id).emit(msg);
+				socketio.to(user.socket_id).emit(msg, res);
 			}
 		});
 	});
-
 };
 
 mongoose.model('Wg', WgSchema);

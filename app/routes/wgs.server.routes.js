@@ -15,6 +15,9 @@ module.exports = function(app) {
 	app.route('/my-share')
 		.get(users.requiresLogin, wgs.wgByUser, wgs.read);
 
+	app.route('/wgs/loggon')
+		.post(users.requiresLogin, wgs.loggon);
+
 	app.route('/wgs/join')
 		.post(users.requiresLogin, wgs.join);
 

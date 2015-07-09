@@ -1,4 +1,4 @@
-<section data-ng-controller="HomeController" ng-init="addBgClass(); updateTasks()">
+<section data-ng-controller="HomeController" ng-init="addBgClass(); updateTasks(); loggon()">
 	<div class="content-center">
 			<div class="col-md-12">
 				<p class="index-title text-center animated tada" data-ng-hide="authentication.user && hasWg"><strong>flatcact.us</strong></p>
@@ -30,7 +30,7 @@
 								ng-change="editMotd(user)"
 								></input>
 
-								<div class="notice" ng-show="user._id == authentication.user._id" ng-bind-html="motdStatus"></div>
+								<div class="notice" ng-show="user._id == authentication.user._id && showNotice" ng-bind-html="motdStatus"></div>
 								<br>
 							</div>
 						</div>

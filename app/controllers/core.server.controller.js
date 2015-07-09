@@ -12,13 +12,4 @@ exports.index = function(req, res) {
 		user: req.user || null,
 		request: req
 	});
-
-	//Set socket_id in Usermodel
-	var socketio = req.app.get('socketio');
-	socketio.on('connection', function(sock){
-		var user = req.session.passport.user;
-		if(user){
-			User.setSocketById(user, sock.id);
-		}
-	});
 };

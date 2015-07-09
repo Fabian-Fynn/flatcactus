@@ -1,8 +1,8 @@
 'use strict';
 
 // Wgs controller
-angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout',
-	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout, jQuery) {
+angular.module('wgs').controller('WgsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Flat', 'Wgs', 'Users', '$timeout', '$socket',
+	function($scope, $http, $stateParams, $location, Authentication, Flat, Wgs, Users, $timeout, jQuery, $socket) {
 		$scope.authentication = Authentication;
 		var timeout;
 
@@ -76,7 +76,7 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 					$location.path('/');
 				}).error(function(response) {
 					// Show user error message and clear form
-					console.log('ERROR')
+					console.log('ERROR');
 					$scope.error = response;
 				});
 			}
@@ -157,16 +157,21 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			$timeout.cancel(timeout); //cancel the last timeout
     	timeout = $timeout(function(){
 
+				var count = 0;
 				$scope.allUsers.forEach(function(user){
 					if ($scope.authentication.user._id === user._id) {
+						user.order = count;
 						$http.put('users/motd/', user);
 					}
+					count++;
 				});
 
 				$scope.motdStatus = 'saved.';
+				$scope.showNotice = true;
 				$('.notice').fadeIn('slow');
 				setTimeout(function(){
 					$('.notice').fadeOut('slow');
+					$scope.showNotice = false;
 				}, 800);
     	}, 500);
 
@@ -175,5 +180,22 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
 		};
+
+		$scope.copyClip = function(){
+
+			$('#passphrase').select();
+			if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				if (navigator.appVersion.indexOf("Mac")!=-1){
+					$('.notice').html('CMD+C to copy to clipboard.');
+				} else {
+					$('.notice').html('CRTL+C to copy to clipboard.');
+				}
+				$('.notice').fadeIn('slow');
+			}
+		};
+
+		socket.on('motd.update', function (res) {
+			$scope.allUsers[res.order].motd = res.user.motd;
+		});
 	}
 ]);
