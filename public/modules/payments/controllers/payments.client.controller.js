@@ -96,11 +96,16 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					}
 					else {
 						if($scope.allUsers[count].amount) {
-							$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
+								$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
+						}
+						else {
+							$scope.allUsers[count].amount = 0;
 						}
 					}
 					count++;
 				});
+
+				console.log($scope.allUsers)
 
 				//give current user remining amount
 				$scope.allUsers[currentUser].amount = $scope.remainingAmount;
