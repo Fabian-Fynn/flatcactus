@@ -30,7 +30,7 @@
 								ng-change="editMotd(user)"
 								></input>
 
-								<div class="notice" ng-show="user._id == authentication.user._id" ng-bind-html="motdStatus"></div>
+								<div class="notice" ng-show="user._id == authentication.user._id && showNotice" ng-bind-html="motdStatus"></div>
 								<br>
 							</div>
 						</div>

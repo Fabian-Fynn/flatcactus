@@ -157,16 +157,21 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 			$timeout.cancel(timeout); //cancel the last timeout
     	timeout = $timeout(function(){
 
+				var count = 0;
 				$scope.allUsers.forEach(function(user){
 					if ($scope.authentication.user._id === user._id) {
+						user.order = count;
 						$http.put('users/motd/', user);
 					}
+					count++;
 				});
 
 				$scope.motdStatus = 'saved.';
+				$scope.showNotice = true;
 				$('.notice').fadeIn('slow');
 				setTimeout(function(){
 					$('.notice').fadeOut('slow');
+					$scope.showNotice = false;
 				}, 800);
     	}, 500);
 
@@ -175,5 +180,9 @@ angular.module('wgs').controller('WgsController', ['$scope', '$http', '$statePar
 		$scope.removeBgClass = function(){
 			document.body.style.background = '#fff';
 		};
+
+		socket.on('motd.update', function (res) {
+			$scope.allUsers[res.order].motd = res.user.motd;
+		});
 	}
 ]);

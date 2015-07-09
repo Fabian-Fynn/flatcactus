@@ -15,8 +15,14 @@ var _ = require('lodash'),
 
 exports.updateMotd = function(req, res) {
 	var user = req.user;
+	var response = {};
+
 	user.motd = req.body.motd;
 	user.save();
+
+	response.user = user;
+	response.order = req.body.order;
+	Wg.notifyUsers(req.app.get('socketio'), req.user.wg_id, 'motd.update', response);
 };
 /**
  * Update user details
