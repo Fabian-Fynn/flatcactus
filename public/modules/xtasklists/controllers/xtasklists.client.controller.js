@@ -196,13 +196,27 @@ angular.module('xtasklists').controller('XtasklistsController', ['$rootScope', '
 
 		$scope.setToDone = function(task,index){
 			console.log('setToDone');
-
 			if(!task.isDone){
 				var xtasklist = task;
 				xtasklist.isDone = true;
-				xtasklist.users[$scope.authentication.user._id].howOften++;
-				xtasklist.users[$scope.authentication.user._id].monthly++;
-				xtasklist.users[$scope.authentication.user._id].yearly++;
+				xtasklist.users[xtasklist.crtUser._id].howOften++;
+				xtasklist.users[xtasklist.crtUser._id].monthly++;
+				xtasklist.users[xtasklist.crtUser._id].yearly++;
+
+				var path = '/xtasklists/' + xtasklist._id;
+				$http.put(path, xtasklist).success(function(t){
+					$scope.tasks[index] = t;
+				}).error(function(err){
+					$scope.error = err.data.message;
+				});
+			}
+		};
+
+		$scope.setNewCrtUser = function(task, index){
+			console.log('take over task');
+			if(!task.isDone){
+				var xtasklist = task;
+				xtasklist.crtUser = $scope.authentication.user._id;
 
 				var path = '/xtasklists/' + xtasklist._id;
 				$http.put(path, xtasklist).success(function(t){
