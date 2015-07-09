@@ -142,7 +142,7 @@ angular.module('core')
 .config(['ChartJsProvider', function (ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({
-      colours: ['#ffbf00', '#fbd843'],
+      colours: ['#FFAC01', '#000088'],
 			showScale:true,
       responsive: true,
 			scaleBeginAtZero : false,
@@ -168,5 +168,4 @@ angular.module('core')
 	}).error(function(err){
 		$scope.error = err.data.message;
 	});
-
 }]);
