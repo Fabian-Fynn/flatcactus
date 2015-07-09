@@ -408,7 +408,7 @@ body{
 #dashboard .dash-col .item {
   display: inline-block;
   width: 100%;
-  background-color: #fffefa;
+  background-color: rgb(255,254,253);
 	box-shadow: 0 0px 10px rgba(0,0,0,0.7);
 	margin-top: 2%;
 	box-sizing: border-box;
