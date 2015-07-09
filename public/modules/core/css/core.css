@@ -597,7 +597,7 @@ input.msg:focus {
 /*TASKS*/
 
 #tasks {
-	height: 60% !important;
+	height: 55% !important;
 }
 
 #tasks .container {
@@ -754,24 +754,12 @@ input.msg:focus {
 }
 
 #clock .clock-font{
-	font-size: 1.8em;
+	font-size: 1.5em;
 }
 
-@media (min-width: 1220px){
-	#clock .clock-font{
-		font-size: 1.4em;
-	}
-}
-
-@media (min-width: 1200px){
-	#clock .clock-font{
-		font-size: 1.25em;
-	}
-}
-
-#clock .weekday {
-	margin-top: 10px;
-	color: rgba(56, 40, 5, 0.5) !important
+.wrap-clock {
+  width: 100%;
+  margin: auto;
 }
 
 #clock .large{
@@ -791,11 +779,66 @@ input.msg:focus {
 	display: initial;
 }
 
+.wrap-clock {
+  width: 100%;
+  margin: auto;
+}
+
 .widget-clock .digital {
 	float: left;
 }
 
+#clock .weekday {
+	margin-top: 10px;
+	color: rgba(56, 40, 5, 0.5) !important
+}
+
+@media (min-width: 500px){
+  .wrap-clock {
+    width: 67% !important;
+
+  }
+}
+
+@media (min-width: 600px){
+  .wrap-clock {
+
+    width: 54% !important;
+
+  }
+}
+
+@media (min-width: 700px){
+  .wrap-clock {
+    font-size: 1.6em;
+    width: 51% !important;
+
+  }
+}
+
+@media (min-width: 800px){
+  .wrap-clock {
+    font-size: 1.6em;
+    width: 51% !important;
+
+  }
+}
+
+@media (min-width: 1000px){
+  #clock .clock-font{
+    font-size: 1.8em;
+  }
+
+  .wrap-clock {
+    width: 44% !important;
+  }
+}
+
 @media (min-width: 1200px) {
+  #clock .clock-font{
+		font-size: 1.05em;
+	}
+
 	#clock .time {
 		text-align: center;
 		display: block;
@@ -812,9 +855,28 @@ input.msg:focus {
     margin-bottom: 0;
 		font-size:1.3em;
   }
+
+  .wrap-clock {
+    width: 70% !important;
+    margin: auto;
+  }
 }
 
 @media (min-width: 1400px) {
+  .wrap-clock {
+    width: 60% !important;
+  }
+}
+
+@media (min-width: 1500px) {
+  .wrap-clock {
+    width: 55% !important;
+  }
+}
+@media (min-width: 1800px) {
+  .wrap-clock {
+    width: 45% !important;
+  }
 	#clock .time {
 		text-align: center;
 		display: block;
@@ -827,7 +889,7 @@ input.msg:focus {
 	width: 50%  !important;
 	height: auto !important;
 	margin-right: 5px;
-	font-size: 1vw;
+	font-size: 4vw;
 }
 
 #weather h4 {
@@ -895,6 +957,16 @@ margin-bottom: -30px; */
 
 }
 @media (min-width: 800px) {
+  #weather {
+  	font-size: 2.2vw;
+    padding-bottom: 15px;
+  }
+
+  #weather .col-md-4.smaller-pad{
+    width: 33%;
+    float: left;
+  }
+
 	#weather h5 {
 		font-size: 4.6vw;
 	}
@@ -903,7 +975,12 @@ margin-bottom: -30px; */
 	}
 }
 @media (min-width: 1200px) {
-	#weather h5 {
+  #weather {
+  	font-size: 1.15vw;
+    padding-bottom: 0;
+  }
+
+  #weather h5 {
 		font-size: 1.6vw;
 	}
 
@@ -914,6 +991,7 @@ margin-bottom: -30px; */
 
 #financial {
 	height: auto !important;
+  margin-bottom: 50px;
 }
 
 #financial .chart-container{
@@ -921,7 +999,22 @@ margin-bottom: -30px; */
 }
 
 #financial .chart-container canvas{
+  min-height: 500px;
 	height: 100%;
+}
+
+@media (min-width: 1200px) {
+  #financial .chart-container canvas{
+    min-height: 400px;
+  	height: 100%;
+  }
+}
+
+@media (min-width: 1500px) {
+  #financial .chart-container canvas{
+    min-height: 340px;
+  	height: 100%;
+  }
 }
 
 .remove-margin-left{
