@@ -357,25 +357,97 @@ body{
   opacity: 1;
 }
 
-/* short form cotrols */
-.form-control.small {
-  width: 11vw;
-  height: auto;
-	float: left;
+.input-group-addon.payment {
+    width: auto;
+    clear: both;
 }
 
-.form-control.currency {
-	max-width: 15vw;
-	float:left;
+.control-label.payment.left {
+  float: left;
+}
+
+.split-equal {
+  width: 100%;
+  height: 20px;
+  clear: both;
+  margin-bottom: 25px;
+}
+
+.split-equal .input-group-addon {
+  height: 34px;
+}
+
+.split-equal label {
+  width: auto;
+  margin: 0 !important;
+  z-index: -100;
+  margin-right: -4px !important;
+  border-right: none !important;
+  position: relative;
+}
+
+.create-payment .form-group{
+  margin-left: 0px;
+}
+
+.create-payment h2 {
+  margin-top: 35px;
+}
+
+.create-payment .name {
+  width: 82% !important;
+  max-width: 395px;
 }
 
 .mid-width {
-	width: 20vw;
+  width: 100% !important;
+  min-width: 300px !important;
+  max-width: 50% !important;
+  margin-bottom: 5px;
 }
 
-.control-label.payment {
-  margin-bottom: 6px;
-  margin-right: 6px;
+.create-payment .small.form-control {
+  width: 30vw !important;
+  height: auto;
+  float: left;
+}
+
+.create-payment .currency {
+  max-width: 45vw;
+  width: 100vw !important;
+  vertical-align: middle;
+}
+
+.input-group-addon.adapted{
+  padding: 0;
+  margin: 0;
+  border: 0;
+  /*background: none;*/
+}
+
+.input-group-addon.adapted input {
+  /*height: initial;*/
+}
+
+@media (min-width: 1000px) {
+  /* short form controls */
+
+
+  .form-control.currency {
+  	max-width: 25vw;
+  	float:left;
+  }
+
+  .mid-width {
+  	width: 30vw;
+    max-width: 50% !important;
+    min-width: 300px;
+  }
+
+  .control-label.payment {
+    margin-bottom: 6px;
+    margin-right: 6px;
+  }
 }
 
 .viewPayment {
