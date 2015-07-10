@@ -459,9 +459,9 @@ body{
 }
 
 .viewPayment span {
-  width: auto;
-  margin-right: 3vw;
-  float: left;
+  width: 25% !important;
+  margin-right: 20px;
+
 }
 
 .viewPayment .name {
@@ -471,6 +471,17 @@ body{
 
 .viewPayment .amount {
   margin-top: 0px;
+}
+
+@media (min-width: 600px) {
+  .viewPayment {
+    height: auto;
+  }
+  .viewPayment span {
+    width: 25% !important;
+    margin-right: 3vw;
+    float: left;
+  }
 }
 
 .chart-line {
