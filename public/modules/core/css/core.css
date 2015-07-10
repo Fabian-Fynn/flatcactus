@@ -555,7 +555,7 @@ body{
 }
 
 #dashboard .dash-col .h3-pad-dash{
-	background-color: #F5EAD0;
+	background-color: #FCF4E2;
 	margin: 0;
 	padding: 10px 15px;
 	width: 100%;
@@ -575,6 +575,14 @@ body{
 	margin-top: 2%;
 	box-sizing: border-box;
 	color: #382805 !important;
+}
+
+.avatar-me_undone{
+	border-color: #de0404 !important;
+}
+
+.avatar-me_done{
+	border-color: #04cc06 !important;
 }
 
 #dashboard .dash-col .pad-dash-item-content{
