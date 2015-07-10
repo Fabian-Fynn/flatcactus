@@ -19,4 +19,6 @@
 
 ---
 ## What still puzzles us
-* lala
+* OAuth Github
+* einzelne Sockets (kein Broadcast)
+* refactoren
