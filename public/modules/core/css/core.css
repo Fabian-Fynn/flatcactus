@@ -485,7 +485,7 @@ body{
 }
 
 .chart-line {
-  height: 400px !important;
+  max-height: 400px !important;
   width: 100% !important;
   margin-bottom: 10px;
 }
