@@ -227,7 +227,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				var user = payments[i].users[j];
 				if (calcUserIndex(user, allUsers) === -1) {
 					allUsers.push(user);
-					$scope.series.push(user.displayName);
+					$scope.series.push(user.firstName);
 					$scope.data.push(new Array());
 				}
 				$scope.data[calcUserIndex(user, allUsers)].push(payments[i].users[j].amount);
