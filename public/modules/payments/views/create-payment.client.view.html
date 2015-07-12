@@ -8,6 +8,9 @@
             Add a payment you made for the share.
             <br>
             If a payment is not related to others, it won't change anyone's debt/credit.
+            <br>
+            <br>
+            You recieve the amount others owe you as a credit.
           </p>
             <fieldset class="create-payment">
               <div class="form-group">
@@ -37,7 +40,7 @@
                     <span class="form-control small">{{u.displayName}}</span>
                     <span class="input-group-addon">&#x20ac;</span>
                     <span class="input-group-addon adapted">
-                      <input type="number" step="5.00" data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00" class="form-control currency  split" data-ng-model="u.amount"  ng-change="recalc()" ng-disabled="equal || u._id == authentication.user._id"/>
+                      <input type="number" step="5.00" data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00" value="0" class="form-control currency  split" data-ng-model="u.amount"  ng-change="recalc()" ng-disabled="equal || u._id == authentication.user._id"/>
                     </span>
                   </div>
                 </div>

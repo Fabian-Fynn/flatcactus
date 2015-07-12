@@ -28,14 +28,11 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 		$scope.payEven = function() {
 			$scope.allUsers.forEach(function(user){
-				if(user.balance !== 0)
-					user.balance = user.balance * 1;
-
 				user.amount = user.balance
 			});
 
 			var payment = new Payments ({
-				name: 'Debt pay back',
+				name: 'Debt payback',
 				amount: 0,
 				users: this.allUsers
 			});
@@ -106,7 +103,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 		//recalculate amounts (Creation)
 		$scope.recalc = function(){
-			$scope.remainingAmount = $scope.amount;
+			$scope.othersAmount = 0;
 			var currentUser;
 
 			//split equally is deactivated
@@ -119,48 +116,65 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 					else {
 						if($scope.allUsers[count].amount) {
 
-								$scope.remainingAmount -= $scope.allUsers[count].amount; //subtract other users amounts
-						}
-						else {
-							$scope.allUsers[count].amount = 0;
+								$scope.othersAmount += $scope.allUsers[count].amount; //add other users amounts
 						}
 					}
 					count++;
 				});
 
-				console.log($scope.allUsers)
-
-				//give current user remining amount
-				$scope.allUsers[currentUser].amount = $scope.remainingAmount;
-
-			} else {
+				//give current user remaining amount or total amount
+				if ($scope.othersAmount > 0) {
+					$scope.allUsers[currentUser].amount = -$scope.othersAmount;
+				} else {
+					$scope.allUsers[currentUser].amount = $scope.amount;
+				}
+			}
+			//split equally
+			else {
 				$scope.allUsers.forEach(function(user){
-					user.amount = $scope.amount / $scope.allUsers.length;
+					//give every user the same amount, except for the creator
+					if (user._id !== $scope.authentication.user._id) {
+						user.amount = $scope.amount / $scope.allUsers.length;
+					} else {
+						user.amount = -($scope.amount / $scope.allUsers.length * ($scope.allUsers.length - 1));
+					}
 				});
 			}
 		};
 
 		//recalculate amounts (Update)
 		$scope.recalcUpdate = function(){
-			$scope.remainingAmount = $scope.payment.amount;
+			$scope.othersAmount = 0;
+			$scope.allUsers = $scope.payment.users;
+			if (!$scope.amount) {
+				$scope.amount = $scope.payment.amount;
+			}
 			var currentUser;
 
 			if (!$scope.equal) {
 				$scope.payment.users.forEach(function(user){
 					if (user._id === $scope.authentication.user._id) {
 						currentUser = user;
-						currentUser.amount = $scope.payment.amount;
 					}
 				});
 				$scope.payment.users.forEach(function(user){
 					if (user._id !== $scope.authentication.user._id) {
-						$scope.remainingAmount -= user.amount;
+						$scope.othersAmount += user.amount;
 					}
 				});
-				currentUser.amount = $scope.remainingAmount;
+
+				if ($scope.othersAmount > 0) {
+					currentUser.amount = -$scope.othersAmount;
+				} else {
+					currentUser.amount = $scope.payment.amount;
+				}
 			} else {
 				$scope.payment.users.forEach(function(user){
-					user.amount = $scope.payment.amount / $scope.payment.users.length;
+					if (user._id !== $scope.authentication.user._id) {
+						user.amount = $scope.payment.amount / $scope.payment.users.length;
+					} else {
+						user.amount = -($scope.payment.amount / $scope.payment.users.length * ($scope.payment.users.length - 1));
+					}
 				});
 			}
 		};
@@ -168,9 +182,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		//toggle equal split (Creation)
 		$scope.checkEqual = function() {
 			if ($scope.equal) {
-				$scope.allUsers.forEach(function(user){
-					user.amount = $scope.amount / $scope.allUsers.length;
-				});
+				$scope.recalc();
 			} else {
 				$scope.allUsers.forEach(function(user){
 					if (user._id === $scope.authentication.user._id) {
@@ -186,10 +198,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		//toggle equal split (Update)
 		$scope.checkEqualUpdate = function() {
 			if ($scope.equal) {
-				$scope.payment.users.forEach(function(user){
-					user.amount = $scope.payment.amount / $scope.payment.users.length;
-					$scope.remainingAmount = user.amount;
-				});
+				$scope.recalcUpdate();
 			} else {
 				$scope.payment.users.forEach(function(user){
 					if (user._id === $scope.authentication.user._id) {

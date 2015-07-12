@@ -14,26 +14,32 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var sumAmount = 0;
+
+	req.body.users.forEach(function(user){
+		if (!user.amount) {
+			user.amount = 0;
+		}
+	});
+
 	var payment = new Payment(req.body);
 	payment.user = req.user;
 	payment.wg_id = req.user.wg_id;
 
-	if(Object.keys(payment.users).length === 0){
-		return res.status(400).send({
-			message: 'No user assigned to this task'
-		});
-	}
-
-	//update other users' balances
+	//sum other users' amounts
 	payment.users.forEach(function(user){
 		if (!user.creator) {
-			User.updateBalanceById(user._id, -user.amount);
 			sumAmount += user.amount;
 		}
 	});
 
-	//Creator gets amount that others owe him as plus
-	req.user.updateBalance(sumAmount);
+	//Other users are affected by payment
+	//In case a user creates a payment that only affects him/her
+	//we don't want to give him/her credit for it
+	if (sumAmount !== 0) {
+		payment.users.forEach(function(user){
+				User.updateBalanceById(user._id, -user.amount);
+		});
+	}
 
 	payment.save(function(err) {
 		if (err) {
@@ -77,13 +83,17 @@ exports.getAllFromWg = function(req, res) {
  */
 exports.update = function(req, res) {
 	var sumAmount = 0;
-	var payment = req.payment ;
+	var justCreator = true;
+	var payment = req.payment; //old payment
 	var amountDifference = req.body.amount - req.payment.amount;
 	var currentUser;
 
 	//update other users' balances
 	for (var i = 0; i < payment.users.length; i++) {
 		if(!payment.users[i].creator) {
+			if (req.body.users[i].amount !== 0) {
+				justCreator = false;
+			}
 			var diff = payment.users[i].amount - req.body.users[i].amount;
 			User.updateBalanceById(
 				payment.users[i]._id,
@@ -94,10 +104,17 @@ exports.update = function(req, res) {
 		}
 	}
 
-	//Creator gets amount that others owe him as plus
-	User.updateBalanceById(
-		currentUser._id,
-		-sumAmount);
+	//if there are other users affected by this payment we want to
+	//update the creators balance
+	if (!justCreator) {
+		User.updateBalanceById(
+			currentUser._id,
+			-sumAmount);
+	} else {
+		User.updateBalanceById(
+			currentUser._id,
+			currentUser.amount);
+	}
 
 	payment = _.extend(payment, req.body);
 
@@ -119,16 +136,19 @@ exports.delete = function(req, res) {
 	var sumAmount = 0;
 	var payment = req.payment ;
 
-	//update other users' balances
+	//sum other users' balances
 	payment.users.forEach(function(user){
 		if (!user.creator) {
-			User.updateBalanceById(user._id, user.amount);
 			sumAmount += user.amount;
 		}
 	});
 
- //Creator gets amount that others owe him as plus
-	req.user.updateBalance(-sumAmount);
+	//are other users involved?
+	if (sumAmount !== 0) {
+		payment.users.forEach(function(user){
+				User.updateBalanceById(user._id, user.amount);
+		});
+	}
 
 	payment.remove(function(err) {
 		if (err) {
@@ -154,10 +174,6 @@ exports.list = function(req, res) {
 			res.jsonp(payments);
 		}
 	});
-};
-
-exports.even = function(req, res) {
-
 };
 
 /**
