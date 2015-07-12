@@ -500,22 +500,29 @@ body{
 #passphrase {
   font-size: 20px;
   width: auto;
-  border: 1px;
-  margin-bottom: 10px;
+  padding: 20px 0;
+  margin-top: 8px;
+  border-radius: 5px;
   text-align: center;
+  background: rgba(50, 50, 50, 0.5);
 }
 
 .btn.pass {
+  font-size: 20px;
+  width: auto;
+  padding: 5px 10px;
+  margin: 8px 10px;
+  border-radius: 5px;
   float: left;
 }
 
 .notice.pass {
-  margin-left: 10px;
-  margin-top: 3px;
+  margin-left: 18px;
+  margin-top: 6px;
   font-size: 20px;
-  color: rgb(125, 125, 126);
-  float: left;
+  color: rgba(50, 50, 50, 0.6);
   display: none;
+  clear: both;
 }
 
 .task-chart {
