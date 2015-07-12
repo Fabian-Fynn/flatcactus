@@ -12,7 +12,8 @@ var mongoose = require('mongoose'),
 	Payment = mongoose.model('Payment'),
 	Xtasklist = mongoose.model('Xtasklist'),
 	Todo = mongoose.model('Todo'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	randomWord = require('random-word');
 
 
 /**
@@ -126,7 +127,7 @@ exports.delete = function(req, res) {
 exports.removeUser = function(req, res) {
 	var wg = req.body;
 
-	var newPass = crypto.randomBytes(16).toString('base64');
+	var newPass = randomWord() + "-" + randomWord();
 
 	Wg.update({ _id: wg._id },{ $set: { users: wg.users, passphrase: newPass }}, function(error,wg){
 		console.log('update users');

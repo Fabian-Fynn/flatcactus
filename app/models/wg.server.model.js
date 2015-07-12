@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	crypto = require('crypto'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	randomWord = require('random-word');
 
 /**
  * Wg Schema
@@ -72,7 +73,7 @@ var WgSchema = new Schema({
 });
 
 WgSchema.pre('save', function(next) {
-	this.passphrase = crypto.randomBytes(16).toString('base64');
+	this.passphrase = randomWord() + "-" + randomWord();
 	next();
 });
 

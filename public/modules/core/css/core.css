@@ -499,10 +499,10 @@ body{
 
 #passphrase {
   font-size: 20px;
-  width: 100%;
+  width: auto;
   border: 1px;
   margin-bottom: 10px;
-  /*overflow: visible;*/
+  text-align: center;
 }
 
 .btn.pass {
