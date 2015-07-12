@@ -66,7 +66,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 					Authentication.user = null;
 					window.location.href = '/';
 				}).error(function(response){
-					$scope.error = response.message;
+					$scope.error = response;
 				});
 			} else {
 				$scope.submitted = true;

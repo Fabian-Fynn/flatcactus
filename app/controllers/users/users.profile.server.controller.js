@@ -69,6 +69,10 @@ exports.update = function(req, res) {
 exports.deleteData = function(req, res) {
 	var user = req.user;
 
+	if(req.user.balance !== 0) {
+		return res.status(403).send('User is has debts/credit.');
+	}
+
 	user.remove(function(err) {
 		if (err) {
 			console.log('error bei user remove');
