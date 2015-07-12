@@ -127,7 +127,7 @@ exports.delete = function(req, res) {
 exports.removeUser = function(req, res) {
 	var wg = req.body;
 
-	var newPass = randomWord() + "-" + randomWord();
+	var newPass = randomWord() + '-' + randomWord();
 
 	Xtasklist.find({wg_id: mongoose.Types.ObjectId(wg._id)}, function(err, tasks){
 		var task = tasks;
@@ -135,7 +135,7 @@ exports.removeUser = function(req, res) {
 			if(elem.users.hasOwnProperty(req.user._id)){
 				var turnUser = elem.users[req.user._id].turn;
 				var isNext = elem.users[req.user._id].isNext;
-				var isCurrent = (elem.crtUser.toString() == req.user._id.toString());
+				var isCurrent = (elem.crtUser.toString() === req.user._id.toString());
 
 				var changeNext = false;
 				var newNextTurn = 0;
@@ -145,7 +145,7 @@ exports.removeUser = function(req, res) {
 				for(var user in elem.users){
 					usersNext.push({id: elem.users[user]._id, turn: elem.users[user].turn});
 					if(elem.users[user].turn > turnUser) elem.users[user].turn = Math.max(1, elem.users[user].turn-1);
-					if(elem.users[user].turn == turnUser) elem.users[user].isNext = isNext;
+					if(elem.users[user].turn === turnUser) elem.users[user].isNext = isNext;
 					if((turnUser-1) === 1) crtIsNext = true;
 					if(isCurrent && elem.users[user].isNext){
 						newNextTurn = elem.users[user].turn+1;

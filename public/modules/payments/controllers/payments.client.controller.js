@@ -28,7 +28,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 
 		$scope.payEven = function() {
 			$scope.allUsers.forEach(function(user){
-				user.amount = user.balance
+				user.amount = user.balance;
 			});
 
 			var payment = new Payments ({
@@ -250,6 +250,16 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 	$scope.data = [[]];
 	$scope.legend = true;
 
+	function calcUserIndex(obj, list) {
+		var i;
+		for (i = 1; i <= list.length; i++) {
+				if (list[i-1]._id === obj._id) {
+						return i;
+				}
+		}
+		return -1;
+	}
+	
 	$http.get('/payment/all-from-share').success(function(response) {
 		$scope.payments = response;
 		var payments = response.splice(0, 25);
@@ -265,21 +275,13 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 				if (calcUserIndex(user, allUsers) === -1) {
 					allUsers.push(user);
 					$scope.series.push(user.firstName);
-					$scope.data.push(new Array());
+					$scope.data.push([]);
 				}
 				$scope.data[calcUserIndex(user, allUsers)].push(payments[i].users[j].amount);
 			}
 		}
 
-		function calcUserIndex(obj, list) {
-	    var i;
-	    for (i = 1; i <= list.length; i++) {
-	        if (list[i-1]._id === obj._id) {
-	            return i;
-	        }
-	    }
-    	return -1;
-		}
+
 	}).error(function(response) {
 		// Show user error message and clear form
 		$scope.error = response.message;
