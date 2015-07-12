@@ -500,7 +500,7 @@ body{
 #passphrase {
   font-size: 20px;
   width: auto;
-  padding: 20px 0;
+  padding: 20px 20px;
   margin-top: 8px;
   border-radius: 5px;
   text-align: center;
