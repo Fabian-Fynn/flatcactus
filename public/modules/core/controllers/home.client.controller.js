@@ -74,13 +74,13 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
 			}
 		};
 
-		// $scope.loggon = function(){
-		// 	var data = {
-		// 		user: $scope.authentication.user,
-		// 		socketID: socket.io.engine.id
-		// 	};
-		// 	$http.post('/wgs/loggon', data);
-		// };
+		$scope.loggon = function(){
+			var data = {
+				user: $scope.authentication.user,
+				socketID: socket.io.engine.id
+			};
+			$http.post('/wgs/loggon', data);
+		};
 
 /**
  * Code from http://jsfiddle.net/huAxS/2/
