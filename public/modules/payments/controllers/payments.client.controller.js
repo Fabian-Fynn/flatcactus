@@ -26,6 +26,28 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 			});
 		};
 
+		$scope.payEven = function() {
+			$scope.allUsers.forEach(function(user){
+				if(user.balance !== 0)
+					user.balance = user.balance * 1;
+
+				user.amount = user.balance
+			});
+
+			var payment = new Payments ({
+				name: 'Debt pay back',
+				amount: 0,
+				users: this.allUsers
+			});
+
+			// Redirect after save
+			payment.$save(function(response) {
+				$location.path('payments/' + response._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 		// Remove existing Payment
 		$scope.remove = function(payment) {
 			if ( payment ) {
@@ -181,7 +203,7 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 		};
 
 		$scope.getUsers = function() {
-			$scope.removeBgClass();
+			$scope.even = true;
 			if ($scope.payment) {
 				$scope.allUsers = $scope.payment.users;
 			} else {
@@ -195,11 +217,17 @@ angular.module('payments').controller('PaymentsController', ['$scope', '$http', 
 							} else {
 								user.creator = false;
 							}
+							//check if any user has a debt/credit
+							if (user.balance) {
+								if (user.balance !== 0) {
+									$scope.even = false;
+								}
+							}
 						});
 					}).error(function(err){
 						$scope.error = err.data.message;
 					});
-			}
+				}
 			}
 		};
 

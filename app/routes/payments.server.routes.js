@@ -18,6 +18,7 @@ module.exports = function(app) {
 
 	app.route('/payment/all-from-share')
 			.get(users.requiresLogin, wgs.wgByUser, payments.getAllFromWg);
+
 	// Finish by binding the Payment middleware
 	app.param('paymentId', payments.paymentByID);
 };

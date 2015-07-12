@@ -156,6 +156,10 @@ exports.list = function(req, res) {
 	});
 };
 
+exports.even = function(req, res) {
+
+};
+
 /**
  * Payment middleware
  */

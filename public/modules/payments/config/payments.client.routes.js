@@ -5,6 +5,10 @@ angular.module('payments').config(['$stateProvider',
 	function($stateProvider) {
 		// Payments state routing
 		$stateProvider.
+		state('pay-even', {
+			url: '/pay-even',
+			templateUrl: 'modules/payments/views/pay-even.client.view.html'
+		}).
 		state('listPayments', {
 			url: '/payments',
 			templateUrl: 'modules/payments/views/list-payments.client.view.html'

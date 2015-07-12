@@ -139,11 +139,14 @@
 						</div>
 					</div>
 
-					<div class="item" id="financial" ng-controller="BarCtrl" data-ng-init="getUsers()">
+					<div class="item" id="financial" ng-controller="PaymentsController" data-ng-init="getUsers()">
 						<div class="h3-pad-dash">
 							<h3 class="h3-dash">Financial overview</h3>
 						</div>
-						<div class="pad-dash-item-content">
+						<div class="pad-dash-item-options">
+							<!-- <a href="#!/pay-even"><button class="btn btn-default even" ng-disabled="even">Pay back all debts</button></a> -->
+						</div>
+						<div class="pad-dash-item-content" ng-controller="BarCtrl">
 							<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>
 						</div>
 					</div>
