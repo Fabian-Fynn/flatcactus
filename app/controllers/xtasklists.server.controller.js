@@ -15,6 +15,7 @@ exports.create = function(req, res) {
 	var xtasklist = new Xtasklist(req.body);
 	xtasklist.user = req.user;
 	xtasklist.wg_id = req.user.wg_id;
+	xtasklist.start = xtasklist.start.resetTime();
 	xtasklist.origin = xtasklist.start;
 
 	if(Object.keys(xtasklist.users).length === 0){
@@ -49,6 +50,14 @@ exports.create = function(req, res) {
 };
 
 // helpers for tasks
+Date.prototype.resetTime = function(){
+	var dat = new Date(this.valueOf());
+	dat.setHours(0);
+	dat.setMinutes(0);
+	dat.setSeconds(0);
+	return dat;
+};
+
 Date.prototype.addDays = function(days){
 		var dat = new Date(this.valueOf());
 		dat.setDate(dat.getDate() + days);
@@ -150,6 +159,16 @@ function updateTheTask(t){
 	});
 }
 
+function getUpdatedUsers(t, arr, nxtT, numUsers){
+	arr.sort(function(a,b){ return a.turn - b.turn; });
+	t.crtUser = arr[nxtT].id; // neuer crtUser
+	var newNextTurn = (nxtT+1) % numUsers;
+	var idOfNext = arr[newNextTurn].id;
+	t.users[idOfNext].isNext = true;
+	t.updated = new Date();
+	return t;
+}
+
 function updateDaily(task){
 	var t = task;
 	var crt = new Date();
@@ -196,7 +215,6 @@ function updateWeekly(task){
 		var difInMilSecs = crt - t.origin;
 		var dif = getDayDifference(difInMilSecs); // dif in days from origin date start
 		var numOfUsers = Object.keys(t.users).length;
-		// var turn = (dif/7) % numOfUsers; // whos next?
 		var passedWeeksInDays = Math.floor(dif/7);
 		t.start = t.origin.addDays(passedWeeksInDays);
 		t.end = t.start.addDays(7);
@@ -218,14 +236,7 @@ function updateWeekly(task){
 			}
 			arr.push(obj);
 		}
-
-		arr.sort(function(a,b){ return a.turn - b.turn; });
-		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
-		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
-		var idOfNext = arr[nextNextTurn].id;
-		t.users[idOfNext].isNext = true;
-		t.updated = new Date();
-
+		t = getUpdatedUsers(t, arr, nextTurnNum, numOfUsers);
 		updateTheTask(t);
 	}
 }
@@ -236,7 +247,6 @@ function updateMonthly(task){
 	if(crt > t.end){
 		var difInMonths = monthDiff(t.origin, crt);
 		var numOfUsers = Object.keys(t.users).length;
-		// var turn = difInMonths % numOfUsers; // whos next?
 		t.start = t.origin.addMonths(difInMonths);
 		t.end = t.start.addMonths(1);
 		t.isDone = false;
@@ -257,13 +267,7 @@ function updateMonthly(task){
 			arr.push(obj);
 		}
 
-		arr.sort(function(a,b){ return a.turn - b.turn; });
-		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
-		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
-		var idOfNext = arr[nextNextTurn].id;
-		t.users[idOfNext].isNext = true;
-		t.updated = new Date();
-
+		t = getUpdatedUsers(t, arr, nextTurnNum, numOfUsers);
 		updateTheTask(t);
 	}
 }
@@ -283,11 +287,29 @@ function monthDiff(d1, d2){
 }
 
 exports.updateAllTasks = function(req){
-	Xtasklist.where({wg_id: req.user.wg_id}).exec(function(err, tasks){
+	// Xtasklist.where({wg_id: req.user.wg_id}).exec(function(err, tasks){
+	// 	tasks.forEach(function(elem){
+	// 		if(elem.interval === 'daily') updateDaily(elem);
+	// 		if(elem.interval === 'weekly') updateWeekly(elem);
+	// 		if(elem.interval === 'monthly') updateMonthly(elem);
+	// 	});
+	// });
+	//
+	Xtasklist.where({wg_id: req.user.wg_id, interval: 'daily'}).exec(function(err, tasks){
 		tasks.forEach(function(elem){
-			if(elem.interval === 'daily') updateDaily(elem);
-			if(elem.interval === 'weekly') updateWeekly(elem);
-			if(elem.interval === 'monthly') updateMonthly(elem);
+			updateDaily(elem);
+		});
+	});
+
+	Xtasklist.where({wg_id: req.user.wg_id, interval: 'weekly'}).exec(function(err, tasks){
+		tasks.forEach(function(elem){
+			updateWeekly(elem);
+		});
+	});
+
+	Xtasklist.where({wg_id: req.user.wg_id, interval: 'monthly'}).exec(function(err, tasks){
+		tasks.forEach(function(elem){
+			updateMonthly(elem);
 		});
 	});
 };
