@@ -1,7 +1,7 @@
-<section class="row" data-ng-controller="SettingsController" ng-init="removeBgClass()">
+<section class="row" data-ng-controller="SettingsController" ng-init="removeBgClass(); checkBalance()">
 	<h3 class="col-md-12 text-center">Delete Account</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" class="signin form-horizontal" novalidate data-ng-submit="deleteUser(userForm.$valid)">
+		<form name="userForm" class="signin form-horizontal" novalidate data-ng-submit="deleteUser(userForm.$valid)" ng-show="isAllowedToLeave">
 				<fieldset>
 						<div class="form-group">
 								<label class="control-label">First Name</label>
@@ -31,5 +31,12 @@
 					</div>
 				</fieldset>
 		</form>
+		<div class="form-group" ng-show="!isAllowedToLeave">
+			<strong>You still have debts or credits.</strong><br>
+			Please pay/claim debts.
+			<br>
+			<br>
+			<a href="#!/pay-even"><button class="btn btn-success">Pay back all debts</button></a>
+		</div>
 	</div>
 </section>
