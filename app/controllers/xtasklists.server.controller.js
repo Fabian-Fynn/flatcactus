@@ -170,7 +170,7 @@ function getUpdatedUsers(t, dif, numUsers){
 		obj.turn = t.users[user].turn;
 		if(t.users[user].isNext){
 			if(dif > 1)
-			{ nextTurnNum = (dif) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
+			{ nextTurnNum = (dif) % numUsers; } else { nextTurnNum = obj.turn-1; }
 
 			t.users[user].isNext = false;
 		}

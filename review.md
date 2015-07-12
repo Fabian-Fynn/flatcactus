@@ -21,4 +21,6 @@
 ## What still puzzles us
 * OAuth Github
 * einzelne Sockets (kein Broadcast)
-* refactoren
+* updaten der tasks bei austritt (schon gemacht)
+* manchmal braucht es einen refresh
+* passwort vergessen funktion (kein smpt)
