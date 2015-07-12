@@ -262,6 +262,9 @@ exports.isAllowedToLeave = function(req, res, next) {
 	if(req.user.wg_id.toString() !== req.body._id.toString()) {
 		return res.status(403).send('User is not authorized');
 	}
+	if(req.user.balance !== 0) {
+		return res.status(403).send('User is has debts/credit.');
+	}
 	next();
 };
 
