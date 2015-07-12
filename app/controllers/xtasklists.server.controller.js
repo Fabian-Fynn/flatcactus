@@ -159,13 +159,31 @@ function updateTheTask(t){
 	});
 }
 
-function getUpdatedUsers(t, arr, nxtT, numUsers){
+function getUpdatedUsers(t, dif, numUsers){
+	var arr = [];
+	var nextTurnNum;
+
+	for(var user in t.users){
+		var obj = {};
+		obj.id = t.users[user]._id;
+		obj.name = t.users[user].username;
+		obj.turn = t.users[user].turn;
+		if(t.users[user].isNext){
+			if(dif > 1)
+			{ nextTurnNum = (dif) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
+
+			t.users[user].isNext = false;
+		}
+		arr.push(obj);
+	}
+
 	arr.sort(function(a,b){ return a.turn - b.turn; });
-	t.crtUser = arr[nxtT].id; // neuer crtUser
-	var newNextTurn = (nxtT+1) % numUsers;
+	t.crtUser = arr[nextTurnNum].id; // neuer crtUser
+	var newNextTurn = (nextTurnNum+1) % numUsers;
 	var idOfNext = arr[newNextTurn].id;
 	t.users[idOfNext].isNext = true;
 	t.updated = new Date();
+
 	return t;
 }
 
@@ -180,30 +198,7 @@ function updateDaily(task){
 		t.end = t.start.addDays(1);
 		t.isDone = false;
 
-		var arr = [];
-		var nextTurnNum;
-
-		for(var user in t.users){
-			var obj = {};
-			obj.id = t.users[user]._id;
-			obj.name = t.users[user].username;
-			obj.turn = t.users[user].turn;
-			if(t.users[user].isNext){
-				if(dif > 1)
-				{ nextTurnNum = (dif) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
-
-				t.users[user].isNext = false;
-			}
-			arr.push(obj);
-		}
-
-		arr.sort(function(a,b){ return a.turn - b.turn; });
-		t.crtUser = arr[nextTurnNum].id; // neuer crtUser
-		var nextNextTurn = (nextTurnNum+1) % numOfUsers;
-		var idOfNext = arr[nextNextTurn].id;
-		t.users[idOfNext].isNext = true;
-		t.updated = new Date();
-
+		t = getUpdatedUsers(t, dif, numOfUsers);
 		updateTheTask(t);
 	}
 }
@@ -220,23 +215,7 @@ function updateWeekly(task){
 		t.end = t.start.addDays(7);
 		t.isDone = false;
 
-		var arr = [];
-		var nextTurnNum;
-
-		for(var user in t.users){
-			var obj = {};
-			obj.id = t.users[user]._id;
-			obj.name = t.users[user].username;
-			obj.turn = t.users[user].turn;
-			if(t.users[user].isNext){
-				if(passedWeeksInDays > 1)
-				{ nextTurnNum = (passedWeeksInDays) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
-
-				t.users[user].isNext = false;
-			}
-			arr.push(obj);
-		}
-		t = getUpdatedUsers(t, arr, nextTurnNum, numOfUsers);
+		t = getUpdatedUsers(t, passedWeeksInDays, numOfUsers);
 		updateTheTask(t);
 	}
 }
@@ -251,23 +230,7 @@ function updateMonthly(task){
 		t.end = t.start.addMonths(1);
 		t.isDone = false;
 
-		var arr = [];
-		var nextTurnNum;
-
-		for(var user in t.users){
-			var obj = {};
-			obj.id = t.users[user]._id;
-			obj.name = t.users[user].username;
-			obj.turn = t.users[user].turn;
-			if(t.users[user].isNext){
-				if(difInMonths > 1)
-				{ nextTurnNum = (difInMonths) % numOfUsers; } else { nextTurnNum = obj.turn-1; }
-				t.users[user].isNext = false;
-			}
-			arr.push(obj);
-		}
-
-		t = getUpdatedUsers(t, arr, nextTurnNum, numOfUsers);
+		t = getUpdatedUsers(t, difInMonths, numOfUsers);
 		updateTheTask(t);
 	}
 }
