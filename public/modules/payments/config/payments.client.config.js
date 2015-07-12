@@ -7,5 +7,6 @@ angular.module('payments').run(['Menus',
 		Menus.addMenuItem('topbar', 'payments', 'payments', 'dropdown', '/payments(/create)?', false, null, 2);
 		Menus.addSubMenuItem('topbar', 'payments', 'list payments', 'payments');
 		Menus.addSubMenuItem('topbar', 'payments', 'new payment', 'payments/create');
+		Menus.addSubMenuItem('topbar', 'payments', 'pay all debts', 'pay-even');
 	}
 ]);

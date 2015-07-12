@@ -1,0 +1,23 @@
+<section data-ng-controller="PaymentsController" ng-init="getUsers(); removeBgClass()">
+    <div class="page-header">
+        <h1>Pay all debts</h1>
+    </div>
+    <div class="col-md-12">
+        <p>
+        	This will clear all debts.
+        </p>
+				<br>
+				<div class="user" ng-repeat="user in allUsers">
+					<p ng-if="user.balance > 0">
+						{{user.displayName}} gets {{user.balance | number: 2}}
+					</p>
+					<p ng-if="user.balance < 0">
+						{{user.displayName}} has to pay {{user.balance * -1 | number: 2}}
+					</p>
+					<p ng-if="user.balance == 0">
+						{{user.displayName}} has no debts.
+					</p>
+				</div>
+				<button class="btn btn-default" id="create" ng-click="payEven()">Create this payment</button>
+    </div>
+</section>

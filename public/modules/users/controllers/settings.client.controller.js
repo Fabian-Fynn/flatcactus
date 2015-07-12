@@ -73,6 +73,18 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			}
 		};
 
+		$scope.checkBalance = function(){
+			$http.get('/users/me').success(function(res){
+				console.log('res.balance', typeof res.balance);
+				if (res.balance === 0) {
+					$scope.isAllowedToLeave = true;
+				}
+				else {
+					$scope.isAllowedToLeave = false;
+				}
+			});
+		};
+
 		// Change user password
 		$scope.changeUserPassword = function() {
 			$scope.success = $scope.error = null;
