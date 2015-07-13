@@ -187,6 +187,20 @@ function getUpdatedUsers(t, dif, numUsers){
 	return t;
 }
 
+function getDayDifference(time){
+	time /= 1000;
+	var days = Math.floor(time / 86400);
+	return days;
+}
+
+function monthDiff(d1, d2){
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
 function updateDaily(task){
 	var t = task;
 	var crt = new Date();
@@ -233,20 +247,6 @@ function updateMonthly(task){
 		t = getUpdatedUsers(t, difInMonths, numOfUsers);
 		updateTheTask(t);
 	}
-}
-
-function getDayDifference(time){
-	time /= 1000;
-	var days = Math.floor(time / 86400);
-	return days;
-}
-
-function monthDiff(d1, d2){
-    var months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth();
-    months += d2.getMonth();
-    return months <= 0 ? 0 : months;
 }
 
 exports.updateAllTasks = function(req){
