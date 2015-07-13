@@ -73,7 +73,7 @@ var WgSchema = new Schema({
 });
 
 WgSchema.pre('save', function(next) {
-	this.passphrase = randomWord() + "-" + randomWord();
+	this.passphrase = randomWord() + '-' + randomWord();
 	next();
 });
 
