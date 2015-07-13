@@ -127,7 +127,7 @@ exports.delete = function(req, res) {
 exports.removeUser = function(req, res) {
 	var wg = req.body;
 
-	var newPass = randomWord() + "-" + randomWord();
+	var newPass = randomWord() + '-' + randomWord();
 
 	Xtasklist.find({wg_id: mongoose.Types.ObjectId(wg._id)}, function(err, tasks){
 		var task = tasks;
